@@ -1,0 +1,79 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: (devel)
+  creationTimestamp: null
+  name: classinstances.config.hub.appvia.io
+spec:
+  group: config.hub.appvia.io
+  names:
+    kind: ClassInstance
+    listKind: ClassInstanceList
+    plural: classinstances
+    singular: classinstance
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      description: ClassInstance is the Schema for the classinstances API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: ClassInstanceSpec defines the desired state of ClassInstance
+          properties:
+            classRef:
+              description: ClassRef is the reference to the provider of this class
+              properties:
+                group:
+                  type: string
+                kind:
+                  type: string
+              required:
+              - group
+              - kind
+              type: object
+            configurationRef:
+              description: ConfigurationRef is a reference to the configuration object
+              properties:
+                group:
+                  type: string
+                kind:
+                  type: string
+              required:
+              - group
+              - kind
+              type: object
+          required:
+          - classRef
+          - configurationRef
+          type: object
+        status:
+          description: ClassInstanceStatus defines the observed state of ClassInstance
+          type: object
+      type: object
+  version: v1
+  versions:
+  - name: v1
+    served: true
+    storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
