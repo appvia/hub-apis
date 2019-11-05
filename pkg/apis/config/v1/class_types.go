@@ -19,6 +19,7 @@ package v1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	common "k8s.io/kube-openapi/pkg/common"
 )
 
 // ClassScope defines the scope of a resources from a provider
@@ -50,11 +51,7 @@ type ClassSpec struct {
 	// Requires provides a means to idenitity a relationship between the class and
 	// the configuration
 	// +optional
-	Requires metav1.GroupVersion `json:"requires"`
-	// Group is a reference to the api kind which this class is referring
-	// +kubebuilder:validation:Required
-	// +required
-	Group metav1.GroupVersion `json:"group"`
+	Requires metav1.GroupVersionKind `json:"requires"`
 	// Plans is a collection of default values for this class the initial one being
 	// default in plans.config.hub.appvia.io/v1
 	// +kubebuilder:validation:MinItems=1
@@ -65,6 +62,10 @@ type ClassSpec struct {
 	// +kubebuilder:validation:MinItems=1
 	// +listType
 	Resources []ClassResource `json:"resources"`
+	// Schemas is OpenAPI schema for the resources
+	// +kubebuilder:validation:MinItems=1
+	// +kubebuilder:validation:Required
+	Schemas map[string]common.OpenAPIDefinition `json:"schemas"`
 	// Summary provides a one one summary of the offering
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required

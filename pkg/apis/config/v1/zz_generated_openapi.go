@@ -199,13 +199,7 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 					"requires": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Requires provides a means to idenitity a relationship between the class and the configuration",
-							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersion"),
-						},
-					},
-					"group": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Group is a reference to the api kind which this class is referring",
-							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersion"),
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionKind"),
 						},
 					},
 					"plans": {
@@ -253,11 +247,11 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 						},
 					},
 				},
-				Required: []string{"category", "description", "group", "resources", "summary"},
+				Required: []string{"category", "description", "resources", "summary"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassResource", "k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersion"},
+			"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassResource", "k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionKind"},
 	}
 }
 

@@ -205,7 +205,6 @@ func (in *ClassResource) DeepCopy() *ClassResource {
 func (in *ClassSpec) DeepCopyInto(out *ClassSpec) {
 	*out = *in
 	out.Requires = in.Requires
-	out.Group = in.Group
 	if in.Plans != nil {
 		in, out := &in.Plans, &out.Plans
 		*out = make([]string, len(*in))
