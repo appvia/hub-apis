@@ -29,15 +29,15 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/gambol99/hub-apis/pkg/apis/org/v1.Team":            schema_pkg_apis_org_v1_Team(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/org/v1.TeamSpec":        schema_pkg_apis_org_v1_TeamSpec(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/org/v1.TeamStatus":      schema_pkg_apis_org_v1_TeamStatus(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/org/v1.User":            schema_pkg_apis_org_v1_User(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/org/v1.UserSpec":        schema_pkg_apis_org_v1_UserSpec(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/org/v1.UserStatus":      schema_pkg_apis_org_v1_UserStatus(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/org/v1.Workspace":       schema_pkg_apis_org_v1_Workspace(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/org/v1.WorkspaceSpec":   schema_pkg_apis_org_v1_WorkspaceSpec(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/org/v1.WorkspaceStatus": schema_pkg_apis_org_v1_WorkspaceStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.Team":            schema_pkg_apis_org_v1_Team(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamSpec":        schema_pkg_apis_org_v1_TeamSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamStatus":      schema_pkg_apis_org_v1_TeamStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.User":            schema_pkg_apis_org_v1_User(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.UserSpec":        schema_pkg_apis_org_v1_UserSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.UserStatus":      schema_pkg_apis_org_v1_UserStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.Workspace":       schema_pkg_apis_org_v1_Workspace(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.WorkspaceSpec":   schema_pkg_apis_org_v1_WorkspaceSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.WorkspaceStatus": schema_pkg_apis_org_v1_WorkspaceStatus(ref),
 	}
 }
 
@@ -69,19 +69,19 @@ func schema_pkg_apis_org_v1_Team(ref common.ReferenceCallback) common.OpenAPIDef
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/org/v1.TeamSpec"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/org/v1.TeamSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/org/v1.TeamStatus"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/org/v1.TeamStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"github.com/gambol99/hub-apis/pkg/apis/org/v1.TeamSpec", "github.com/gambol99/hub-apis/pkg/apis/org/v1.TeamStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamSpec", "github.com/appvia/hub-apis/pkg/apis/org/v1.TeamStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -164,19 +164,19 @@ func schema_pkg_apis_org_v1_User(ref common.ReferenceCallback) common.OpenAPIDef
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/org/v1.UserSpec"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/org/v1.UserSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/org/v1.UserStatus"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/org/v1.UserStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"github.com/gambol99/hub-apis/pkg/apis/org/v1.UserSpec", "github.com/gambol99/hub-apis/pkg/apis/org/v1.UserStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/appvia/hub-apis/pkg/apis/org/v1.UserSpec", "github.com/appvia/hub-apis/pkg/apis/org/v1.UserStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -250,19 +250,19 @@ func schema_pkg_apis_org_v1_Workspace(ref common.ReferenceCallback) common.OpenA
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/org/v1.WorkspaceSpec"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/org/v1.WorkspaceSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/org/v1.WorkspaceStatus"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/org/v1.WorkspaceStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"github.com/gambol99/hub-apis/pkg/apis/org/v1.WorkspaceSpec", "github.com/gambol99/hub-apis/pkg/apis/org/v1.WorkspaceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/appvia/hub-apis/pkg/apis/org/v1.WorkspaceSpec", "github.com/appvia/hub-apis/pkg/apis/org/v1.WorkspaceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 

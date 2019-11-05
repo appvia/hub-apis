@@ -1,6 +1,6 @@
 NAME=hub-apis
-AUTHOR=gambol99
-AUTHOR_EMAIL=info@gambol99.io
+AUTHOR=appvia
+AUTHOR_EMAIL=info@appvia.io
 REGISTRY=quay.io
 GOVERSION ?= 1.13.0
 ROOT_DIR=${PWD}
@@ -35,8 +35,8 @@ openapi-gen:
 	@$(foreach api,$(APIS), \
 		openapi-gen -h hack/custom-boilerplate.go.txt \
 			--output-file-base zz_generated_openapi \
-			-i github.com/gambol99/hub-apis/pkg/apis/$(api) \
-			-p github.com/gambol99/hub-apis/pkg/apis/$(api); )
+			-i github.com/appvia/hub-apis/pkg/apis/$(api) \
+			-p github.com/appvia/hub-apis/pkg/apis/$(api); )
 
 register-gen:
 	@echo "--> Generating Schema register.go"
@@ -44,8 +44,8 @@ register-gen:
 	@$(foreach api,$(APIS), \
 		register-gen -h hack/custom-boilerplate.go.txt \
 			--output-file-base zz_generated_register \
-			-i github.com/gambol99/hub-apis/pkg/apis/$(api) \
-			-p github.com/gambol99/hub-apis/pkg/apis/$(api); )
+			-i github.com/appvia/hub-apis/pkg/apis/$(api) \
+			-p github.com/appvia/hub-apis/pkg/apis/$(api); )
 
 crd-gen:
 	@echo "--> Generating CRD deployment files"

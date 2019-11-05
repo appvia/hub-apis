@@ -19,7 +19,7 @@ limitations under the License.
 package fake
 
 import (
-	orgv1 "github.com/gambol99/hub-apis/pkg/apis/org/v1"
+	orgv1 "github.com/appvia/hub-apis/pkg/apis/org/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

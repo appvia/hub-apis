@@ -19,7 +19,7 @@ limitations under the License.
 package fake
 
 import (
-	rbacv1 "github.com/gambol99/hub-apis/pkg/apis/rbac/v1"
+	rbacv1 "github.com/appvia/hub-apis/pkg/apis/rbac/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

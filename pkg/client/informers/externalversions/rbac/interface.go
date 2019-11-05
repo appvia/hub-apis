@@ -19,8 +19,8 @@ limitations under the License.
 package rbac
 
 import (
-	internalinterfaces "github.com/gambol99/hub-apis/pkg/client/informers/externalversions/internalinterfaces"
-	v1 "github.com/gambol99/hub-apis/pkg/client/informers/externalversions/rbac/v1"
+	internalinterfaces "github.com/appvia/hub-apis/pkg/client/informers/externalversions/internalinterfaces"
+	v1 "github.com/appvia/hub-apis/pkg/client/informers/externalversions/rbac/v1"
 )
 
 // Interface provides access to each of this group's versions.

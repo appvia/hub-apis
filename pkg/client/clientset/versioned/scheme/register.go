@@ -19,10 +19,10 @@ limitations under the License.
 package scheme
 
 import (
-	clustersv1 "github.com/gambol99/hub-apis/pkg/apis/clusters/v1"
-	configv1 "github.com/gambol99/hub-apis/pkg/apis/config/v1"
-	orgv1 "github.com/gambol99/hub-apis/pkg/apis/org/v1"
-	rbacv1 "github.com/gambol99/hub-apis/pkg/apis/rbac/v1"
+	clustersv1 "github.com/appvia/hub-apis/pkg/apis/clusters/v1"
+	configv1 "github.com/appvia/hub-apis/pkg/apis/config/v1"
+	orgv1 "github.com/appvia/hub-apis/pkg/apis/org/v1"
+	rbacv1 "github.com/appvia/hub-apis/pkg/apis/rbac/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

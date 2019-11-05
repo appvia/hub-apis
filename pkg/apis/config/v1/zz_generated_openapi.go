@@ -29,15 +29,15 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/gambol99/hub-apis/pkg/apis/config/v1.Class":               schema_pkg_apis_config_v1_Class(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/config/v1.ClassInstance":       schema_pkg_apis_config_v1_ClassInstance(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/config/v1.ClassInstanceSpec":   schema_pkg_apis_config_v1_ClassInstanceSpec(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/config/v1.ClassInstanceStatus": schema_pkg_apis_config_v1_ClassInstanceStatus(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/config/v1.ClassSpec":           schema_pkg_apis_config_v1_ClassSpec(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/config/v1.ClassStatus":         schema_pkg_apis_config_v1_ClassStatus(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/config/v1.Plan":                schema_pkg_apis_config_v1_Plan(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/config/v1.PlanSpec":            schema_pkg_apis_config_v1_PlanSpec(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/config/v1.PlanStatus":          schema_pkg_apis_config_v1_PlanStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.Class":               schema_pkg_apis_config_v1_Class(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassInstance":       schema_pkg_apis_config_v1_ClassInstance(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassInstanceSpec":   schema_pkg_apis_config_v1_ClassInstanceSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassInstanceStatus": schema_pkg_apis_config_v1_ClassInstanceStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassSpec":           schema_pkg_apis_config_v1_ClassSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassStatus":         schema_pkg_apis_config_v1_ClassStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.Plan":                schema_pkg_apis_config_v1_Plan(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.PlanSpec":            schema_pkg_apis_config_v1_PlanSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.PlanStatus":          schema_pkg_apis_config_v1_PlanStatus(ref),
 	}
 }
 
@@ -69,19 +69,19 @@ func schema_pkg_apis_config_v1_Class(ref common.ReferenceCallback) common.OpenAP
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/config/v1.ClassSpec"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/config/v1.ClassSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/config/v1.ClassStatus"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/config/v1.ClassStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"github.com/gambol99/hub-apis/pkg/apis/config/v1.ClassSpec", "github.com/gambol99/hub-apis/pkg/apis/config/v1.ClassStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassSpec", "github.com/appvia/hub-apis/pkg/apis/config/v1.ClassStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -113,19 +113,19 @@ func schema_pkg_apis_config_v1_ClassInstance(ref common.ReferenceCallback) commo
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/config/v1.ClassInstanceSpec"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/config/v1.ClassInstanceSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/config/v1.ClassInstanceStatus"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/config/v1.ClassInstanceStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"github.com/gambol99/hub-apis/pkg/apis/config/v1.ClassInstanceSpec", "github.com/gambol99/hub-apis/pkg/apis/config/v1.ClassInstanceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassInstanceSpec", "github.com/appvia/hub-apis/pkg/apis/config/v1.ClassInstanceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -182,12 +182,6 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 							Format:      "",
 						},
 					},
-					"apiGroup": {
-						SchemaProps: spec.SchemaProps{
-							Description: "APIGroup is the provider resource which needs to be creates for this class to function i.e the integration instance",
-							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.GroupKind"),
-						},
-					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Description provides a summary of what the class it offering",
@@ -202,10 +196,16 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 							Format:      "",
 						},
 					},
+					"requires": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Requires provides a means to idenitity a relationship between the class and the configuration",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersion"),
+						},
+					},
 					"group": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Group is a reference to the api kind which this class is referring",
-							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.GroupKind"),
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersion"),
 						},
 					},
 					"plans": {
@@ -239,7 +239,7 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/gambol99/hub-apis/pkg/apis/config/v1.ClassResource"),
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/config/v1.ClassResource"),
 									},
 								},
 							},
@@ -253,11 +253,11 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 						},
 					},
 				},
-				Required: []string{"category", "apiGroup", "description", "group", "resources", "summary"},
+				Required: []string{"category", "description", "group", "resources", "summary"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/gambol99/hub-apis/pkg/apis/config/v1.ClassResource", "k8s.io/apimachinery/pkg/apis/meta/v1.GroupKind"},
+			"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassResource", "k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersion"},
 	}
 }
 
@@ -300,19 +300,19 @@ func schema_pkg_apis_config_v1_Plan(ref common.ReferenceCallback) common.OpenAPI
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/config/v1.PlanSpec"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/config/v1.PlanSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/config/v1.PlanStatus"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/config/v1.PlanStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"github.com/gambol99/hub-apis/pkg/apis/config/v1.PlanSpec", "github.com/gambol99/hub-apis/pkg/apis/config/v1.PlanStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/appvia/hub-apis/pkg/apis/config/v1.PlanSpec", "github.com/appvia/hub-apis/pkg/apis/config/v1.PlanStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 

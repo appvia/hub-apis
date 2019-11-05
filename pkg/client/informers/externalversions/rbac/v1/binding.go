@@ -21,10 +21,10 @@ package v1
 import (
 	time "time"
 
-	rbacv1 "github.com/gambol99/hub-apis/pkg/apis/rbac/v1"
-	versioned "github.com/gambol99/hub-apis/pkg/client/clientset/versioned"
-	internalinterfaces "github.com/gambol99/hub-apis/pkg/client/informers/externalversions/internalinterfaces"
-	v1 "github.com/gambol99/hub-apis/pkg/client/listers/rbac/v1"
+	rbacv1 "github.com/appvia/hub-apis/pkg/apis/rbac/v1"
+	versioned "github.com/appvia/hub-apis/pkg/client/clientset/versioned"
+	internalinterfaces "github.com/appvia/hub-apis/pkg/client/informers/externalversions/internalinterfaces"
+	v1 "github.com/appvia/hub-apis/pkg/client/listers/rbac/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"

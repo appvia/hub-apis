@@ -19,8 +19,8 @@ limitations under the License.
 package clusters
 
 import (
-	v1 "github.com/gambol99/hub-apis/pkg/client/informers/externalversions/clusters/v1"
-	internalinterfaces "github.com/gambol99/hub-apis/pkg/client/informers/externalversions/internalinterfaces"
+	v1 "github.com/appvia/hub-apis/pkg/client/informers/externalversions/clusters/v1"
+	internalinterfaces "github.com/appvia/hub-apis/pkg/client/informers/externalversions/internalinterfaces"
 )
 
 // Interface provides access to each of this group's versions.

@@ -29,9 +29,9 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/gambol99/hub-apis/pkg/apis/clusters/v1.ClusterCredential":       schema_pkg_apis_clusters_v1_ClusterCredential(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/clusters/v1.ClusterCredentialSpec":   schema_pkg_apis_clusters_v1_ClusterCredentialSpec(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/clusters/v1.ClusterCredentialStatus": schema_pkg_apis_clusters_v1_ClusterCredentialStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/clusters/v1.ClusterCredential":       schema_pkg_apis_clusters_v1_ClusterCredential(ref),
+		"github.com/appvia/hub-apis/pkg/apis/clusters/v1.ClusterCredentialSpec":   schema_pkg_apis_clusters_v1_ClusterCredentialSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/clusters/v1.ClusterCredentialStatus": schema_pkg_apis_clusters_v1_ClusterCredentialStatus(ref),
 	}
 }
 
@@ -63,19 +63,19 @@ func schema_pkg_apis_clusters_v1_ClusterCredential(ref common.ReferenceCallback)
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/clusters/v1.ClusterCredentialSpec"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/clusters/v1.ClusterCredentialSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/clusters/v1.ClusterCredentialStatus"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/clusters/v1.ClusterCredentialStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"github.com/gambol99/hub-apis/pkg/apis/clusters/v1.ClusterCredentialSpec", "github.com/gambol99/hub-apis/pkg/apis/clusters/v1.ClusterCredentialStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/appvia/hub-apis/pkg/apis/clusters/v1.ClusterCredentialSpec", "github.com/appvia/hub-apis/pkg/apis/clusters/v1.ClusterCredentialStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 

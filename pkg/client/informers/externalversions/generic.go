@@ -21,10 +21,10 @@ package externalversions
 import (
 	"fmt"
 
-	v1 "github.com/gambol99/hub-apis/pkg/apis/clusters/v1"
-	configv1 "github.com/gambol99/hub-apis/pkg/apis/config/v1"
-	orgv1 "github.com/gambol99/hub-apis/pkg/apis/org/v1"
-	rbacv1 "github.com/gambol99/hub-apis/pkg/apis/rbac/v1"
+	v1 "github.com/appvia/hub-apis/pkg/apis/clusters/v1"
+	configv1 "github.com/appvia/hub-apis/pkg/apis/config/v1"
+	orgv1 "github.com/appvia/hub-apis/pkg/apis/org/v1"
+	rbacv1 "github.com/appvia/hub-apis/pkg/apis/rbac/v1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 )

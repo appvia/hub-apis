@@ -29,12 +29,12 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/gambol99/hub-apis/pkg/apis/rbac/v1.Binding":       schema_pkg_apis_rbac_v1_Binding(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/rbac/v1.BindingSpec":   schema_pkg_apis_rbac_v1_BindingSpec(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/rbac/v1.BindingStatus": schema_pkg_apis_rbac_v1_BindingStatus(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/rbac/v1.Role":          schema_pkg_apis_rbac_v1_Role(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/rbac/v1.RoleSpec":      schema_pkg_apis_rbac_v1_RoleSpec(ref),
-		"github.com/gambol99/hub-apis/pkg/apis/rbac/v1.RoleStatus":    schema_pkg_apis_rbac_v1_RoleStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/rbac/v1.Binding":       schema_pkg_apis_rbac_v1_Binding(ref),
+		"github.com/appvia/hub-apis/pkg/apis/rbac/v1.BindingSpec":   schema_pkg_apis_rbac_v1_BindingSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/rbac/v1.BindingStatus": schema_pkg_apis_rbac_v1_BindingStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/rbac/v1.Role":          schema_pkg_apis_rbac_v1_Role(ref),
+		"github.com/appvia/hub-apis/pkg/apis/rbac/v1.RoleSpec":      schema_pkg_apis_rbac_v1_RoleSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/rbac/v1.RoleStatus":    schema_pkg_apis_rbac_v1_RoleStatus(ref),
 	}
 }
 
@@ -66,19 +66,19 @@ func schema_pkg_apis_rbac_v1_Binding(ref common.ReferenceCallback) common.OpenAP
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/rbac/v1.BindingSpec"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/rbac/v1.BindingSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/rbac/v1.BindingStatus"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/rbac/v1.BindingStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"github.com/gambol99/hub-apis/pkg/apis/rbac/v1.BindingSpec", "github.com/gambol99/hub-apis/pkg/apis/rbac/v1.BindingStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/appvia/hub-apis/pkg/apis/rbac/v1.BindingSpec", "github.com/appvia/hub-apis/pkg/apis/rbac/v1.BindingStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -92,7 +92,7 @@ func schema_pkg_apis_rbac_v1_BindingSpec(ref common.ReferenceCallback) common.Op
 					"roleRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "RoleRef is the reference role we are associated to",
-							Ref:         ref("github.com/gambol99/hub-apis/pkg/apis/rbac/v1.RoleRef"),
+							Ref:         ref("github.com/appvia/hub-apis/pkg/apis/rbac/v1.RoleRef"),
 						},
 					},
 					"subjects": {
@@ -107,7 +107,7 @@ func schema_pkg_apis_rbac_v1_BindingSpec(ref common.ReferenceCallback) common.Op
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/gambol99/hub-apis/pkg/apis/rbac/v1.Subject"),
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/rbac/v1.Subject"),
 									},
 								},
 							},
@@ -118,7 +118,7 @@ func schema_pkg_apis_rbac_v1_BindingSpec(ref common.ReferenceCallback) common.Op
 			},
 		},
 		Dependencies: []string{
-			"github.com/gambol99/hub-apis/pkg/apis/rbac/v1.RoleRef", "github.com/gambol99/hub-apis/pkg/apis/rbac/v1.Subject"},
+			"github.com/appvia/hub-apis/pkg/apis/rbac/v1.RoleRef", "github.com/appvia/hub-apis/pkg/apis/rbac/v1.Subject"},
 	}
 }
 
@@ -171,19 +171,19 @@ func schema_pkg_apis_rbac_v1_Role(ref common.ReferenceCallback) common.OpenAPIDe
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/rbac/v1.RoleSpec"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/rbac/v1.RoleSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/gambol99/hub-apis/pkg/apis/rbac/v1.RoleStatus"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/rbac/v1.RoleStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"github.com/gambol99/hub-apis/pkg/apis/rbac/v1.RoleSpec", "github.com/gambol99/hub-apis/pkg/apis/rbac/v1.RoleStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/appvia/hub-apis/pkg/apis/rbac/v1.RoleSpec", "github.com/appvia/hub-apis/pkg/apis/rbac/v1.RoleStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -206,7 +206,7 @@ func schema_pkg_apis_rbac_v1_RoleSpec(ref common.ReferenceCallback) common.OpenA
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/gambol99/hub-apis/pkg/apis/rbac/v1.Rule"),
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/rbac/v1.Rule"),
 									},
 								},
 							},
@@ -217,7 +217,7 @@ func schema_pkg_apis_rbac_v1_RoleSpec(ref common.ReferenceCallback) common.OpenA
 			},
 		},
 		Dependencies: []string{
-			"github.com/gambol99/hub-apis/pkg/apis/rbac/v1.Rule"},
+			"github.com/appvia/hub-apis/pkg/apis/rbac/v1.Rule"},
 	}
 }
 

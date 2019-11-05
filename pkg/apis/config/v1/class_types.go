@@ -39,10 +39,6 @@ type ClassSpec struct {
 	// +kubebuilder:validation:Required
 	// +required
 	Category string `json:"category"`
-	// APIGroup is the provider resource which needs to be creates for this
-	// class to function i.e the integration instance
-	// +required
-	APIGroup metav1.GroupKind `json:"apiGroup"`
 	// Description provides a summary of what the class it offering
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
@@ -51,10 +47,14 @@ type ClassSpec struct {
 	// DefaultPlan defines a default values plan for this offering
 	// +optional
 	DefaultPlan string `json:"defaultPlan"`
+	// Requires provides a means to idenitity a relationship between the class and
+	// the configuration
+	// +optional
+	Requires metav1.GroupVersion `json:"requires"`
 	// Group is a reference to the api kind which this class is referring
 	// +kubebuilder:validation:Required
 	// +required
-	Group metav1.GroupKind `json:"group"`
+	Group metav1.GroupVersion `json:"group"`
 	// Plans is a collection of default values for this class the initial one being
 	// default in plans.config.hub.appvia.io/v1
 	// +kubebuilder:validation:MinItems=1
@@ -84,6 +84,10 @@ type ClassResource struct {
 	// +kubebuilder:validation:Required
 	// +required
 	Kind string `json:"kind"`
+	// Version is the apigroup version of the kind
+	// +kubebuilder:validation:MinLength=1
+	// +kubebuilder:validation:Required
+	Version string `json:"version"`
 	// Scope is the scope the resource lives under
 	// +kubebuilder:validation:Required
 	Scope ClassScope `json:"scope"`

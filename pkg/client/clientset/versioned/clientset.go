@@ -21,10 +21,10 @@ package versioned
 import (
 	"fmt"
 
-	clustersv1 "github.com/gambol99/hub-apis/pkg/client/clientset/versioned/typed/clusters/v1"
-	configv1 "github.com/gambol99/hub-apis/pkg/client/clientset/versioned/typed/config/v1"
-	orgv1 "github.com/gambol99/hub-apis/pkg/client/clientset/versioned/typed/org/v1"
-	rbacv1 "github.com/gambol99/hub-apis/pkg/client/clientset/versioned/typed/rbac/v1"
+	clustersv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/clusters/v1"
+	configv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/config/v1"
+	orgv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/org/v1"
+	rbacv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/rbac/v1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
