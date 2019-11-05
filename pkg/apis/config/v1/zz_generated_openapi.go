@@ -249,16 +249,8 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 					"schemas": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Schemas is OpenAPI schema for the resources",
-							Type:        []string{"object"},
-							AdditionalProperties: &spec.SchemaOrBool{
-								Allows: true,
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Type:   []string{"string"},
-										Format: "",
-									},
-								},
-							},
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"summary": {

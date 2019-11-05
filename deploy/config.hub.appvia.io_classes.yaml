@@ -107,10 +107,9 @@ spec:
               minItems: 1
               type: array
             schemas:
-              additionalProperties:
-                type: string
               description: Schemas is OpenAPI schema for the resources
-              type: object
+              minLength: 1
+              type: string
             summary:
               description: Summary provides a one one summary of the offering
               minLength: 1

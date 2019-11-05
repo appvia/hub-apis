@@ -217,13 +217,6 @@ func (in *ClassSpec) DeepCopyInto(out *ClassSpec) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.Schemas != nil {
-		in, out := &in.Schemas, &out.Schemas
-		*out = make(map[string]string, len(*in))
-		for key, val := range *in {
-			(*out)[key] = val
-		}
-	}
 	return
 }
 

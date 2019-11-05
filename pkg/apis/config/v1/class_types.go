@@ -66,8 +66,9 @@ type ClassSpec struct {
 	// +listType
 	Resources []ClassResource `json:"resources"`
 	// Schemas is OpenAPI schema for the resources
+	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
-	Schemas map[string]string `json:"schemas"`
+	Schemas string `json:"schemas"`
 	// Summary provides a one one summary of the offering
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
