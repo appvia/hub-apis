@@ -34,8 +34,6 @@ type PlanSpec struct {
 	// Description provides a summary of the configuration provided by this plan
 	// +kubebuilder:validation:MinLength=1
 	Description string `json:"description,omitempty"`
-	// Group is the api group this plan is providing values for
-	Group metav1.GroupVersionKind `json:"group,omitempty"`
 	// Summary provides a short title summary for the plan
 	// +kubebuilder:validation:MinLength=1
 	Summary string `json:"summary,omitempty"`
@@ -47,6 +45,7 @@ type PlanSpec struct {
 // +k8s:openapi-gen=true
 type PlanStatus struct{}
 
+// +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // Plan is the Schema for the plans API

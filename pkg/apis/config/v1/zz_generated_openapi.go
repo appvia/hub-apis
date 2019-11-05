@@ -196,6 +196,13 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 							Format:      "",
 						},
 					},
+					"displayName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DisplayName is the title of the provider",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
 					"requires": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Requires provides a means to idenitity a relationship between the class and the configuration",
@@ -239,6 +246,21 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 							},
 						},
 					},
+					"schemas": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Schemas is OpenAPI schema for the resources",
+							Type:        []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
 					"summary": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Summary provides a one one summary of the offering",
@@ -247,7 +269,7 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 						},
 					},
 				},
-				Required: []string{"category", "description", "resources", "summary"},
+				Required: []string{"category", "description", "displayName", "resources", "schemas", "summary"},
 			},
 		},
 		Dependencies: []string{
@@ -324,12 +346,6 @@ func schema_pkg_apis_config_v1_PlanSpec(ref common.ReferenceCallback) common.Ope
 							Format:      "",
 						},
 					},
-					"group": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Group is the api group this plan is providing values for",
-							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionKind"),
-						},
-					},
 					"summary": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Summary provides a short title summary for the plan",
@@ -355,8 +371,6 @@ func schema_pkg_apis_config_v1_PlanSpec(ref common.ReferenceCallback) common.Ope
 				},
 			},
 		},
-		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionKind"},
 	}
 }
 

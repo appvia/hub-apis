@@ -47,6 +47,10 @@ spec:
               description: Description provides a summary of what the class it offering
               minLength: 1
               type: string
+            displayName:
+              description: DisplayName is the title of the provider
+              minLength: 1
+              type: string
             plans:
               description: Plans is a collection of default values for this class
                 the initial one being default in plans.config.hub.appvia.io/v1
@@ -102,6 +106,11 @@ spec:
                 type: object
               minItems: 1
               type: array
+            schemas:
+              additionalProperties:
+                type: string
+              description: Schemas is OpenAPI schema for the resources
+              type: object
             summary:
               description: Summary provides a one one summary of the offering
               minLength: 1
@@ -109,7 +118,9 @@ spec:
           required:
           - category
           - description
+          - displayName
           - resources
+          - schemas
           - summary
           type: object
         status:

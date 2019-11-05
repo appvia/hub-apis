@@ -41,20 +41,6 @@ spec:
                 by this plan
               minLength: 1
               type: string
-            group:
-              description: Group is the api group this plan is providing values for
-              properties:
-                group:
-                  type: string
-                kind:
-                  type: string
-                version:
-                  type: string
-              required:
-              - group
-              - kind
-              - version
-              type: object
             summary:
               description: Summary provides a short title summary for the plan
               minLength: 1

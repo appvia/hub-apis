@@ -19,7 +19,6 @@ package v1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	common "k8s.io/kube-openapi/pkg/common"
 )
 
 // ClassScope defines the scope of a resources from a provider
@@ -48,6 +47,10 @@ type ClassSpec struct {
 	// DefaultPlan defines a default values plan for this offering
 	// +optional
 	DefaultPlan string `json:"defaultPlan"`
+	// DisplayName is the title of the provider
+	// +kubebuilder:validation:MinLength=1
+	// +kubebuilder:validation:Required
+	DisplayName string `json:"displayName"`
 	// Requires provides a means to idenitity a relationship between the class and
 	// the configuration
 	// +optional
@@ -63,9 +66,8 @@ type ClassSpec struct {
 	// +listType
 	Resources []ClassResource `json:"resources"`
 	// Schemas is OpenAPI schema for the resources
-	// +kubebuilder:validation:MinItems=1
 	// +kubebuilder:validation:Required
-	Schemas map[string]common.OpenAPIDefinition `json:"schemas"`
+	Schemas map[string]string `json:"schemas"`
 	// Summary provides a one one summary of the offering
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
