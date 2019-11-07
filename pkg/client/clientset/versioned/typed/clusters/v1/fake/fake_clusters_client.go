@@ -28,8 +28,12 @@ type FakeClustersV1 struct {
 	*testing.Fake
 }
 
-func (c *FakeClustersV1) ClusterCredentials(namespace string) v1.ClusterCredentialInterface {
-	return &FakeClusterCredentials{c, namespace}
+func (c *FakeClustersV1) Credentialses(namespace string) v1.CredentialsInterface {
+	return &FakeCredentialses{c, namespace}
+}
+
+func (c *FakeClustersV1) Kuberneteses(namespace string) v1.KubernetesInterface {
+	return &FakeKuberneteses{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

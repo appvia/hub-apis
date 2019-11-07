@@ -21,9 +21,9 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// ClusterCredentialSpec defines the desired state of ClusterCredential
+// CredentialsSpec defines the desired state of Credentials
 // +k8s:openapi-gen=true
-type ClusterCredentialSpec struct {
+type CredentialsSpec struct {
 	// CaCertificate is the base64 encoded cluster certificate
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
@@ -38,30 +38,30 @@ type ClusterCredentialSpec struct {
 	Token string `json:"token"`
 }
 
-// ClusterCredentialStatus defines the observed state of ClusterCredential
+// CredentialsStatus defines the observed state of Credentials
 // +k8s:openapi-gen=true
-type ClusterCredentialStatus struct{}
+type CredentialsStatus struct{}
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// ClusterCredential is the Schema for the roles API
+// Credentials is the Schema for the roles API
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:path=clustercredentials
-type ClusterCredential struct {
+type Credentials struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   ClusterCredentialSpec   `json:"spec,omitempty"`
-	Status ClusterCredentialStatus `json:"status,omitempty"`
+	Spec   CredentialsSpec   `json:"spec,omitempty"`
+	Status CredentialsStatus `json:"status,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// ClusterCredentialList contains a list of ClusterCredential
-type ClusterCredentialList struct {
+// CredentialsList contains a list of Credentials
+type CredentialsList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []ClusterCredential `json:"items"`
+	Items           []Credentials `json:"items"`
 }

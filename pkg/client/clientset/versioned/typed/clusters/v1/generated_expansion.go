@@ -18,4 +18,6 @@ limitations under the License.
 
 package v1
 
-type ClusterCredentialExpansion interface{}
+type CredentialsExpansion interface{}
+
+type KubernetesExpansion interface{}

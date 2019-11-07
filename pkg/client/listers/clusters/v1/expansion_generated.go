@@ -18,10 +18,18 @@ limitations under the License.
 
 package v1
 
-// ClusterCredentialListerExpansion allows custom methods to be added to
-// ClusterCredentialLister.
-type ClusterCredentialListerExpansion interface{}
+// CredentialsListerExpansion allows custom methods to be added to
+// CredentialsLister.
+type CredentialsListerExpansion interface{}
 
-// ClusterCredentialNamespaceListerExpansion allows custom methods to be added to
-// ClusterCredentialNamespaceLister.
-type ClusterCredentialNamespaceListerExpansion interface{}
+// CredentialsNamespaceListerExpansion allows custom methods to be added to
+// CredentialsNamespaceLister.
+type CredentialsNamespaceListerExpansion interface{}
+
+// KubernetesListerExpansion allows custom methods to be added to
+// KubernetesLister.
+type KubernetesListerExpansion interface{}
+
+// KubernetesNamespaceListerExpansion allows custom methods to be added to
+// KubernetesNamespaceLister.
+type KubernetesNamespaceListerExpansion interface{}

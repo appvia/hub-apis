@@ -24,8 +24,10 @@ import (
 
 // Interface provides access to all the informers in this group version.
 type Interface interface {
-	// ClusterCredentials returns a ClusterCredentialInformer.
-	ClusterCredentials() ClusterCredentialInformer
+	// Credentialses returns a CredentialsInformer.
+	Credentialses() CredentialsInformer
+	// Kuberneteses returns a KubernetesInformer.
+	Kuberneteses() KubernetesInformer
 }
 
 type version struct {
@@ -39,7 +41,12 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
 }
 
-// ClusterCredentials returns a ClusterCredentialInformer.
-func (v *version) ClusterCredentials() ClusterCredentialInformer {
-	return &clusterCredentialInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+// Credentialses returns a CredentialsInformer.
+func (v *version) Credentialses() CredentialsInformer {
+	return &credentialsInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// Kuberneteses returns a KubernetesInformer.
+func (v *version) Kuberneteses() KubernetesInformer {
+	return &kubernetesInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }

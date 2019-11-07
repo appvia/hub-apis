@@ -6,20 +6,29 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: (devel)
   creationTimestamp: null
-  name: clustercredentials.clusters.hub.appvia.io
+  name: kubernetes.clusters.hub.appvia.io
 spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.ownership.group
+    description: The cloud provider apigroup used to provision the cluster
+    name: Provider
+    type: string
+  - JSONPath: .spec.endpoint
+    description: The kube-apiserver endpoint for this cluster
+    name: Endpoint
+    type: string
   group: clusters.hub.appvia.io
   names:
-    kind: Credentials
-    listKind: CredentialsList
-    plural: clustercredentials
-    singular: credentials
+    kind: Kubernetes
+    listKind: KubernetesList
+    plural: kubernetes
+    singular: kubernetes
   scope: Namespaced
   subresources:
     status: {}
   validation:
     openAPIV3Schema:
-      description: Credentials is the Schema for the roles API
+      description: Kubernetes is the Schema for the roles API
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation
@@ -34,7 +43,7 @@ spec:
         metadata:
           type: object
         spec:
-          description: CredentialsSpec defines the desired state of Credentials
+          description: KubernetesSpec defines the desired state of Cluster
           properties:
             caCertificate:
               description: CaCertificate is the base64 encoded cluster certificate
@@ -44,6 +53,36 @@ spec:
               description: Endpoint is the kubernetes endpoint url
               minLength: 1
               type: string
+            ownership:
+              description: Ownership is the cloud cluster provider type for this kubernetes
+              properties:
+                apiGroup:
+                  description: Group is the apigroup the resource lives under
+                  minLength: 1
+                  type: string
+                kind:
+                  description: Kind is the name of the resource under the group
+                  minLength: 1
+                  type: string
+                name:
+                  description: Name is name of the resource
+                  minLength: 1
+                  type: string
+                namespace:
+                  description: Namespace is the location of the object
+                  minLength: 1
+                  type: string
+                version:
+                  description: Version is the apigroup version of the kind
+                  minLength: 1
+                  type: string
+              required:
+              - apiGroup
+              - kind
+              - name
+              - namespace
+              - version
+              type: object
             token:
               description: Token is the hub-admin service account token which is bound
                 to cluster-admin
@@ -52,10 +91,11 @@ spec:
           required:
           - caCertificate
           - endpoint
+          - ownership
           - token
           type: object
         status:
-          description: CredentialsStatus defines the observed state of Credentials
+          description: KubernetesStatus defines the observed state of Cluster
           type: object
       type: object
   version: v1
