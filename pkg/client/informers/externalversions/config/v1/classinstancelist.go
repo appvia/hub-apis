@@ -41,32 +41,33 @@ type ClassInstanceListInformer interface {
 type classInstanceListInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
+	namespace        string
 }
 
 // NewClassInstanceListInformer constructs a new informer for ClassInstanceList type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewClassInstanceListInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredClassInstanceListInformer(client, resyncPeriod, indexers, nil)
+func NewClassInstanceListInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredClassInstanceListInformer(client, namespace, resyncPeriod, indexers, nil)
 }
 
 // NewFilteredClassInstanceListInformer constructs a new informer for ClassInstanceList type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredClassInstanceListInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredClassInstanceListInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ConfigV1().ClassInstanceLists().List(options)
+				return client.ConfigV1().ClassInstanceLists(namespace).List(options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ConfigV1().ClassInstanceLists().Watch(options)
+				return client.ConfigV1().ClassInstanceLists(namespace).Watch(options)
 			},
 		},
 		&configv1.ClassInstanceList{},
@@ -76,7 +77,7 @@ func NewFilteredClassInstanceListInformer(client versioned.Interface, resyncPeri
 }
 
 func (f *classInstanceListInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredClassInstanceListInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+	return NewFilteredClassInstanceListInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
 func (f *classInstanceListInformer) Informer() cache.SharedIndexInformer {

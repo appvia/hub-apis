@@ -30,6 +30,7 @@ import (
 // FakeClassInstanceLists implements ClassInstanceListInterface
 type FakeClassInstanceLists struct {
 	Fake *FakeConfigV1
+	ns   string
 }
 
 var classinstancelistsResource = schema.GroupVersionResource{Group: "config.hub.appvia.io", Version: "v1", Resource: "classinstancelists"}
@@ -39,7 +40,8 @@ var classinstancelistsKind = schema.GroupVersionKind{Group: "config.hub.appvia.i
 // Get takes name of the classInstanceList, and returns the corresponding classInstanceList object, and an error if there is any.
 func (c *FakeClassInstanceLists) Get(name string, options v1.GetOptions) (result *configv1.ClassInstanceList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootGetAction(classinstancelistsResource, name), &configv1.ClassInstanceList{})
+		Invokes(testing.NewGetAction(classinstancelistsResource, c.ns, name), &configv1.ClassInstanceList{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -49,7 +51,8 @@ func (c *FakeClassInstanceLists) Get(name string, options v1.GetOptions) (result
 // List takes label and field selectors, and returns the list of ClassInstanceLists that match those selectors.
 func (c *FakeClassInstanceLists) List(opts v1.ListOptions) (result *configv1.ClassInstanceListList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootListAction(classinstancelistsResource, classinstancelistsKind, opts), &configv1.ClassInstanceListList{})
+		Invokes(testing.NewListAction(classinstancelistsResource, classinstancelistsKind, c.ns, opts), &configv1.ClassInstanceListList{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -59,13 +62,15 @@ func (c *FakeClassInstanceLists) List(opts v1.ListOptions) (result *configv1.Cla
 // Watch returns a watch.Interface that watches the requested classInstanceLists.
 func (c *FakeClassInstanceLists) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
-		InvokesWatch(testing.NewRootWatchAction(classinstancelistsResource, opts))
+		InvokesWatch(testing.NewWatchAction(classinstancelistsResource, c.ns, opts))
+
 }
 
 // Create takes the representation of a classInstanceList and creates it.  Returns the server's representation of the classInstanceList, and an error, if there is any.
 func (c *FakeClassInstanceLists) Create(classInstanceList *configv1.ClassInstanceList) (result *configv1.ClassInstanceList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootCreateAction(classinstancelistsResource, classInstanceList), &configv1.ClassInstanceList{})
+		Invokes(testing.NewCreateAction(classinstancelistsResource, c.ns, classInstanceList), &configv1.ClassInstanceList{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -75,7 +80,8 @@ func (c *FakeClassInstanceLists) Create(classInstanceList *configv1.ClassInstanc
 // Update takes the representation of a classInstanceList and updates it. Returns the server's representation of the classInstanceList, and an error, if there is any.
 func (c *FakeClassInstanceLists) Update(classInstanceList *configv1.ClassInstanceList) (result *configv1.ClassInstanceList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootUpdateAction(classinstancelistsResource, classInstanceList), &configv1.ClassInstanceList{})
+		Invokes(testing.NewUpdateAction(classinstancelistsResource, c.ns, classInstanceList), &configv1.ClassInstanceList{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -85,13 +91,14 @@ func (c *FakeClassInstanceLists) Update(classInstanceList *configv1.ClassInstanc
 // Delete takes name of the classInstanceList and deletes it. Returns an error if one occurs.
 func (c *FakeClassInstanceLists) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewRootDeleteAction(classinstancelistsResource, name), &configv1.ClassInstanceList{})
+		Invokes(testing.NewDeleteAction(classinstancelistsResource, c.ns, name), &configv1.ClassInstanceList{})
+
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
 func (c *FakeClassInstanceLists) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(classinstancelistsResource, listOptions)
+	action := testing.NewDeleteCollectionAction(classinstancelistsResource, c.ns, listOptions)
 
 	_, err := c.Fake.Invokes(action, &configv1.ClassInstanceListList{})
 	return err
@@ -100,7 +107,8 @@ func (c *FakeClassInstanceLists) DeleteCollection(options *v1.DeleteOptions, lis
 // Patch applies the patch and returns the patched classInstanceList.
 func (c *FakeClassInstanceLists) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *configv1.ClassInstanceList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootPatchSubresourceAction(classinstancelistsResource, name, pt, data, subresources...), &configv1.ClassInstanceList{})
+		Invokes(testing.NewPatchSubresourceAction(classinstancelistsResource, c.ns, name, pt, data, subresources...), &configv1.ClassInstanceList{})
+
 	if obj == nil {
 		return nil, err
 	}

@@ -46,8 +46,6 @@ spec:
               minLength: 1
               type: string
             values:
-              additionalProperties:
-                type: string
               description: Values is a set of default values
               type: object
           type: object

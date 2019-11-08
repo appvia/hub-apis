@@ -24,8 +24,6 @@ import (
 // TeamMembershipSpec defines the desired state of Team
 // +k8s:openapi-gen=true
 type TeamMembershipSpec struct {
-	// TeamName is the name of the team in question
-	TeamName string `json:"teamName"`
 	// Username is the user being bound to the team
 	Username string `json:"username"`
 }

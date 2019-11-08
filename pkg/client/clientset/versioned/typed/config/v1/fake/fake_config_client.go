@@ -32,8 +32,8 @@ func (c *FakeConfigV1) Classes() v1.ClassInterface {
 	return &FakeClasses{c}
 }
 
-func (c *FakeConfigV1) ClassInstanceLists() v1.ClassInstanceListInterface {
-	return &FakeClassInstanceLists{c}
+func (c *FakeConfigV1) ClassInstanceLists(namespace string) v1.ClassInstanceListInterface {
+	return &FakeClassInstanceLists{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

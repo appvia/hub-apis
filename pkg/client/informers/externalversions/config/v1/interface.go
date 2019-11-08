@@ -48,5 +48,5 @@ func (v *version) Classes() ClassInformer {
 
 // ClassInstanceLists returns a ClassInstanceListInformer.
 func (v *version) ClassInstanceLists() ClassInstanceListInformer {
-	return &classInstanceListInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+	return &classInstanceListInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }

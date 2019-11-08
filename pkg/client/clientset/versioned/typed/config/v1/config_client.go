@@ -39,8 +39,8 @@ func (c *ConfigV1Client) Classes() ClassInterface {
 	return newClasses(c)
 }
 
-func (c *ConfigV1Client) ClassInstanceLists() ClassInstanceListInterface {
-	return newClassInstanceLists(c)
+func (c *ConfigV1Client) ClassInstanceLists(namespace string) ClassInstanceListInterface {
+	return newClassInstanceLists(c, namespace)
 }
 
 // NewForConfig creates a new ConfigV1Client for the given config.

@@ -32,7 +32,7 @@ import (
 // ClassInstanceListsGetter has a method to return a ClassInstanceListInterface.
 // A group's client should implement this interface.
 type ClassInstanceListsGetter interface {
-	ClassInstanceLists() ClassInstanceListInterface
+	ClassInstanceLists(namespace string) ClassInstanceListInterface
 }
 
 // ClassInstanceListInterface has methods to work with ClassInstanceList resources.
@@ -51,12 +51,14 @@ type ClassInstanceListInterface interface {
 // classInstanceLists implements ClassInstanceListInterface
 type classInstanceLists struct {
 	client rest.Interface
+	ns     string
 }
 
 // newClassInstanceLists returns a ClassInstanceLists
-func newClassInstanceLists(c *ConfigV1Client) *classInstanceLists {
+func newClassInstanceLists(c *ConfigV1Client, namespace string) *classInstanceLists {
 	return &classInstanceLists{
 		client: c.RESTClient(),
+		ns:     namespace,
 	}
 }
 
@@ -64,6 +66,7 @@ func newClassInstanceLists(c *ConfigV1Client) *classInstanceLists {
 func (c *classInstanceLists) Get(name string, options metav1.GetOptions) (result *v1.ClassInstanceList, err error) {
 	result = &v1.ClassInstanceList{}
 	err = c.client.Get().
+		Namespace(c.ns).
 		Resource("classinstancelists").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
@@ -80,6 +83,7 @@ func (c *classInstanceLists) List(opts metav1.ListOptions) (result *v1.ClassInst
 	}
 	result = &v1.ClassInstanceListList{}
 	err = c.client.Get().
+		Namespace(c.ns).
 		Resource("classinstancelists").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -96,6 +100,7 @@ func (c *classInstanceLists) Watch(opts metav1.ListOptions) (watch.Interface, er
 	}
 	opts.Watch = true
 	return c.client.Get().
+		Namespace(c.ns).
 		Resource("classinstancelists").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -106,6 +111,7 @@ func (c *classInstanceLists) Watch(opts metav1.ListOptions) (watch.Interface, er
 func (c *classInstanceLists) Create(classInstanceList *v1.ClassInstanceList) (result *v1.ClassInstanceList, err error) {
 	result = &v1.ClassInstanceList{}
 	err = c.client.Post().
+		Namespace(c.ns).
 		Resource("classinstancelists").
 		Body(classInstanceList).
 		Do().
@@ -117,6 +123,7 @@ func (c *classInstanceLists) Create(classInstanceList *v1.ClassInstanceList) (re
 func (c *classInstanceLists) Update(classInstanceList *v1.ClassInstanceList) (result *v1.ClassInstanceList, err error) {
 	result = &v1.ClassInstanceList{}
 	err = c.client.Put().
+		Namespace(c.ns).
 		Resource("classinstancelists").
 		Name(classInstanceList.Name).
 		Body(classInstanceList).
@@ -128,6 +135,7 @@ func (c *classInstanceLists) Update(classInstanceList *v1.ClassInstanceList) (re
 // Delete takes name of the classInstanceList and deletes it. Returns an error if one occurs.
 func (c *classInstanceLists) Delete(name string, options *metav1.DeleteOptions) error {
 	return c.client.Delete().
+		Namespace(c.ns).
 		Resource("classinstancelists").
 		Name(name).
 		Body(options).
@@ -142,6 +150,7 @@ func (c *classInstanceLists) DeleteCollection(options *metav1.DeleteOptions, lis
 		timeout = time.Duration(*listOptions.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
+		Namespace(c.ns).
 		Resource("classinstancelists").
 		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -154,6 +163,7 @@ func (c *classInstanceLists) DeleteCollection(options *metav1.DeleteOptions, lis
 func (c *classInstanceLists) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1.ClassInstanceList, err error) {
 	result = &v1.ClassInstanceList{}
 	err = c.client.Patch(pt).
+		Namespace(c.ns).
 		Resource("classinstancelists").
 		SubResource(subresources...).
 		Name(name).

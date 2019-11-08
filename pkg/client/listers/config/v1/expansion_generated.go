@@ -25,3 +25,7 @@ type ClassListerExpansion interface{}
 // ClassInstanceListListerExpansion allows custom methods to be added to
 // ClassInstanceListLister.
 type ClassInstanceListListerExpansion interface{}
+
+// ClassInstanceListNamespaceListerExpansion allows custom methods to be added to
+// ClassInstanceListNamespaceLister.
+type ClassInstanceListNamespaceListerExpansion interface{}

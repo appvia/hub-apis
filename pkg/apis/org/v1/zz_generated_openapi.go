@@ -139,13 +139,6 @@ func schema_pkg_apis_org_v1_TeamMembershipSpec(ref common.ReferenceCallback) com
 				Description: "TeamMembershipSpec defines the desired state of Team",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"teamName": {
-						SchemaProps: spec.SchemaProps{
-							Description: "TeamName is the name of the team in question",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
 					"username": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Username is the user being bound to the team",
@@ -154,7 +147,7 @@ func schema_pkg_apis_org_v1_TeamMembershipSpec(ref common.ReferenceCallback) com
 						},
 					},
 				},
-				Required: []string{"teamName", "username"},
+				Required: []string{"username"},
 			},
 		},
 	}

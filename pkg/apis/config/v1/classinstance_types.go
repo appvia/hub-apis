@@ -28,7 +28,8 @@ type ClassInstanceSpec struct {
 	// +kubebuilder:validation:Required
 	ClassRef metav1.GroupKind `json:"classRef"`
 	// ConfigurationRef is a reference to the configuration object
-	ConfigurationRef metav1.GroupKind `json:"configurationRef"`
+	// +kubebuilder:validation:Required
+	ConfigurationRef Ownership `json:"configurationRef"`
 }
 
 // ClassInstanceStatus defines the observed state of ClassInstance
@@ -50,7 +51,6 @@ type ClassInstance struct {
 }
 
 // +genclient
-// +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // ClassInstanceList contains a list of ClassInstance

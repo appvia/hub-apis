@@ -25,6 +25,8 @@ import (
 type ClassScope string
 
 const (
+	// ApplicationScope indicates the resource is placed into the apps level
+	ApplicationScope ClassScope = "application"
 	// TeamScope indicates the resources in the hub namespace i.e toplevel
 	TeamScope ClassScope = "team"
 	// WorkspaceScope indicates a resource in a space
@@ -81,12 +83,18 @@ type ClassResource struct {
 	// Group is the apigroup the resource lives under
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
-	// +required
 	APIGroup string `json:"apiGroup"`
+	// DisplayName is a short name for the resource
+	DisplayName string `json:"displayName"`
+	// ShortDescription provides a paragraph to description was the
+	// resource is used for
+	ShortDescription string `json:"shortDescription"`
+	// LongDescription provides longer details as to what the resource
+	// does, how it's used etc etc
+	LongDescription string `json:"longDescription"`
 	// Kind is the name of the resource under the group
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
-	// +required
 	Kind string `json:"kind"`
 	// Version is the apigroup version of the kind
 	// +kubebuilder:validation:MinLength=1
@@ -97,7 +105,6 @@ type ClassResource struct {
 	Scope ClassScope `json:"scope"`
 	// Plans is a collection of plans for this resource
 	// +kubebuilder:validation:Optional
-	// +optional
 	// +listType
 	Plans []string `json:"plans"`
 }

@@ -36,14 +36,10 @@ spec:
         spec:
           description: TeamMembershipSpec defines the desired state of Team
           properties:
-            teamName:
-              description: TeamName is the name of the team in question
-              type: string
             username:
               description: Username is the user being bound to the team
               type: string
           required:
-          - teamName
           - username
           type: object
         status:

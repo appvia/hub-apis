@@ -29,8 +29,8 @@ import (
 type ClassInstanceListLister interface {
 	// List lists all ClassInstanceLists in the indexer.
 	List(selector labels.Selector) (ret []*v1.ClassInstanceList, err error)
-	// Get retrieves the ClassInstanceList from the index for a given name.
-	Get(name string) (*v1.ClassInstanceList, error)
+	// ClassInstanceLists returns an object that can list and get ClassInstanceLists.
+	ClassInstanceLists(namespace string) ClassInstanceListNamespaceLister
 	ClassInstanceListListerExpansion
 }
 
@@ -52,9 +52,38 @@ func (s *classInstanceListLister) List(selector labels.Selector) (ret []*v1.Clas
 	return ret, err
 }
 
-// Get retrieves the ClassInstanceList from the index for a given name.
-func (s *classInstanceListLister) Get(name string) (*v1.ClassInstanceList, error) {
-	obj, exists, err := s.indexer.GetByKey(name)
+// ClassInstanceLists returns an object that can list and get ClassInstanceLists.
+func (s *classInstanceListLister) ClassInstanceLists(namespace string) ClassInstanceListNamespaceLister {
+	return classInstanceListNamespaceLister{indexer: s.indexer, namespace: namespace}
+}
+
+// ClassInstanceListNamespaceLister helps list and get ClassInstanceLists.
+type ClassInstanceListNamespaceLister interface {
+	// List lists all ClassInstanceLists in the indexer for a given namespace.
+	List(selector labels.Selector) (ret []*v1.ClassInstanceList, err error)
+	// Get retrieves the ClassInstanceList from the indexer for a given namespace and name.
+	Get(name string) (*v1.ClassInstanceList, error)
+	ClassInstanceListNamespaceListerExpansion
+}
+
+// classInstanceListNamespaceLister implements the ClassInstanceListNamespaceLister
+// interface.
+type classInstanceListNamespaceLister struct {
+	indexer   cache.Indexer
+	namespace string
+}
+
+// List lists all ClassInstanceLists in the indexer for a given namespace.
+func (s classInstanceListNamespaceLister) List(selector labels.Selector) (ret []*v1.ClassInstanceList, err error) {
+	err = cache.ListAllByNamespace(s.indexer, s.namespace, selector, func(m interface{}) {
+		ret = append(ret, m.(*v1.ClassInstanceList))
+	})
+	return ret, err
+}
+
+// Get retrieves the ClassInstanceList from the indexer for a given namespace and name.
+func (s classInstanceListNamespaceLister) Get(name string) (*v1.ClassInstanceList, error) {
+	obj, exists, err := s.indexer.GetByKey(s.namespace + "/" + name)
 	if err != nil {
 		return nil, err
 	}

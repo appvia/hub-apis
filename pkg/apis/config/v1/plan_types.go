@@ -19,6 +19,7 @@ package v1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 const (
@@ -38,7 +39,7 @@ type PlanSpec struct {
 	// +kubebuilder:validation:MinLength=1
 	Summary string `json:"summary,omitempty"`
 	// Values is a set of default values
-	Values map[string]string `json:"values,omitempty"`
+	Values unstructured.Unstructured `json:"values,omitempty"`
 }
 
 // PlanStatus defines the observed state of Plan

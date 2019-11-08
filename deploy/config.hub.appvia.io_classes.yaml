@@ -82,9 +82,16 @@ spec:
                     description: Group is the apigroup the resource lives under
                     minLength: 1
                     type: string
+                  displayName:
+                    description: DisplayName is a short name for the resource
+                    type: string
                   kind:
                     description: Kind is the name of the resource under the group
                     minLength: 1
+                    type: string
+                  longDescription:
+                    description: LongDescription provides longer details as to what
+                      the resource does, how it's used etc etc
                     type: string
                   plans:
                     description: Plans is a collection of plans for this resource
@@ -94,14 +101,21 @@ spec:
                   scope:
                     description: Scope is the scope the resource lives under
                     type: string
+                  shortDescription:
+                    description: ShortDescription provides a paragraph to description
+                      was the resource is used for
+                    type: string
                   version:
                     description: Version is the apigroup version of the kind
                     minLength: 1
                     type: string
                 required:
                 - apiGroup
+                - displayName
                 - kind
+                - longDescription
                 - scope
+                - shortDescription
                 - version
                 type: object
               minItems: 1

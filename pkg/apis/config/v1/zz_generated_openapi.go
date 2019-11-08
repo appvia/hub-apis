@@ -145,7 +145,7 @@ func schema_pkg_apis_config_v1_ClassInstanceSpec(ref common.ReferenceCallback) c
 					"configurationRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ConfigurationRef is a reference to the configuration object",
-							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.GroupKind"),
+							Ref:         ref("github.com/appvia/hub-apis/pkg/apis/config/v1.Ownership"),
 						},
 					},
 				},
@@ -153,7 +153,7 @@ func schema_pkg_apis_config_v1_ClassInstanceSpec(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.GroupKind"},
+			"github.com/appvia/hub-apis/pkg/apis/config/v1.Ownership", "k8s.io/apimachinery/pkg/apis/meta/v1.GroupKind"},
 	}
 }
 
@@ -348,21 +348,14 @@ func schema_pkg_apis_config_v1_PlanSpec(ref common.ReferenceCallback) common.Ope
 					"values": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Values is a set of default values",
-							Type:        []string{"object"},
-							AdditionalProperties: &spec.SchemaOrBool{
-								Allows: true,
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Type:   []string{"string"},
-										Format: "",
-									},
-								},
-							},
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1/unstructured.Unstructured"),
 						},
 					},
 				},
 			},
 		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured.Unstructured"},
 	}
 }
 
