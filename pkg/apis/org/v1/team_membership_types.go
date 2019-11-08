@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019  Rohith Jayawardene <info@appvia.io>
+ * Copyright (C) 2019  Rohith Jayawardene <gambol99@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,40 +21,40 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// TeamSpec defines the desired state of Team
+// TeamMembershipSpec defines the desired state of Team
 // +k8s:openapi-gen=true
-type TeamSpec struct {
-	// Summary is a summary name for this team
-	Summary string `json:"summary"`
-	// Description is a description for the team
-	Description string `json:"description"`
+type TeamMembershipSpec struct {
+	// TeamName is the name of the team in question
+	TeamName string `json:"teamName"`
+	// Username is the user being bound to the team
+	Username string `json:"username"`
 }
 
-// TeamStatus defines the observed state of Team
+// TeamMembershipStatus defines the observed state of Team
 // +k8s:openapi-gen=true
-type TeamStatus struct{}
+type TeamMembershipStatus struct{}
 
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// Team is the Schema for the teams API
+// TeamMembership is the Schema for the teams API
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:path=teams
-type Team struct {
+// +kubebuilder:resource:path=teammemberships
+type TeamMembership struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   TeamSpec   `json:"spec,omitempty"`
-	Status TeamStatus `json:"status,omitempty"`
+	Spec   TeamMembershipSpec   `json:"spec,omitempty"`
+	Status TeamMembershipStatus `json:"status,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// TeamList contains a list of Team
-type TeamList struct {
+// TeamMembershipList contains a list of Team
+type TeamMembershipList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Team `json:"items"`
+	Items           []TeamMembership `json:"items"`
 }

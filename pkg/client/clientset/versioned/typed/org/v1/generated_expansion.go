@@ -20,6 +20,8 @@ package v1
 
 type TeamExpansion interface{}
 
+type TeamMembershipExpansion interface{}
+
 type UserExpansion interface{}
 
 type WorkspaceExpansion interface{}

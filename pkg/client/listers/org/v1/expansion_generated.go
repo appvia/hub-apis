@@ -22,6 +22,10 @@ package v1
 // TeamLister.
 type TeamListerExpansion interface{}
 
+// TeamMembershipListerExpansion allows custom methods to be added to
+// TeamMembershipLister.
+type TeamMembershipListerExpansion interface{}
+
 // UserListerExpansion allows custom methods to be added to
 // UserLister.
 type UserListerExpansion interface{}

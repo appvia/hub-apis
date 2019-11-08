@@ -6,20 +6,20 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: (devel)
   creationTimestamp: null
-  name: teams.org.hub.appvia.io
+  name: teammemberships.org.hub.appvia.io
 spec:
   group: org.hub.appvia.io
   names:
-    kind: Team
-    listKind: TeamList
-    plural: teams
-    singular: team
+    kind: TeamMembership
+    listKind: TeamMembershipList
+    plural: teammemberships
+    singular: teammembership
   scope: Namespaced
   subresources:
     status: {}
   validation:
     openAPIV3Schema:
-      description: Team is the Schema for the teams API
+      description: TeamMembership is the Schema for the teams API
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation
@@ -34,20 +34,20 @@ spec:
         metadata:
           type: object
         spec:
-          description: TeamSpec defines the desired state of Team
+          description: TeamMembershipSpec defines the desired state of Team
           properties:
-            description:
-              description: Description is a description for the team
+            teamName:
+              description: TeamName is the name of the team in question
               type: string
-            summary:
-              description: Summary is a summary name for this team
+            username:
+              description: Username is the user being bound to the team
               type: string
           required:
-          - description
-          - summary
+          - teamName
+          - username
           type: object
         status:
-          description: TeamStatus defines the observed state of Team
+          description: TeamMembershipStatus defines the observed state of Team
           type: object
       type: object
   version: v1

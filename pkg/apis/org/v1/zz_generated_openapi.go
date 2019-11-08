@@ -29,15 +29,18 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/appvia/hub-apis/pkg/apis/org/v1.Team":            schema_pkg_apis_org_v1_Team(ref),
-		"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamSpec":        schema_pkg_apis_org_v1_TeamSpec(ref),
-		"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamStatus":      schema_pkg_apis_org_v1_TeamStatus(ref),
-		"github.com/appvia/hub-apis/pkg/apis/org/v1.User":            schema_pkg_apis_org_v1_User(ref),
-		"github.com/appvia/hub-apis/pkg/apis/org/v1.UserSpec":        schema_pkg_apis_org_v1_UserSpec(ref),
-		"github.com/appvia/hub-apis/pkg/apis/org/v1.UserStatus":      schema_pkg_apis_org_v1_UserStatus(ref),
-		"github.com/appvia/hub-apis/pkg/apis/org/v1.Workspace":       schema_pkg_apis_org_v1_Workspace(ref),
-		"github.com/appvia/hub-apis/pkg/apis/org/v1.WorkspaceSpec":   schema_pkg_apis_org_v1_WorkspaceSpec(ref),
-		"github.com/appvia/hub-apis/pkg/apis/org/v1.WorkspaceStatus": schema_pkg_apis_org_v1_WorkspaceStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.Team":                 schema_pkg_apis_org_v1_Team(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamMembership":       schema_pkg_apis_org_v1_TeamMembership(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamMembershipSpec":   schema_pkg_apis_org_v1_TeamMembershipSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamMembershipStatus": schema_pkg_apis_org_v1_TeamMembershipStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamSpec":             schema_pkg_apis_org_v1_TeamSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamStatus":           schema_pkg_apis_org_v1_TeamStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.User":                 schema_pkg_apis_org_v1_User(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.UserSpec":             schema_pkg_apis_org_v1_UserSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.UserStatus":           schema_pkg_apis_org_v1_UserStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.Workspace":            schema_pkg_apis_org_v1_Workspace(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.WorkspaceSpec":        schema_pkg_apis_org_v1_WorkspaceSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.WorkspaceStatus":      schema_pkg_apis_org_v1_WorkspaceStatus(ref),
 	}
 }
 
@@ -85,6 +88,89 @@ func schema_pkg_apis_org_v1_Team(ref common.ReferenceCallback) common.OpenAPIDef
 	}
 }
 
+func schema_pkg_apis_org_v1_TeamMembership(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "TeamMembership is the Schema for the teams API",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/org/v1.TeamMembershipSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/org/v1.TeamMembershipStatus"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamMembershipSpec", "github.com/appvia/hub-apis/pkg/apis/org/v1.TeamMembershipStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_org_v1_TeamMembershipSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "TeamMembershipSpec defines the desired state of Team",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"teamName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "TeamName is the name of the team in question",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"username": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Username is the user being bound to the team",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"teamName", "username"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_org_v1_TeamMembershipStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "TeamMembershipStatus defines the observed state of Team",
+				Type:        []string{"object"},
+			},
+		},
+	}
+}
+
 func schema_pkg_apis_org_v1_TeamSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -92,6 +178,13 @@ func schema_pkg_apis_org_v1_TeamSpec(ref common.ReferenceCallback) common.OpenAP
 				Description: "TeamSpec defines the desired state of Team",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
+					"summary": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Summary is a summary name for this team",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Description is a description for the team",
@@ -99,27 +192,8 @@ func schema_pkg_apis_org_v1_TeamSpec(ref common.ReferenceCallback) common.OpenAP
 							Format:      "",
 						},
 					},
-					"users": {
-						VendorExtensible: spec.VendorExtensible{
-							Extensions: spec.Extensions{
-								"x-kubernetes-list-type": "",
-							},
-						},
-						SchemaProps: spec.SchemaProps{
-							Description: "Users is a list of users whom are in the team",
-							Type:        []string{"array"},
-							Items: &spec.SchemaOrArray{
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Type:   []string{"string"},
-										Format: "",
-									},
-								},
-							},
-						},
-					},
 				},
-				Required: []string{"description", "users"},
+				Required: []string{"summary", "description"},
 			},
 		},
 	}

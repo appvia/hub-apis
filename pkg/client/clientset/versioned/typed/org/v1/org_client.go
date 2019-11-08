@@ -27,6 +27,7 @@ import (
 type OrgV1Interface interface {
 	RESTClient() rest.Interface
 	TeamsGetter
+	TeamMembershipsGetter
 	UsersGetter
 	WorkspacesGetter
 }
@@ -38,6 +39,10 @@ type OrgV1Client struct {
 
 func (c *OrgV1Client) Teams() TeamInterface {
 	return newTeams(c)
+}
+
+func (c *OrgV1Client) TeamMemberships() TeamMembershipInterface {
+	return newTeamMemberships(c)
 }
 
 func (c *OrgV1Client) Users() UserInterface {
