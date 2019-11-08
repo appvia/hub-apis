@@ -52,7 +52,7 @@ func (v *version) Teams() TeamInformer {
 
 // TeamMemberships returns a TeamMembershipInformer.
 func (v *version) TeamMemberships() TeamMembershipInformer {
-	return &teamMembershipInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+	return &teamMembershipInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // Users returns a UserInformer.

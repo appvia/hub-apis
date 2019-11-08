@@ -29,8 +29,8 @@ import (
 type TeamMembershipLister interface {
 	// List lists all TeamMemberships in the indexer.
 	List(selector labels.Selector) (ret []*v1.TeamMembership, err error)
-	// Get retrieves the TeamMembership from the index for a given name.
-	Get(name string) (*v1.TeamMembership, error)
+	// TeamMemberships returns an object that can list and get TeamMemberships.
+	TeamMemberships(namespace string) TeamMembershipNamespaceLister
 	TeamMembershipListerExpansion
 }
 
@@ -52,9 +52,38 @@ func (s *teamMembershipLister) List(selector labels.Selector) (ret []*v1.TeamMem
 	return ret, err
 }
 
-// Get retrieves the TeamMembership from the index for a given name.
-func (s *teamMembershipLister) Get(name string) (*v1.TeamMembership, error) {
-	obj, exists, err := s.indexer.GetByKey(name)
+// TeamMemberships returns an object that can list and get TeamMemberships.
+func (s *teamMembershipLister) TeamMemberships(namespace string) TeamMembershipNamespaceLister {
+	return teamMembershipNamespaceLister{indexer: s.indexer, namespace: namespace}
+}
+
+// TeamMembershipNamespaceLister helps list and get TeamMemberships.
+type TeamMembershipNamespaceLister interface {
+	// List lists all TeamMemberships in the indexer for a given namespace.
+	List(selector labels.Selector) (ret []*v1.TeamMembership, err error)
+	// Get retrieves the TeamMembership from the indexer for a given namespace and name.
+	Get(name string) (*v1.TeamMembership, error)
+	TeamMembershipNamespaceListerExpansion
+}
+
+// teamMembershipNamespaceLister implements the TeamMembershipNamespaceLister
+// interface.
+type teamMembershipNamespaceLister struct {
+	indexer   cache.Indexer
+	namespace string
+}
+
+// List lists all TeamMemberships in the indexer for a given namespace.
+func (s teamMembershipNamespaceLister) List(selector labels.Selector) (ret []*v1.TeamMembership, err error) {
+	err = cache.ListAllByNamespace(s.indexer, s.namespace, selector, func(m interface{}) {
+		ret = append(ret, m.(*v1.TeamMembership))
+	})
+	return ret, err
+}
+
+// Get retrieves the TeamMembership from the indexer for a given namespace and name.
+func (s teamMembershipNamespaceLister) Get(name string) (*v1.TeamMembership, error) {
+	obj, exists, err := s.indexer.GetByKey(s.namespace + "/" + name)
 	if err != nil {
 		return nil, err
 	}

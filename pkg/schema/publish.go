@@ -38,7 +38,7 @@ func PublishAll(ctx context.Context, c client.Client, class *configv1.Class, pla
 
 // PublishClass is responsible for publishing the class into the cluster
 func PublishClass(ctx context.Context, c client.Client, class *configv1.Class) error {
-	err := c.Get(ctx, class, &configv1.Class{})
+	err := c.Get(ctx, types.NamespacedName{Name: class.Name}, &configv1.Class{})
 	if err != nil {
 		if aerrors.IsNotFound(err) {
 			if err := c.Create(ctx, class); err != nil {

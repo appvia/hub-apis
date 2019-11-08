@@ -32,7 +32,7 @@ import (
 // TeamMembershipsGetter has a method to return a TeamMembershipInterface.
 // A group's client should implement this interface.
 type TeamMembershipsGetter interface {
-	TeamMemberships() TeamMembershipInterface
+	TeamMemberships(namespace string) TeamMembershipInterface
 }
 
 // TeamMembershipInterface has methods to work with TeamMembership resources.
@@ -52,12 +52,14 @@ type TeamMembershipInterface interface {
 // teamMemberships implements TeamMembershipInterface
 type teamMemberships struct {
 	client rest.Interface
+	ns     string
 }
 
 // newTeamMemberships returns a TeamMemberships
-func newTeamMemberships(c *OrgV1Client) *teamMemberships {
+func newTeamMemberships(c *OrgV1Client, namespace string) *teamMemberships {
 	return &teamMemberships{
 		client: c.RESTClient(),
+		ns:     namespace,
 	}
 }
 
@@ -65,6 +67,7 @@ func newTeamMemberships(c *OrgV1Client) *teamMemberships {
 func (c *teamMemberships) Get(name string, options metav1.GetOptions) (result *v1.TeamMembership, err error) {
 	result = &v1.TeamMembership{}
 	err = c.client.Get().
+		Namespace(c.ns).
 		Resource("teammemberships").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
@@ -81,6 +84,7 @@ func (c *teamMemberships) List(opts metav1.ListOptions) (result *v1.TeamMembersh
 	}
 	result = &v1.TeamMembershipList{}
 	err = c.client.Get().
+		Namespace(c.ns).
 		Resource("teammemberships").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -97,6 +101,7 @@ func (c *teamMemberships) Watch(opts metav1.ListOptions) (watch.Interface, error
 	}
 	opts.Watch = true
 	return c.client.Get().
+		Namespace(c.ns).
 		Resource("teammemberships").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -107,6 +112,7 @@ func (c *teamMemberships) Watch(opts metav1.ListOptions) (watch.Interface, error
 func (c *teamMemberships) Create(teamMembership *v1.TeamMembership) (result *v1.TeamMembership, err error) {
 	result = &v1.TeamMembership{}
 	err = c.client.Post().
+		Namespace(c.ns).
 		Resource("teammemberships").
 		Body(teamMembership).
 		Do().
@@ -118,6 +124,7 @@ func (c *teamMemberships) Create(teamMembership *v1.TeamMembership) (result *v1.
 func (c *teamMemberships) Update(teamMembership *v1.TeamMembership) (result *v1.TeamMembership, err error) {
 	result = &v1.TeamMembership{}
 	err = c.client.Put().
+		Namespace(c.ns).
 		Resource("teammemberships").
 		Name(teamMembership.Name).
 		Body(teamMembership).
@@ -132,6 +139,7 @@ func (c *teamMemberships) Update(teamMembership *v1.TeamMembership) (result *v1.
 func (c *teamMemberships) UpdateStatus(teamMembership *v1.TeamMembership) (result *v1.TeamMembership, err error) {
 	result = &v1.TeamMembership{}
 	err = c.client.Put().
+		Namespace(c.ns).
 		Resource("teammemberships").
 		Name(teamMembership.Name).
 		SubResource("status").
@@ -144,6 +152,7 @@ func (c *teamMemberships) UpdateStatus(teamMembership *v1.TeamMembership) (resul
 // Delete takes name of the teamMembership and deletes it. Returns an error if one occurs.
 func (c *teamMemberships) Delete(name string, options *metav1.DeleteOptions) error {
 	return c.client.Delete().
+		Namespace(c.ns).
 		Resource("teammemberships").
 		Name(name).
 		Body(options).
@@ -158,6 +167,7 @@ func (c *teamMemberships) DeleteCollection(options *metav1.DeleteOptions, listOp
 		timeout = time.Duration(*listOptions.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
+		Namespace(c.ns).
 		Resource("teammemberships").
 		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -170,6 +180,7 @@ func (c *teamMemberships) DeleteCollection(options *metav1.DeleteOptions, listOp
 func (c *teamMemberships) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1.TeamMembership, err error) {
 	result = &v1.TeamMembership{}
 	err = c.client.Patch(pt).
+		Namespace(c.ns).
 		Resource("teammemberships").
 		SubResource(subresources...).
 		Name(name).

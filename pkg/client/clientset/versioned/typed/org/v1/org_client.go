@@ -41,8 +41,8 @@ func (c *OrgV1Client) Teams() TeamInterface {
 	return newTeams(c)
 }
 
-func (c *OrgV1Client) TeamMemberships() TeamMembershipInterface {
-	return newTeamMemberships(c)
+func (c *OrgV1Client) TeamMemberships(namespace string) TeamMembershipInterface {
+	return newTeamMemberships(c, namespace)
 }
 
 func (c *OrgV1Client) Users() UserInterface {

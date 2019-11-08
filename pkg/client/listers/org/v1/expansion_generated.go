@@ -26,6 +26,10 @@ type TeamListerExpansion interface{}
 // TeamMembershipLister.
 type TeamMembershipListerExpansion interface{}
 
+// TeamMembershipNamespaceListerExpansion allows custom methods to be added to
+// TeamMembershipNamespaceLister.
+type TeamMembershipNamespaceListerExpansion interface{}
+
 // UserListerExpansion allows custom methods to be added to
 // UserLister.
 type UserListerExpansion interface{}

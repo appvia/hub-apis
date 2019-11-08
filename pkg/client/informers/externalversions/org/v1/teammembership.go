@@ -41,32 +41,33 @@ type TeamMembershipInformer interface {
 type teamMembershipInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
+	namespace        string
 }
 
 // NewTeamMembershipInformer constructs a new informer for TeamMembership type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewTeamMembershipInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredTeamMembershipInformer(client, resyncPeriod, indexers, nil)
+func NewTeamMembershipInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredTeamMembershipInformer(client, namespace, resyncPeriod, indexers, nil)
 }
 
 // NewFilteredTeamMembershipInformer constructs a new informer for TeamMembership type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredTeamMembershipInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredTeamMembershipInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.OrgV1().TeamMemberships().List(options)
+				return client.OrgV1().TeamMemberships(namespace).List(options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.OrgV1().TeamMemberships().Watch(options)
+				return client.OrgV1().TeamMemberships(namespace).Watch(options)
 			},
 		},
 		&orgv1.TeamMembership{},
@@ -76,7 +77,7 @@ func NewFilteredTeamMembershipInformer(client versioned.Interface, resyncPeriod 
 }
 
 func (f *teamMembershipInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredTeamMembershipInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+	return NewFilteredTeamMembershipInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
 func (f *teamMembershipInformer) Informer() cache.SharedIndexInformer {
