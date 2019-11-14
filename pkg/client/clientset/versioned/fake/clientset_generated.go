@@ -28,6 +28,8 @@ import (
 	fakeorgv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/org/v1/fake"
 	rbacv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/rbac/v1"
 	fakerbacv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/rbac/v1/fake"
+	storev1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/store/v1"
+	fakestorev1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/store/v1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -100,4 +102,9 @@ func (c *Clientset) OrgV1() orgv1.OrgV1Interface {
 // RbacV1 retrieves the RbacV1Client
 func (c *Clientset) RbacV1() rbacv1.RbacV1Interface {
 	return &fakerbacv1.FakeRbacV1{Fake: &c.Fake}
+}
+
+// StoreV1 retrieves the StoreV1Client
+func (c *Clientset) StoreV1() storev1.StoreV1Interface {
+	return &fakestorev1.FakeStoreV1{Fake: &c.Fake}
 }

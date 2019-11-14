@@ -25,8 +25,8 @@ import (
 type ClassScope string
 
 const (
-	// ApplicationScope indicates the resource is placed into the apps level
-	ApplicationScope ClassScope = "application"
+	// AllScope indicates no scope at all
+	AllScope = ""
 	// TeamScope indicates the resources in the hub namespace i.e toplevel
 	TeamScope ClassScope = "team"
 	// WorkspaceScope indicates a resource in a space
@@ -85,28 +85,33 @@ type ClassResource struct {
 	// +kubebuilder:validation:Required
 	APIGroup string `json:"apiGroup"`
 	// DisplayName is a short name for the resource
+	// +kubebuilder:validation:MinLength=1
+	// +kubebuilder:validation:Required
 	DisplayName string `json:"displayName"`
-	// ShortDescription provides a paragraph to description was the
-	// resource is used for
-	ShortDescription string `json:"shortDescription"`
-	// LongDescription provides longer details as to what the resource
-	// does, how it's used etc etc
-	LongDescription string `json:"longDescription"`
 	// Kind is the name of the resource under the group
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
 	Kind string `json:"kind"`
-	// Version is the apigroup version of the kind
-	// +kubebuilder:validation:MinLength=1
-	// +kubebuilder:validation:Required
-	Version string `json:"version"`
+	// LongDescription provides longer details as to what the resource
+	// does, how it's used etc etc
+	LongDescription string `json:"longDescription"`
 	// Scope is the scope the resource lives under
 	// +kubebuilder:validation:Required
 	Scope ClassScope `json:"scope"`
+	// ShortDescription provides a paragraph to description was the
+	// resource is used for
+	ShortDescription string `json:"shortDescription"`
 	// Plans is a collection of plans for this resource
 	// +kubebuilder:validation:Optional
 	// +listType
 	Plans []string `json:"plans"`
+	// Unique indicates only one resource can be created in the scope
+	// +kubebuilder:validation:Required
+	Unique bool `json:"unique"`
+	// Version is the apigroup version of the kind
+	// +kubebuilder:validation:MinLength=1
+	// +kubebuilder:validation:Required
+	Version string `json:"version"`
 }
 
 // ClassStatus defines the observed state of Class

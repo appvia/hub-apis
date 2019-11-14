@@ -23,6 +23,7 @@ import (
 	configv1 "github.com/appvia/hub-apis/pkg/apis/config/v1"
 	orgv1 "github.com/appvia/hub-apis/pkg/apis/org/v1"
 	rbacv1 "github.com/appvia/hub-apis/pkg/apis/rbac/v1"
+	storev1 "github.com/appvia/hub-apis/pkg/apis/store/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -38,6 +39,7 @@ var localSchemeBuilder = runtime.SchemeBuilder{
 	configv1.AddToScheme,
 	orgv1.AddToScheme,
 	rbacv1.AddToScheme,
+	storev1.AddToScheme,
 }
 
 // AddToScheme adds all types of this clientset into the given scheme. This allows composition

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019  Rohith Jayawardene <info@appvia.io>
+ * Copyright (C) 2019  Rohith Jayawardene <gambol99@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,41 +21,43 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// ClassInstanceSpec defines the desired state of ClassInstance
+// AllocationSpec defines the desired state of Allocation
 // +k8s:openapi-gen=true
-type ClassInstanceSpec struct {
+type AllocationSpec struct {
 	// ClassRef is the reference to the provider of this class
 	// +kubebuilder:validation:Required
-	ClassRef metav1.GroupKind `json:"classRef"`
-	// ConfigurationRef is a reference to the configuration object
+	ClassRef metav1.GroupVersion `json:"classRef"`
+	// InstanceRef is a reference to the configuration object
 	// +kubebuilder:validation:Required
-	ConfigurationRef Ownership `json:"configurationRef"`
+	InstanceRef Ownership `json:"instanceRef"`
+	// Ownership provides optional ownership to the binding
+	Owner *Ownership `json:"owner"`
 }
 
-// ClassInstanceStatus defines the observed state of ClassInstance
+// AllocationStatus defines the observed state of Allocation
 // +k8s:openapi-gen=true
-type ClassInstanceStatus struct{}
+type AllocationStatus struct{}
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// ClassInstance is the Schema for the classinstances API
+// Allocation is the Schema for the allocations API
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:path=classinstances,scope=Namespaced
-type ClassInstance struct {
+// +kubebuilder:resource:path=allocations,scope=Namespaced
+type Allocation struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   ClassInstanceSpec   `json:"spec,omitempty"`
-	Status ClassInstanceStatus `json:"status,omitempty"`
+	Spec   AllocationSpec   `json:"spec,omitempty"`
+	Status AllocationStatus `json:"status,omitempty"`
 }
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// ClassInstanceList contains a list of ClassInstance
-type ClassInstanceList struct {
+// AllocationList contains a list of Allocation
+type AllocationList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []ClassInstance `json:"items"`
+	Items           []Allocation `json:"items"`
 }

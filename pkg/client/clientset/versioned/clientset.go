@@ -25,6 +25,7 @@ import (
 	configv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/config/v1"
 	orgv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/org/v1"
 	rbacv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/rbac/v1"
+	storev1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/store/v1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
@@ -36,6 +37,7 @@ type Interface interface {
 	ConfigV1() configv1.ConfigV1Interface
 	OrgV1() orgv1.OrgV1Interface
 	RbacV1() rbacv1.RbacV1Interface
+	StoreV1() storev1.StoreV1Interface
 }
 
 // Clientset contains the clients for groups. Each group has exactly one
@@ -46,6 +48,7 @@ type Clientset struct {
 	configV1   *configv1.ConfigV1Client
 	orgV1      *orgv1.OrgV1Client
 	rbacV1     *rbacv1.RbacV1Client
+	storeV1    *storev1.StoreV1Client
 }
 
 // ClustersV1 retrieves the ClustersV1Client
@@ -66,6 +69,11 @@ func (c *Clientset) OrgV1() orgv1.OrgV1Interface {
 // RbacV1 retrieves the RbacV1Client
 func (c *Clientset) RbacV1() rbacv1.RbacV1Interface {
 	return c.rbacV1
+}
+
+// StoreV1 retrieves the StoreV1Client
+func (c *Clientset) StoreV1() storev1.StoreV1Interface {
+	return c.storeV1
 }
 
 // Discovery retrieves the DiscoveryClient
@@ -105,6 +113,10 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
+	cs.storeV1, err = storev1.NewForConfig(&configShallowCopy)
+	if err != nil {
+		return nil, err
+	}
 
 	cs.DiscoveryClient, err = discovery.NewDiscoveryClientForConfig(&configShallowCopy)
 	if err != nil {
@@ -121,6 +133,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 	cs.configV1 = configv1.NewForConfigOrDie(c)
 	cs.orgV1 = orgv1.NewForConfigOrDie(c)
 	cs.rbacV1 = rbacv1.NewForConfigOrDie(c)
+	cs.storeV1 = storev1.NewForConfigOrDie(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClientForConfigOrDie(c)
 	return &cs
@@ -133,6 +146,7 @@ func New(c rest.Interface) *Clientset {
 	cs.configV1 = configv1.New(c)
 	cs.orgV1 = orgv1.New(c)
 	cs.rbacV1 = rbacv1.New(c)
+	cs.storeV1 = storev1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
 	return &cs

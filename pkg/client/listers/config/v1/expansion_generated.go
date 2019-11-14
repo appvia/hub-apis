@@ -18,14 +18,22 @@ limitations under the License.
 
 package v1
 
+// AllocationListListerExpansion allows custom methods to be added to
+// AllocationListLister.
+type AllocationListListerExpansion interface{}
+
+// AllocationListNamespaceListerExpansion allows custom methods to be added to
+// AllocationListNamespaceLister.
+type AllocationListNamespaceListerExpansion interface{}
+
+// BindingListListerExpansion allows custom methods to be added to
+// BindingListLister.
+type BindingListListerExpansion interface{}
+
+// BindingListNamespaceListerExpansion allows custom methods to be added to
+// BindingListNamespaceLister.
+type BindingListNamespaceListerExpansion interface{}
+
 // ClassListerExpansion allows custom methods to be added to
 // ClassLister.
 type ClassListerExpansion interface{}
-
-// ClassInstanceListListerExpansion allows custom methods to be added to
-// ClassInstanceListLister.
-type ClassInstanceListListerExpansion interface{}
-
-// ClassInstanceListNamespaceListerExpansion allows custom methods to be added to
-// ClassInstanceListNamespaceLister.
-type ClassInstanceListNamespaceListerExpansion interface{}

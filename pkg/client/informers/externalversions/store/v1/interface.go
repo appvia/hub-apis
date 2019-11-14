@@ -24,12 +24,8 @@ import (
 
 // Interface provides access to all the informers in this group version.
 type Interface interface {
-	// AllocationLists returns a AllocationListInformer.
-	AllocationLists() AllocationListInformer
-	// BindingLists returns a BindingListInformer.
-	BindingLists() BindingListInformer
-	// Classes returns a ClassInformer.
-	Classes() ClassInformer
+	// Entities returns a EntityInformer.
+	Entities() EntityInformer
 }
 
 type version struct {
@@ -43,17 +39,7 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
 }
 
-// AllocationLists returns a AllocationListInformer.
-func (v *version) AllocationLists() AllocationListInformer {
-	return &allocationListInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
-}
-
-// BindingLists returns a BindingListInformer.
-func (v *version) BindingLists() BindingListInformer {
-	return &bindingListInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
-}
-
-// Classes returns a ClassInformer.
-func (v *version) Classes() ClassInformer {
-	return &classInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+// Entities returns a EntityInformer.
+func (v *version) Entities() EntityInformer {
+	return &entityInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }

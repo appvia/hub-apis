@@ -18,8 +18,4 @@ limitations under the License.
 
 package v1
 
-type AllocationListExpansion interface{}
-
-type BindingListExpansion interface{}
-
-type ClassExpansion interface{}
+type EntityExpansion interface{}

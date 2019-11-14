@@ -84,6 +84,7 @@ spec:
                     type: string
                   displayName:
                     description: DisplayName is a short name for the resource
+                    minLength: 1
                     type: string
                   kind:
                     description: Kind is the name of the resource under the group
@@ -105,6 +106,10 @@ spec:
                     description: ShortDescription provides a paragraph to description
                       was the resource is used for
                     type: string
+                  unique:
+                    description: Unique indicates only one resource can be created
+                      in the scope
+                    type: boolean
                   version:
                     description: Version is the apigroup version of the kind
                     minLength: 1
@@ -116,6 +121,7 @@ spec:
                 - longDescription
                 - scope
                 - shortDescription
+                - unique
                 - version
                 type: object
               minItems: 1

@@ -29,6 +29,7 @@ import (
 	internalinterfaces "github.com/appvia/hub-apis/pkg/client/informers/externalversions/internalinterfaces"
 	org "github.com/appvia/hub-apis/pkg/client/informers/externalversions/org"
 	rbac "github.com/appvia/hub-apis/pkg/client/informers/externalversions/rbac"
+	store "github.com/appvia/hub-apis/pkg/client/informers/externalversions/store"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -179,6 +180,7 @@ type SharedInformerFactory interface {
 	Config() config.Interface
 	Org() org.Interface
 	Rbac() rbac.Interface
+	Store() store.Interface
 }
 
 func (f *sharedInformerFactory) Clusters() clusters.Interface {
@@ -195,4 +197,8 @@ func (f *sharedInformerFactory) Org() org.Interface {
 
 func (f *sharedInformerFactory) Rbac() rbac.Interface {
 	return rbac.New(f, f.namespace, f.tweakListOptions)
+}
+
+func (f *sharedInformerFactory) Store() store.Interface {
+	return store.New(f, f.namespace, f.tweakListOptions)
 }

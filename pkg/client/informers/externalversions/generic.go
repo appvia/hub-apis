@@ -25,6 +25,7 @@ import (
 	configv1 "github.com/appvia/hub-apis/pkg/apis/config/v1"
 	orgv1 "github.com/appvia/hub-apis/pkg/apis/org/v1"
 	rbacv1 "github.com/appvia/hub-apis/pkg/apis/rbac/v1"
+	storev1 "github.com/appvia/hub-apis/pkg/apis/store/v1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 )
@@ -62,10 +63,12 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Clusters().V1().Kuberneteses().Informer()}, nil
 
 		// Group=config.hub.appvia.io, Version=v1
+	case configv1.SchemeGroupVersion.WithResource("allocationlists"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1().AllocationLists().Informer()}, nil
+	case configv1.SchemeGroupVersion.WithResource("bindinglists"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1().BindingLists().Informer()}, nil
 	case configv1.SchemeGroupVersion.WithResource("classes"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1().Classes().Informer()}, nil
-	case configv1.SchemeGroupVersion.WithResource("classinstancelists"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1().ClassInstanceLists().Informer()}, nil
 
 		// Group=org.hub.appvia.io, Version=v1
 	case orgv1.SchemeGroupVersion.WithResource("teams"):
@@ -82,6 +85,10 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Rbac().V1().Bindings().Informer()}, nil
 	case rbacv1.SchemeGroupVersion.WithResource("roles"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Rbac().V1().Roles().Informer()}, nil
+
+		// Group=store.hub.appvia.io, Version=v1
+	case storev1.SchemeGroupVersion.WithResource("entities"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Store().V1().Entities().Informer()}, nil
 
 	}
 

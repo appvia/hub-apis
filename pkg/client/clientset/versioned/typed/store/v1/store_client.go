@@ -19,37 +19,27 @@ limitations under the License.
 package v1
 
 import (
-	v1 "github.com/appvia/hub-apis/pkg/apis/config/v1"
+	v1 "github.com/appvia/hub-apis/pkg/apis/store/v1"
 	"github.com/appvia/hub-apis/pkg/client/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
 
-type ConfigV1Interface interface {
+type StoreV1Interface interface {
 	RESTClient() rest.Interface
-	AllocationListsGetter
-	BindingListsGetter
-	ClassesGetter
+	EntitiesGetter
 }
 
-// ConfigV1Client is used to interact with features provided by the config.hub.appvia.io group.
-type ConfigV1Client struct {
+// StoreV1Client is used to interact with features provided by the store.hub.appvia.io group.
+type StoreV1Client struct {
 	restClient rest.Interface
 }
 
-func (c *ConfigV1Client) AllocationLists(namespace string) AllocationListInterface {
-	return newAllocationLists(c, namespace)
+func (c *StoreV1Client) Entities(namespace string) EntityInterface {
+	return newEntities(c, namespace)
 }
 
-func (c *ConfigV1Client) BindingLists(namespace string) BindingListInterface {
-	return newBindingLists(c, namespace)
-}
-
-func (c *ConfigV1Client) Classes() ClassInterface {
-	return newClasses(c)
-}
-
-// NewForConfig creates a new ConfigV1Client for the given config.
-func NewForConfig(c *rest.Config) (*ConfigV1Client, error) {
+// NewForConfig creates a new StoreV1Client for the given config.
+func NewForConfig(c *rest.Config) (*StoreV1Client, error) {
 	config := *c
 	if err := setConfigDefaults(&config); err != nil {
 		return nil, err
@@ -58,12 +48,12 @@ func NewForConfig(c *rest.Config) (*ConfigV1Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &ConfigV1Client{client}, nil
+	return &StoreV1Client{client}, nil
 }
 
-// NewForConfigOrDie creates a new ConfigV1Client for the given config and
+// NewForConfigOrDie creates a new StoreV1Client for the given config and
 // panics if there is an error in the config.
-func NewForConfigOrDie(c *rest.Config) *ConfigV1Client {
+func NewForConfigOrDie(c *rest.Config) *StoreV1Client {
 	client, err := NewForConfig(c)
 	if err != nil {
 		panic(err)
@@ -71,9 +61,9 @@ func NewForConfigOrDie(c *rest.Config) *ConfigV1Client {
 	return client
 }
 
-// New creates a new ConfigV1Client for the given RESTClient.
-func New(c rest.Interface) *ConfigV1Client {
-	return &ConfigV1Client{c}
+// New creates a new StoreV1Client for the given RESTClient.
+func New(c rest.Interface) *StoreV1Client {
+	return &StoreV1Client{c}
 }
 
 func setConfigDefaults(config *rest.Config) error {
@@ -91,7 +81,7 @@ func setConfigDefaults(config *rest.Config) error {
 
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
-func (c *ConfigV1Client) RESTClient() rest.Interface {
+func (c *StoreV1Client) RESTClient() rest.Interface {
 	if c == nil {
 		return nil
 	}
