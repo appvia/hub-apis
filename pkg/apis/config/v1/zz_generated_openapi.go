@@ -187,7 +187,8 @@ func schema_pkg_apis_config_v1_BindingSpec(ref common.ReferenceCallback) common.
 					"classRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ClassRef is the reference to the provider of this class",
-							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersion"),
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"instanceRef": {
@@ -201,7 +202,7 @@ func schema_pkg_apis_config_v1_BindingSpec(ref common.ReferenceCallback) common.
 			},
 		},
 		Dependencies: []string{
-			"github.com/appvia/hub-apis/pkg/apis/config/v1.Ownership", "k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersion"},
+			"github.com/appvia/hub-apis/pkg/apis/config/v1.Ownership"},
 	}
 }
 

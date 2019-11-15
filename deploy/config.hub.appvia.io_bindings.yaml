@@ -38,15 +38,7 @@ spec:
           properties:
             classRef:
               description: ClassRef is the reference to the provider of this class
-              properties:
-                group:
-                  type: string
-                version:
-                  type: string
-              required:
-              - group
-              - version
-              type: object
+              type: string
             instanceRef:
               description: InstanceRef is a reference to the configuration object
               properties:

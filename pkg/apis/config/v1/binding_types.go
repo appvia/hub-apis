@@ -26,7 +26,7 @@ import (
 type BindingSpec struct {
 	// ClassRef is the reference to the provider of this class
 	// +kubebuilder:validation:Required
-	ClassRef metav1.GroupVersion `json:"classRef"`
+	ClassRef string `json:"classRef"`
 	// InstanceRef is a reference to the configuration object
 	// +kubebuilder:validation:Required
 	InstanceRef Ownership `json:"instanceRef"`
