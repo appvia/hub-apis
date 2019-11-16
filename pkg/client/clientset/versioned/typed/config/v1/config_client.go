@@ -27,7 +27,9 @@ import (
 
 type ConfigV1Interface interface {
 	RESTClient() rest.Interface
+	AllocationsGetter
 	AllocationListsGetter
+	BindingsGetter
 	BindingListsGetter
 	ClassesGetter
 }
@@ -37,16 +39,24 @@ type ConfigV1Client struct {
 	restClient rest.Interface
 }
 
+func (c *ConfigV1Client) Allocations(namespace string) AllocationInterface {
+	return newAllocations(c, namespace)
+}
+
 func (c *ConfigV1Client) AllocationLists(namespace string) AllocationListInterface {
 	return newAllocationLists(c, namespace)
+}
+
+func (c *ConfigV1Client) Bindings(namespace string) BindingInterface {
+	return newBindings(c, namespace)
 }
 
 func (c *ConfigV1Client) BindingLists(namespace string) BindingListInterface {
 	return newBindingLists(c, namespace)
 }
 
-func (c *ConfigV1Client) Classes() ClassInterface {
-	return newClasses(c)
+func (c *ConfigV1Client) Classes(namespace string) ClassInterface {
+	return newClasses(c, namespace)
 }
 
 // NewForConfig creates a new ConfigV1Client for the given config.

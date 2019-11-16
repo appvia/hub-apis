@@ -31,59 +31,59 @@ import (
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// ClassInformer provides access to a shared informer and lister for
-// Classes.
-type ClassInformer interface {
+// AllocationInformer provides access to a shared informer and lister for
+// Allocations.
+type AllocationInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1.ClassLister
+	Lister() v1.AllocationLister
 }
 
-type classInformer struct {
+type allocationInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
 	namespace        string
 }
 
-// NewClassInformer constructs a new informer for Class type.
+// NewAllocationInformer constructs a new informer for Allocation type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewClassInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredClassInformer(client, namespace, resyncPeriod, indexers, nil)
+func NewAllocationInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredAllocationInformer(client, namespace, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredClassInformer constructs a new informer for Class type.
+// NewFilteredAllocationInformer constructs a new informer for Allocation type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredClassInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredAllocationInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ConfigV1().Classes(namespace).List(options)
+				return client.ConfigV1().Allocations(namespace).List(options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ConfigV1().Classes(namespace).Watch(options)
+				return client.ConfigV1().Allocations(namespace).Watch(options)
 			},
 		},
-		&configv1.Class{},
+		&configv1.Allocation{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *classInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredClassInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *allocationInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredAllocationInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *classInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&configv1.Class{}, f.defaultInformer)
+func (f *allocationInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&configv1.Allocation{}, f.defaultInformer)
 }
 
-func (f *classInformer) Lister() v1.ClassLister {
-	return v1.NewClassLister(f.Informer().GetIndexer())
+func (f *allocationInformer) Lister() v1.AllocationLister {
+	return v1.NewAllocationLister(f.Informer().GetIndexer())
 }

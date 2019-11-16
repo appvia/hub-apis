@@ -24,8 +24,12 @@ import (
 
 // Interface provides access to all the informers in this group version.
 type Interface interface {
+	// Allocations returns a AllocationInformer.
+	Allocations() AllocationInformer
 	// AllocationLists returns a AllocationListInformer.
 	AllocationLists() AllocationListInformer
+	// Bindings returns a BindingInformer.
+	Bindings() BindingInformer
 	// BindingLists returns a BindingListInformer.
 	BindingLists() BindingListInformer
 	// Classes returns a ClassInformer.
@@ -43,9 +47,19 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
 }
 
+// Allocations returns a AllocationInformer.
+func (v *version) Allocations() AllocationInformer {
+	return &allocationInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
 // AllocationLists returns a AllocationListInformer.
 func (v *version) AllocationLists() AllocationListInformer {
 	return &allocationListInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// Bindings returns a BindingInformer.
+func (v *version) Bindings() BindingInformer {
+	return &bindingInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // BindingLists returns a BindingListInformer.
@@ -55,5 +69,5 @@ func (v *version) BindingLists() BindingListInformer {
 
 // Classes returns a ClassInformer.
 func (v *version) Classes() ClassInformer {
-	return &classInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+	return &classInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }

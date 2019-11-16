@@ -36,6 +36,7 @@ type BindingSpec struct {
 // +k8s:openapi-gen=true
 type BindingStatus struct{}
 
+// +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // Binding is the Schema for the classinstances API

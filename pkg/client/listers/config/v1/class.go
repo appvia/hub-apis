@@ -29,8 +29,8 @@ import (
 type ClassLister interface {
 	// List lists all Classes in the indexer.
 	List(selector labels.Selector) (ret []*v1.Class, err error)
-	// Get retrieves the Class from the index for a given name.
-	Get(name string) (*v1.Class, error)
+	// Classes returns an object that can list and get Classes.
+	Classes(namespace string) ClassNamespaceLister
 	ClassListerExpansion
 }
 
@@ -52,9 +52,38 @@ func (s *classLister) List(selector labels.Selector) (ret []*v1.Class, err error
 	return ret, err
 }
 
-// Get retrieves the Class from the index for a given name.
-func (s *classLister) Get(name string) (*v1.Class, error) {
-	obj, exists, err := s.indexer.GetByKey(name)
+// Classes returns an object that can list and get Classes.
+func (s *classLister) Classes(namespace string) ClassNamespaceLister {
+	return classNamespaceLister{indexer: s.indexer, namespace: namespace}
+}
+
+// ClassNamespaceLister helps list and get Classes.
+type ClassNamespaceLister interface {
+	// List lists all Classes in the indexer for a given namespace.
+	List(selector labels.Selector) (ret []*v1.Class, err error)
+	// Get retrieves the Class from the indexer for a given namespace and name.
+	Get(name string) (*v1.Class, error)
+	ClassNamespaceListerExpansion
+}
+
+// classNamespaceLister implements the ClassNamespaceLister
+// interface.
+type classNamespaceLister struct {
+	indexer   cache.Indexer
+	namespace string
+}
+
+// List lists all Classes in the indexer for a given namespace.
+func (s classNamespaceLister) List(selector labels.Selector) (ret []*v1.Class, err error) {
+	err = cache.ListAllByNamespace(s.indexer, s.namespace, selector, func(m interface{}) {
+		ret = append(ret, m.(*v1.Class))
+	})
+	return ret, err
+}
+
+// Get retrieves the Class from the indexer for a given namespace and name.
+func (s classNamespaceLister) Get(name string) (*v1.Class, error) {
+	obj, exists, err := s.indexer.GetByKey(s.namespace + "/" + name)
 	if err != nil {
 		return nil, err
 	}

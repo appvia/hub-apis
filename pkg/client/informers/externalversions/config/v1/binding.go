@@ -31,59 +31,59 @@ import (
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// ClassInformer provides access to a shared informer and lister for
-// Classes.
-type ClassInformer interface {
+// BindingInformer provides access to a shared informer and lister for
+// Bindings.
+type BindingInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1.ClassLister
+	Lister() v1.BindingLister
 }
 
-type classInformer struct {
+type bindingInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
 	namespace        string
 }
 
-// NewClassInformer constructs a new informer for Class type.
+// NewBindingInformer constructs a new informer for Binding type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewClassInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredClassInformer(client, namespace, resyncPeriod, indexers, nil)
+func NewBindingInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredBindingInformer(client, namespace, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredClassInformer constructs a new informer for Class type.
+// NewFilteredBindingInformer constructs a new informer for Binding type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredClassInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredBindingInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ConfigV1().Classes(namespace).List(options)
+				return client.ConfigV1().Bindings(namespace).List(options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ConfigV1().Classes(namespace).Watch(options)
+				return client.ConfigV1().Bindings(namespace).Watch(options)
 			},
 		},
-		&configv1.Class{},
+		&configv1.Binding{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *classInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredClassInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *bindingInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredBindingInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *classInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&configv1.Class{}, f.defaultInformer)
+func (f *bindingInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&configv1.Binding{}, f.defaultInformer)
 }
 
-func (f *classInformer) Lister() v1.ClassLister {
-	return v1.NewClassLister(f.Informer().GetIndexer())
+func (f *bindingInformer) Lister() v1.BindingLister {
+	return v1.NewBindingLister(f.Informer().GetIndexer())
 }

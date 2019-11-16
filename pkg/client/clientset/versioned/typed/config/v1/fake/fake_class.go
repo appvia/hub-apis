@@ -31,6 +31,7 @@ import (
 // FakeClasses implements ClassInterface
 type FakeClasses struct {
 	Fake *FakeConfigV1
+	ns   string
 }
 
 var classesResource = schema.GroupVersionResource{Group: "config.hub.appvia.io", Version: "v1", Resource: "classes"}
@@ -40,7 +41,8 @@ var classesKind = schema.GroupVersionKind{Group: "config.hub.appvia.io", Version
 // Get takes name of the class, and returns the corresponding class object, and an error if there is any.
 func (c *FakeClasses) Get(name string, options v1.GetOptions) (result *configv1.Class, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootGetAction(classesResource, name), &configv1.Class{})
+		Invokes(testing.NewGetAction(classesResource, c.ns, name), &configv1.Class{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -50,7 +52,8 @@ func (c *FakeClasses) Get(name string, options v1.GetOptions) (result *configv1.
 // List takes label and field selectors, and returns the list of Classes that match those selectors.
 func (c *FakeClasses) List(opts v1.ListOptions) (result *configv1.ClassList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootListAction(classesResource, classesKind, opts), &configv1.ClassList{})
+		Invokes(testing.NewListAction(classesResource, classesKind, c.ns, opts), &configv1.ClassList{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -71,13 +74,15 @@ func (c *FakeClasses) List(opts v1.ListOptions) (result *configv1.ClassList, err
 // Watch returns a watch.Interface that watches the requested classes.
 func (c *FakeClasses) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
-		InvokesWatch(testing.NewRootWatchAction(classesResource, opts))
+		InvokesWatch(testing.NewWatchAction(classesResource, c.ns, opts))
+
 }
 
 // Create takes the representation of a class and creates it.  Returns the server's representation of the class, and an error, if there is any.
 func (c *FakeClasses) Create(class *configv1.Class) (result *configv1.Class, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootCreateAction(classesResource, class), &configv1.Class{})
+		Invokes(testing.NewCreateAction(classesResource, c.ns, class), &configv1.Class{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -87,7 +92,8 @@ func (c *FakeClasses) Create(class *configv1.Class) (result *configv1.Class, err
 // Update takes the representation of a class and updates it. Returns the server's representation of the class, and an error, if there is any.
 func (c *FakeClasses) Update(class *configv1.Class) (result *configv1.Class, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootUpdateAction(classesResource, class), &configv1.Class{})
+		Invokes(testing.NewUpdateAction(classesResource, c.ns, class), &configv1.Class{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -98,7 +104,8 @@ func (c *FakeClasses) Update(class *configv1.Class) (result *configv1.Class, err
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
 func (c *FakeClasses) UpdateStatus(class *configv1.Class) (*configv1.Class, error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootUpdateSubresourceAction(classesResource, "status", class), &configv1.Class{})
+		Invokes(testing.NewUpdateSubresourceAction(classesResource, "status", c.ns, class), &configv1.Class{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -108,13 +115,14 @@ func (c *FakeClasses) UpdateStatus(class *configv1.Class) (*configv1.Class, erro
 // Delete takes name of the class and deletes it. Returns an error if one occurs.
 func (c *FakeClasses) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewRootDeleteAction(classesResource, name), &configv1.Class{})
+		Invokes(testing.NewDeleteAction(classesResource, c.ns, name), &configv1.Class{})
+
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
 func (c *FakeClasses) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(classesResource, listOptions)
+	action := testing.NewDeleteCollectionAction(classesResource, c.ns, listOptions)
 
 	_, err := c.Fake.Invokes(action, &configv1.ClassList{})
 	return err
@@ -123,7 +131,8 @@ func (c *FakeClasses) DeleteCollection(options *v1.DeleteOptions, listOptions v1
 // Patch applies the patch and returns the patched class.
 func (c *FakeClasses) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *configv1.Class, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootPatchSubresourceAction(classesResource, name, pt, data, subresources...), &configv1.Class{})
+		Invokes(testing.NewPatchSubresourceAction(classesResource, c.ns, name, pt, data, subresources...), &configv1.Class{})
+
 	if obj == nil {
 		return nil, err
 	}

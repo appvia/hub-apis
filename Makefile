@@ -24,6 +24,7 @@ golang:
 
 all: golang
 	@echo "--> Generating Clientsets & Deepcopies"
+	@rm -f pkg/client 2>/dev/null
 	@hack/update-codegen.sh
 	@${MAKE} openapi-gen
 	@${MAKE} register-gen

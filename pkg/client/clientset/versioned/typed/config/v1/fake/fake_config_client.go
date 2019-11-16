@@ -28,16 +28,24 @@ type FakeConfigV1 struct {
 	*testing.Fake
 }
 
+func (c *FakeConfigV1) Allocations(namespace string) v1.AllocationInterface {
+	return &FakeAllocations{c, namespace}
+}
+
 func (c *FakeConfigV1) AllocationLists(namespace string) v1.AllocationListInterface {
 	return &FakeAllocationLists{c, namespace}
+}
+
+func (c *FakeConfigV1) Bindings(namespace string) v1.BindingInterface {
+	return &FakeBindings{c, namespace}
 }
 
 func (c *FakeConfigV1) BindingLists(namespace string) v1.BindingListInterface {
 	return &FakeBindingLists{c, namespace}
 }
 
-func (c *FakeConfigV1) Classes() v1.ClassInterface {
-	return &FakeClasses{c}
+func (c *FakeConfigV1) Classes(namespace string) v1.ClassInterface {
+	return &FakeClasses{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

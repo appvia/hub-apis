@@ -29,46 +29,46 @@ import (
 	rest "k8s.io/client-go/rest"
 )
 
-// ClassesGetter has a method to return a ClassInterface.
+// BindingsGetter has a method to return a BindingInterface.
 // A group's client should implement this interface.
-type ClassesGetter interface {
-	Classes(namespace string) ClassInterface
+type BindingsGetter interface {
+	Bindings(namespace string) BindingInterface
 }
 
-// ClassInterface has methods to work with Class resources.
-type ClassInterface interface {
-	Create(*v1.Class) (*v1.Class, error)
-	Update(*v1.Class) (*v1.Class, error)
-	UpdateStatus(*v1.Class) (*v1.Class, error)
+// BindingInterface has methods to work with Binding resources.
+type BindingInterface interface {
+	Create(*v1.Binding) (*v1.Binding, error)
+	Update(*v1.Binding) (*v1.Binding, error)
+	UpdateStatus(*v1.Binding) (*v1.Binding, error)
 	Delete(name string, options *metav1.DeleteOptions) error
 	DeleteCollection(options *metav1.DeleteOptions, listOptions metav1.ListOptions) error
-	Get(name string, options metav1.GetOptions) (*v1.Class, error)
-	List(opts metav1.ListOptions) (*v1.ClassList, error)
+	Get(name string, options metav1.GetOptions) (*v1.Binding, error)
+	List(opts metav1.ListOptions) (*v1.BindingList, error)
 	Watch(opts metav1.ListOptions) (watch.Interface, error)
-	Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1.Class, err error)
-	ClassExpansion
+	Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1.Binding, err error)
+	BindingExpansion
 }
 
-// classes implements ClassInterface
-type classes struct {
+// bindings implements BindingInterface
+type bindings struct {
 	client rest.Interface
 	ns     string
 }
 
-// newClasses returns a Classes
-func newClasses(c *ConfigV1Client, namespace string) *classes {
-	return &classes{
+// newBindings returns a Bindings
+func newBindings(c *ConfigV1Client, namespace string) *bindings {
+	return &bindings{
 		client: c.RESTClient(),
 		ns:     namespace,
 	}
 }
 
-// Get takes name of the class, and returns the corresponding class object, and an error if there is any.
-func (c *classes) Get(name string, options metav1.GetOptions) (result *v1.Class, err error) {
-	result = &v1.Class{}
+// Get takes name of the binding, and returns the corresponding binding object, and an error if there is any.
+func (c *bindings) Get(name string, options metav1.GetOptions) (result *v1.Binding, err error) {
+	result = &v1.Binding{}
 	err = c.client.Get().
 		Namespace(c.ns).
-		Resource("classes").
+		Resource("bindings").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
 		Do().
@@ -76,16 +76,16 @@ func (c *classes) Get(name string, options metav1.GetOptions) (result *v1.Class,
 	return
 }
 
-// List takes label and field selectors, and returns the list of Classes that match those selectors.
-func (c *classes) List(opts metav1.ListOptions) (result *v1.ClassList, err error) {
+// List takes label and field selectors, and returns the list of Bindings that match those selectors.
+func (c *bindings) List(opts metav1.ListOptions) (result *v1.BindingList, err error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
 	}
-	result = &v1.ClassList{}
+	result = &v1.BindingList{}
 	err = c.client.Get().
 		Namespace(c.ns).
-		Resource("classes").
+		Resource("bindings").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
 		Do().
@@ -93,8 +93,8 @@ func (c *classes) List(opts metav1.ListOptions) (result *v1.ClassList, err error
 	return
 }
 
-// Watch returns a watch.Interface that watches the requested classes.
-func (c *classes) Watch(opts metav1.ListOptions) (watch.Interface, error) {
+// Watch returns a watch.Interface that watches the requested bindings.
+func (c *bindings) Watch(opts metav1.ListOptions) (watch.Interface, error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -102,32 +102,32 @@ func (c *classes) Watch(opts metav1.ListOptions) (watch.Interface, error) {
 	opts.Watch = true
 	return c.client.Get().
 		Namespace(c.ns).
-		Resource("classes").
+		Resource("bindings").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
 		Watch()
 }
 
-// Create takes the representation of a class and creates it.  Returns the server's representation of the class, and an error, if there is any.
-func (c *classes) Create(class *v1.Class) (result *v1.Class, err error) {
-	result = &v1.Class{}
+// Create takes the representation of a binding and creates it.  Returns the server's representation of the binding, and an error, if there is any.
+func (c *bindings) Create(binding *v1.Binding) (result *v1.Binding, err error) {
+	result = &v1.Binding{}
 	err = c.client.Post().
 		Namespace(c.ns).
-		Resource("classes").
-		Body(class).
+		Resource("bindings").
+		Body(binding).
 		Do().
 		Into(result)
 	return
 }
 
-// Update takes the representation of a class and updates it. Returns the server's representation of the class, and an error, if there is any.
-func (c *classes) Update(class *v1.Class) (result *v1.Class, err error) {
-	result = &v1.Class{}
+// Update takes the representation of a binding and updates it. Returns the server's representation of the binding, and an error, if there is any.
+func (c *bindings) Update(binding *v1.Binding) (result *v1.Binding, err error) {
+	result = &v1.Binding{}
 	err = c.client.Put().
 		Namespace(c.ns).
-		Resource("classes").
-		Name(class.Name).
-		Body(class).
+		Resource("bindings").
+		Name(binding.Name).
+		Body(binding).
 		Do().
 		Into(result)
 	return
@@ -136,24 +136,24 @@ func (c *classes) Update(class *v1.Class) (result *v1.Class, err error) {
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
 
-func (c *classes) UpdateStatus(class *v1.Class) (result *v1.Class, err error) {
-	result = &v1.Class{}
+func (c *bindings) UpdateStatus(binding *v1.Binding) (result *v1.Binding, err error) {
+	result = &v1.Binding{}
 	err = c.client.Put().
 		Namespace(c.ns).
-		Resource("classes").
-		Name(class.Name).
+		Resource("bindings").
+		Name(binding.Name).
 		SubResource("status").
-		Body(class).
+		Body(binding).
 		Do().
 		Into(result)
 	return
 }
 
-// Delete takes name of the class and deletes it. Returns an error if one occurs.
-func (c *classes) Delete(name string, options *metav1.DeleteOptions) error {
+// Delete takes name of the binding and deletes it. Returns an error if one occurs.
+func (c *bindings) Delete(name string, options *metav1.DeleteOptions) error {
 	return c.client.Delete().
 		Namespace(c.ns).
-		Resource("classes").
+		Resource("bindings").
 		Name(name).
 		Body(options).
 		Do().
@@ -161,14 +161,14 @@ func (c *classes) Delete(name string, options *metav1.DeleteOptions) error {
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *classes) DeleteCollection(options *metav1.DeleteOptions, listOptions metav1.ListOptions) error {
+func (c *bindings) DeleteCollection(options *metav1.DeleteOptions, listOptions metav1.ListOptions) error {
 	var timeout time.Duration
 	if listOptions.TimeoutSeconds != nil {
 		timeout = time.Duration(*listOptions.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
 		Namespace(c.ns).
-		Resource("classes").
+		Resource("bindings").
 		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
 		Body(options).
@@ -176,12 +176,12 @@ func (c *classes) DeleteCollection(options *metav1.DeleteOptions, listOptions me
 		Error()
 }
 
-// Patch applies the patch and returns the patched class.
-func (c *classes) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1.Class, err error) {
-	result = &v1.Class{}
+// Patch applies the patch and returns the patched binding.
+func (c *bindings) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1.Binding, err error) {
+	result = &v1.Binding{}
 	err = c.client.Patch(pt).
 		Namespace(c.ns).
-		Resource("classes").
+		Resource("bindings").
 		SubResource(subresources...).
 		Name(name).
 		Body(data).

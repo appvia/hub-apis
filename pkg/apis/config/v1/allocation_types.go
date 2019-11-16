@@ -38,6 +38,7 @@ type AllocationSpec struct {
 // +k8s:openapi-gen=true
 type AllocationStatus struct{}
 
+// +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // Allocation is the Schema for the allocations API
