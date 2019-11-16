@@ -43,10 +43,10 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 
 // Bindings returns a BindingInformer.
 func (v *version) Bindings() BindingInformer {
-	return &bindingInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+	return &bindingInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // Roles returns a RoleInformer.
 func (v *version) Roles() RoleInformer {
-	return &roleInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+	return &roleInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }

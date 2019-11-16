@@ -22,6 +22,14 @@ package v1
 // BindingLister.
 type BindingListerExpansion interface{}
 
+// BindingNamespaceListerExpansion allows custom methods to be added to
+// BindingNamespaceLister.
+type BindingNamespaceListerExpansion interface{}
+
 // RoleListerExpansion allows custom methods to be added to
 // RoleLister.
 type RoleListerExpansion interface{}
+
+// RoleNamespaceListerExpansion allows custom methods to be added to
+// RoleNamespaceLister.
+type RoleNamespaceListerExpansion interface{}

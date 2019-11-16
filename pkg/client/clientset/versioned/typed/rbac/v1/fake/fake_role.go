@@ -31,6 +31,7 @@ import (
 // FakeRoles implements RoleInterface
 type FakeRoles struct {
 	Fake *FakeRbacV1
+	ns   string
 }
 
 var rolesResource = schema.GroupVersionResource{Group: "rbac.hub.appvia.io", Version: "v1", Resource: "roles"}
@@ -40,7 +41,8 @@ var rolesKind = schema.GroupVersionKind{Group: "rbac.hub.appvia.io", Version: "v
 // Get takes name of the role, and returns the corresponding role object, and an error if there is any.
 func (c *FakeRoles) Get(name string, options v1.GetOptions) (result *rbacv1.Role, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootGetAction(rolesResource, name), &rbacv1.Role{})
+		Invokes(testing.NewGetAction(rolesResource, c.ns, name), &rbacv1.Role{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -50,7 +52,8 @@ func (c *FakeRoles) Get(name string, options v1.GetOptions) (result *rbacv1.Role
 // List takes label and field selectors, and returns the list of Roles that match those selectors.
 func (c *FakeRoles) List(opts v1.ListOptions) (result *rbacv1.RoleList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootListAction(rolesResource, rolesKind, opts), &rbacv1.RoleList{})
+		Invokes(testing.NewListAction(rolesResource, rolesKind, c.ns, opts), &rbacv1.RoleList{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -71,13 +74,15 @@ func (c *FakeRoles) List(opts v1.ListOptions) (result *rbacv1.RoleList, err erro
 // Watch returns a watch.Interface that watches the requested roles.
 func (c *FakeRoles) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
-		InvokesWatch(testing.NewRootWatchAction(rolesResource, opts))
+		InvokesWatch(testing.NewWatchAction(rolesResource, c.ns, opts))
+
 }
 
 // Create takes the representation of a role and creates it.  Returns the server's representation of the role, and an error, if there is any.
 func (c *FakeRoles) Create(role *rbacv1.Role) (result *rbacv1.Role, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootCreateAction(rolesResource, role), &rbacv1.Role{})
+		Invokes(testing.NewCreateAction(rolesResource, c.ns, role), &rbacv1.Role{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -87,7 +92,8 @@ func (c *FakeRoles) Create(role *rbacv1.Role) (result *rbacv1.Role, err error) {
 // Update takes the representation of a role and updates it. Returns the server's representation of the role, and an error, if there is any.
 func (c *FakeRoles) Update(role *rbacv1.Role) (result *rbacv1.Role, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootUpdateAction(rolesResource, role), &rbacv1.Role{})
+		Invokes(testing.NewUpdateAction(rolesResource, c.ns, role), &rbacv1.Role{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -98,7 +104,8 @@ func (c *FakeRoles) Update(role *rbacv1.Role) (result *rbacv1.Role, err error) {
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
 func (c *FakeRoles) UpdateStatus(role *rbacv1.Role) (*rbacv1.Role, error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootUpdateSubresourceAction(rolesResource, "status", role), &rbacv1.Role{})
+		Invokes(testing.NewUpdateSubresourceAction(rolesResource, "status", c.ns, role), &rbacv1.Role{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -108,13 +115,14 @@ func (c *FakeRoles) UpdateStatus(role *rbacv1.Role) (*rbacv1.Role, error) {
 // Delete takes name of the role and deletes it. Returns an error if one occurs.
 func (c *FakeRoles) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewRootDeleteAction(rolesResource, name), &rbacv1.Role{})
+		Invokes(testing.NewDeleteAction(rolesResource, c.ns, name), &rbacv1.Role{})
+
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
 func (c *FakeRoles) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(rolesResource, listOptions)
+	action := testing.NewDeleteCollectionAction(rolesResource, c.ns, listOptions)
 
 	_, err := c.Fake.Invokes(action, &rbacv1.RoleList{})
 	return err
@@ -123,7 +131,8 @@ func (c *FakeRoles) DeleteCollection(options *v1.DeleteOptions, listOptions v1.L
 // Patch applies the patch and returns the patched role.
 func (c *FakeRoles) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *rbacv1.Role, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootPatchSubresourceAction(rolesResource, name, pt, data, subresources...), &rbacv1.Role{})
+		Invokes(testing.NewPatchSubresourceAction(rolesResource, c.ns, name, pt, data, subresources...), &rbacv1.Role{})
+
 	if obj == nil {
 		return nil, err
 	}

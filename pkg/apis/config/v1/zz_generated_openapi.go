@@ -29,12 +29,99 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/appvia/hub-apis/pkg/apis/config/v1.Class":       schema_pkg_apis_config_v1_Class(ref),
-		"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassSpec":   schema_pkg_apis_config_v1_ClassSpec(ref),
-		"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassStatus": schema_pkg_apis_config_v1_ClassStatus(ref),
-		"github.com/appvia/hub-apis/pkg/apis/config/v1.Plan":        schema_pkg_apis_config_v1_Plan(ref),
-		"github.com/appvia/hub-apis/pkg/apis/config/v1.PlanSpec":    schema_pkg_apis_config_v1_PlanSpec(ref),
-		"github.com/appvia/hub-apis/pkg/apis/config/v1.PlanStatus":  schema_pkg_apis_config_v1_PlanStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.Binding":       schema_pkg_apis_config_v1_Binding(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.BindingSpec":   schema_pkg_apis_config_v1_BindingSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.BindingStatus": schema_pkg_apis_config_v1_BindingStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.Class":         schema_pkg_apis_config_v1_Class(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassSpec":     schema_pkg_apis_config_v1_ClassSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassStatus":   schema_pkg_apis_config_v1_ClassStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.Plan":          schema_pkg_apis_config_v1_Plan(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.PlanSpec":      schema_pkg_apis_config_v1_PlanSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.PlanStatus":    schema_pkg_apis_config_v1_PlanStatus(ref),
+	}
+}
+
+func schema_pkg_apis_config_v1_Binding(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Binding is the Schema for the classinstances API",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/config/v1.BindingSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/config/v1.BindingStatus"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/config/v1.BindingSpec", "github.com/appvia/hub-apis/pkg/apis/config/v1.BindingStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_config_v1_BindingSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "BindingSpec defines the desired state of Binding",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"classRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ClassRef is the reference to the provider of this class",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"instanceRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "InstanceRef is a reference to the configuration object",
+							Ref:         ref("github.com/appvia/hub-apis/pkg/apis/config/v1.Ownership"),
+						},
+					},
+				},
+				Required: []string{"classRef", "instanceRef"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/config/v1.Ownership"},
+	}
+}
+
+func schema_pkg_apis_config_v1_BindingStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "BindingStatus defines the observed state of Binding",
+				Type:        []string{"object"},
+			},
+		},
 	}
 }
 

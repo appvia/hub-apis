@@ -21,63 +21,28 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-const (
-	// APIGroupReference is the annotation on the binding reference
-	APIGroupReference = "rbac.hub.appia.io/group"
-	// KindReference is a reference to the kind
-	KindReference = "rbac.hub.appia.io/kind"
-)
-
 // BindingSpec defines the desired state of Binding
 // +k8s:openapi-gen=true
 type BindingSpec struct {
-	// RoleRef is the reference role we are associated to
+	// ClassRef is the reference to the provider of this class
 	// +kubebuilder:validation:Required
-	RoleRef RoleRef `json:"roleRef"`
-	// Subjects is a collection of subjects to are binding to the role
-	// +listType
-	Subjects []Subject `json:"subjects"`
-}
-
-// RoleRef provides a reference to the role type
-type RoleRef struct {
-	// Kind is the type of role we are referencing
-	// +kubebuilder:validation:MinLength=1
-	Kind string `json:"kind"`
-	// Name is the name of the role
-	// +kubebuilder:validation:MinLength=1
-	Name string `json:"name"`
-	// APIGroup is the api group the role is situated
-	// +kubebuilder:validation:MinLength=1
-	APIGroup string `json:"apiGroup"`
-}
-
-// Subject is user or team we are referencing
-type Subject struct {
-	// APIGroup is the apigroup if the resoruce we are binding to
-	// +kubebuilder:validation:MinLength=1
-	APIGroup string `json:"apiGroup"`
-	// Kind is the type of resource we are binding to User, Team or Workspace
-	Kind string `json:"kind"`
-	// Name is the name of the resource in the apigroup
-	// +kubebuilder:validation:MinLength=1
-	Name string `json:"name"`
+	ClassRef string `json:"classRef"`
+	// InstanceRef is a reference to the configuration object
+	// +kubebuilder:validation:Required
+	InstanceRef Ownership `json:"instanceRef"`
 }
 
 // BindingStatus defines the observed state of Binding
 // +k8s:openapi-gen=true
-type BindingStatus struct {
-	// Status provides a description of the state of this resource
-	Status metav1.StatusReason `json:"status"`
-}
+type BindingStatus struct{}
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// Binding is the Schema for the bindings API
+// Binding is the Schema for the classinstances API
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:path=bindings
+// +kubebuilder:resource:path=bindings,scope=Namespaced
 type Binding struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

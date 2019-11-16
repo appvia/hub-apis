@@ -18,6 +18,14 @@ limitations under the License.
 
 package v1
 
+// BindingListerExpansion allows custom methods to be added to
+// BindingLister.
+type BindingListerExpansion interface{}
+
+// BindingNamespaceListerExpansion allows custom methods to be added to
+// BindingNamespaceLister.
+type BindingNamespaceListerExpansion interface{}
+
 // ClassListerExpansion allows custom methods to be added to
 // ClassLister.
 type ClassListerExpansion interface{}

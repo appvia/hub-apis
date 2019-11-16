@@ -36,12 +36,12 @@ type RbacV1Client struct {
 	restClient rest.Interface
 }
 
-func (c *RbacV1Client) Bindings() BindingInterface {
-	return newBindings(c)
+func (c *RbacV1Client) Bindings(namespace string) BindingInterface {
+	return newBindings(c, namespace)
 }
 
-func (c *RbacV1Client) Roles() RoleInterface {
-	return newRoles(c)
+func (c *RbacV1Client) Roles(namespace string) RoleInterface {
+	return newRoles(c, namespace)
 }
 
 // NewForConfig creates a new RbacV1Client for the given config.

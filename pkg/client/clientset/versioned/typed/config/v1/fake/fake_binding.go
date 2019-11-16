@@ -19,7 +19,7 @@ limitations under the License.
 package fake
 
 import (
-	rbacv1 "github.com/appvia/hub-apis/pkg/apis/rbac/v1"
+	configv1 "github.com/appvia/hub-apis/pkg/apis/config/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -30,29 +30,29 @@ import (
 
 // FakeBindings implements BindingInterface
 type FakeBindings struct {
-	Fake *FakeRbacV1
+	Fake *FakeConfigV1
 	ns   string
 }
 
-var bindingsResource = schema.GroupVersionResource{Group: "rbac.hub.appvia.io", Version: "v1", Resource: "bindings"}
+var bindingsResource = schema.GroupVersionResource{Group: "config.hub.appvia.io", Version: "v1", Resource: "bindings"}
 
-var bindingsKind = schema.GroupVersionKind{Group: "rbac.hub.appvia.io", Version: "v1", Kind: "Binding"}
+var bindingsKind = schema.GroupVersionKind{Group: "config.hub.appvia.io", Version: "v1", Kind: "Binding"}
 
 // Get takes name of the binding, and returns the corresponding binding object, and an error if there is any.
-func (c *FakeBindings) Get(name string, options v1.GetOptions) (result *rbacv1.Binding, err error) {
+func (c *FakeBindings) Get(name string, options v1.GetOptions) (result *configv1.Binding, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewGetAction(bindingsResource, c.ns, name), &rbacv1.Binding{})
+		Invokes(testing.NewGetAction(bindingsResource, c.ns, name), &configv1.Binding{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*rbacv1.Binding), err
+	return obj.(*configv1.Binding), err
 }
 
 // List takes label and field selectors, and returns the list of Bindings that match those selectors.
-func (c *FakeBindings) List(opts v1.ListOptions) (result *rbacv1.BindingList, err error) {
+func (c *FakeBindings) List(opts v1.ListOptions) (result *configv1.BindingList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewListAction(bindingsResource, bindingsKind, c.ns, opts), &rbacv1.BindingList{})
+		Invokes(testing.NewListAction(bindingsResource, bindingsKind, c.ns, opts), &configv1.BindingList{})
 
 	if obj == nil {
 		return nil, err
@@ -62,8 +62,8 @@ func (c *FakeBindings) List(opts v1.ListOptions) (result *rbacv1.BindingList, er
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &rbacv1.BindingList{ListMeta: obj.(*rbacv1.BindingList).ListMeta}
-	for _, item := range obj.(*rbacv1.BindingList).Items {
+	list := &configv1.BindingList{ListMeta: obj.(*configv1.BindingList).ListMeta}
+	for _, item := range obj.(*configv1.BindingList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
 		}
@@ -79,43 +79,43 @@ func (c *FakeBindings) Watch(opts v1.ListOptions) (watch.Interface, error) {
 }
 
 // Create takes the representation of a binding and creates it.  Returns the server's representation of the binding, and an error, if there is any.
-func (c *FakeBindings) Create(binding *rbacv1.Binding) (result *rbacv1.Binding, err error) {
+func (c *FakeBindings) Create(binding *configv1.Binding) (result *configv1.Binding, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewCreateAction(bindingsResource, c.ns, binding), &rbacv1.Binding{})
+		Invokes(testing.NewCreateAction(bindingsResource, c.ns, binding), &configv1.Binding{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*rbacv1.Binding), err
+	return obj.(*configv1.Binding), err
 }
 
 // Update takes the representation of a binding and updates it. Returns the server's representation of the binding, and an error, if there is any.
-func (c *FakeBindings) Update(binding *rbacv1.Binding) (result *rbacv1.Binding, err error) {
+func (c *FakeBindings) Update(binding *configv1.Binding) (result *configv1.Binding, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateAction(bindingsResource, c.ns, binding), &rbacv1.Binding{})
+		Invokes(testing.NewUpdateAction(bindingsResource, c.ns, binding), &configv1.Binding{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*rbacv1.Binding), err
+	return obj.(*configv1.Binding), err
 }
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeBindings) UpdateStatus(binding *rbacv1.Binding) (*rbacv1.Binding, error) {
+func (c *FakeBindings) UpdateStatus(binding *configv1.Binding) (*configv1.Binding, error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateSubresourceAction(bindingsResource, "status", c.ns, binding), &rbacv1.Binding{})
+		Invokes(testing.NewUpdateSubresourceAction(bindingsResource, "status", c.ns, binding), &configv1.Binding{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*rbacv1.Binding), err
+	return obj.(*configv1.Binding), err
 }
 
 // Delete takes name of the binding and deletes it. Returns an error if one occurs.
 func (c *FakeBindings) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteAction(bindingsResource, c.ns, name), &rbacv1.Binding{})
+		Invokes(testing.NewDeleteAction(bindingsResource, c.ns, name), &configv1.Binding{})
 
 	return err
 }
@@ -124,17 +124,17 @@ func (c *FakeBindings) Delete(name string, options *v1.DeleteOptions) error {
 func (c *FakeBindings) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
 	action := testing.NewDeleteCollectionAction(bindingsResource, c.ns, listOptions)
 
-	_, err := c.Fake.Invokes(action, &rbacv1.BindingList{})
+	_, err := c.Fake.Invokes(action, &configv1.BindingList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched binding.
-func (c *FakeBindings) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *rbacv1.Binding, err error) {
+func (c *FakeBindings) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *configv1.Binding, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewPatchSubresourceAction(bindingsResource, c.ns, name, pt, data, subresources...), &rbacv1.Binding{})
+		Invokes(testing.NewPatchSubresourceAction(bindingsResource, c.ns, name, pt, data, subresources...), &configv1.Binding{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*rbacv1.Binding), err
+	return obj.(*configv1.Binding), err
 }

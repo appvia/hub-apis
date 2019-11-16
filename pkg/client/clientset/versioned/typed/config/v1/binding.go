@@ -21,7 +21,7 @@ package v1
 import (
 	"time"
 
-	v1 "github.com/appvia/hub-apis/pkg/apis/rbac/v1"
+	v1 "github.com/appvia/hub-apis/pkg/apis/config/v1"
 	scheme "github.com/appvia/hub-apis/pkg/client/clientset/versioned/scheme"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
@@ -56,7 +56,7 @@ type bindings struct {
 }
 
 // newBindings returns a Bindings
-func newBindings(c *RbacV1Client, namespace string) *bindings {
+func newBindings(c *ConfigV1Client, namespace string) *bindings {
 	return &bindings{
 		client: c.RESTClient(),
 		ns:     namespace,

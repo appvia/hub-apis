@@ -32,7 +32,7 @@ import (
 // RolesGetter has a method to return a RoleInterface.
 // A group's client should implement this interface.
 type RolesGetter interface {
-	Roles() RoleInterface
+	Roles(namespace string) RoleInterface
 }
 
 // RoleInterface has methods to work with Role resources.
@@ -52,12 +52,14 @@ type RoleInterface interface {
 // roles implements RoleInterface
 type roles struct {
 	client rest.Interface
+	ns     string
 }
 
 // newRoles returns a Roles
-func newRoles(c *RbacV1Client) *roles {
+func newRoles(c *RbacV1Client, namespace string) *roles {
 	return &roles{
 		client: c.RESTClient(),
+		ns:     namespace,
 	}
 }
 
@@ -65,6 +67,7 @@ func newRoles(c *RbacV1Client) *roles {
 func (c *roles) Get(name string, options metav1.GetOptions) (result *v1.Role, err error) {
 	result = &v1.Role{}
 	err = c.client.Get().
+		Namespace(c.ns).
 		Resource("roles").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
@@ -81,6 +84,7 @@ func (c *roles) List(opts metav1.ListOptions) (result *v1.RoleList, err error) {
 	}
 	result = &v1.RoleList{}
 	err = c.client.Get().
+		Namespace(c.ns).
 		Resource("roles").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -97,6 +101,7 @@ func (c *roles) Watch(opts metav1.ListOptions) (watch.Interface, error) {
 	}
 	opts.Watch = true
 	return c.client.Get().
+		Namespace(c.ns).
 		Resource("roles").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -107,6 +112,7 @@ func (c *roles) Watch(opts metav1.ListOptions) (watch.Interface, error) {
 func (c *roles) Create(role *v1.Role) (result *v1.Role, err error) {
 	result = &v1.Role{}
 	err = c.client.Post().
+		Namespace(c.ns).
 		Resource("roles").
 		Body(role).
 		Do().
@@ -118,6 +124,7 @@ func (c *roles) Create(role *v1.Role) (result *v1.Role, err error) {
 func (c *roles) Update(role *v1.Role) (result *v1.Role, err error) {
 	result = &v1.Role{}
 	err = c.client.Put().
+		Namespace(c.ns).
 		Resource("roles").
 		Name(role.Name).
 		Body(role).
@@ -132,6 +139,7 @@ func (c *roles) Update(role *v1.Role) (result *v1.Role, err error) {
 func (c *roles) UpdateStatus(role *v1.Role) (result *v1.Role, err error) {
 	result = &v1.Role{}
 	err = c.client.Put().
+		Namespace(c.ns).
 		Resource("roles").
 		Name(role.Name).
 		SubResource("status").
@@ -144,6 +152,7 @@ func (c *roles) UpdateStatus(role *v1.Role) (result *v1.Role, err error) {
 // Delete takes name of the role and deletes it. Returns an error if one occurs.
 func (c *roles) Delete(name string, options *metav1.DeleteOptions) error {
 	return c.client.Delete().
+		Namespace(c.ns).
 		Resource("roles").
 		Name(name).
 		Body(options).
@@ -158,6 +167,7 @@ func (c *roles) DeleteCollection(options *metav1.DeleteOptions, listOptions meta
 		timeout = time.Duration(*listOptions.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
+		Namespace(c.ns).
 		Resource("roles").
 		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -170,6 +180,7 @@ func (c *roles) DeleteCollection(options *metav1.DeleteOptions, listOptions meta
 func (c *roles) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1.Role, err error) {
 	result = &v1.Role{}
 	err = c.client.Patch(pt).
+		Namespace(c.ns).
 		Resource("roles").
 		SubResource(subresources...).
 		Name(name).

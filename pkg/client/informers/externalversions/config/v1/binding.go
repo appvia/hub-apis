@@ -21,69 +21,69 @@ package v1
 import (
 	time "time"
 
-	rbacv1 "github.com/appvia/hub-apis/pkg/apis/rbac/v1"
+	configv1 "github.com/appvia/hub-apis/pkg/apis/config/v1"
 	versioned "github.com/appvia/hub-apis/pkg/client/clientset/versioned"
 	internalinterfaces "github.com/appvia/hub-apis/pkg/client/informers/externalversions/internalinterfaces"
-	v1 "github.com/appvia/hub-apis/pkg/client/listers/rbac/v1"
+	v1 "github.com/appvia/hub-apis/pkg/client/listers/config/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// RoleInformer provides access to a shared informer and lister for
-// Roles.
-type RoleInformer interface {
+// BindingInformer provides access to a shared informer and lister for
+// Bindings.
+type BindingInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1.RoleLister
+	Lister() v1.BindingLister
 }
 
-type roleInformer struct {
+type bindingInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
 	namespace        string
 }
 
-// NewRoleInformer constructs a new informer for Role type.
+// NewBindingInformer constructs a new informer for Binding type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewRoleInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredRoleInformer(client, namespace, resyncPeriod, indexers, nil)
+func NewBindingInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredBindingInformer(client, namespace, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredRoleInformer constructs a new informer for Role type.
+// NewFilteredBindingInformer constructs a new informer for Binding type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredRoleInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredBindingInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.RbacV1().Roles(namespace).List(options)
+				return client.ConfigV1().Bindings(namespace).List(options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.RbacV1().Roles(namespace).Watch(options)
+				return client.ConfigV1().Bindings(namespace).Watch(options)
 			},
 		},
-		&rbacv1.Role{},
+		&configv1.Binding{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *roleInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredRoleInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *bindingInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredBindingInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *roleInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&rbacv1.Role{}, f.defaultInformer)
+func (f *bindingInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&configv1.Binding{}, f.defaultInformer)
 }
 
-func (f *roleInformer) Lister() v1.RoleLister {
-	return v1.NewRoleLister(f.Informer().GetIndexer())
+func (f *bindingInformer) Lister() v1.BindingLister {
+	return v1.NewBindingLister(f.Informer().GetIndexer())
 }

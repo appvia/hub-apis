@@ -63,6 +63,8 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Clusters().V1().Kuberneteses().Informer()}, nil
 
 		// Group=config.hub.appvia.io, Version=v1
+	case configv1.SchemeGroupVersion.WithResource("bindings"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1().Bindings().Informer()}, nil
 	case configv1.SchemeGroupVersion.WithResource("classes"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1().Classes().Informer()}, nil
 

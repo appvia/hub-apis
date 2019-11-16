@@ -28,12 +28,12 @@ type FakeRbacV1 struct {
 	*testing.Fake
 }
 
-func (c *FakeRbacV1) Bindings() v1.BindingInterface {
-	return &FakeBindings{c}
+func (c *FakeRbacV1) Bindings(namespace string) v1.BindingInterface {
+	return &FakeBindings{c, namespace}
 }
 
-func (c *FakeRbacV1) Roles() v1.RoleInterface {
-	return &FakeRoles{c}
+func (c *FakeRbacV1) Roles(namespace string) v1.RoleInterface {
+	return &FakeRoles{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate
