@@ -21,7 +21,7 @@ package v1
 import (
 	v1 "github.com/appvia/hub-apis/pkg/apis/rbac/v1"
 	"github.com/appvia/hub-apis/pkg/client/clientset/versioned/scheme"
-	"github.com/gambol99/kubernetes/staging/src/k8s.io/apimachinery/pkg/runtime/serializer"
+	serializer "k8s.io/apimachinery/pkg/runtime/serializer"
 	rest "k8s.io/client-go/rest"
 )
 
