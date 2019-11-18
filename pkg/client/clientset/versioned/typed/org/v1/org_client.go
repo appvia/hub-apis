@@ -46,8 +46,8 @@ func (c *OrgV1Client) TeamMemberships(namespace string) TeamMembershipInterface 
 	return newTeamMemberships(c, namespace)
 }
 
-func (c *OrgV1Client) Users() UserInterface {
-	return newUsers(c)
+func (c *OrgV1Client) Users(namespace string) UserInterface {
+	return newUsers(c, namespace)
 }
 
 func (c *OrgV1Client) Workspaces(namespace string) WorkspaceInterface {

@@ -30,7 +30,13 @@ type TeamMembershipSpec struct {
 
 // TeamMembershipStatus defines the observed state of Team
 // +k8s:openapi-gen=true
-type TeamMembershipStatus struct{}
+type TeamMembershipStatus struct {
+	// Conditions is a collection of possible errors
+	// +listType
+	Conditions []metav1.Status `json:"conditions"`
+	// Status is the status of the resource
+	Status metav1.StatusReason `json:"status"`
+}
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

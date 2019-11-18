@@ -159,8 +159,38 @@ func schema_pkg_apis_org_v1_TeamMembershipStatus(ref common.ReferenceCallback) c
 			SchemaProps: spec.SchemaProps{
 				Description: "TeamMembershipStatus defines the observed state of Team",
 				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"conditions": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-list-type": "",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "Conditions is a collection of possible errors",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Status"),
+									},
+								},
+							},
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status is the status of the resource",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"conditions", "status"},
 			},
 		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Status"},
 	}
 }
 
@@ -199,14 +229,12 @@ func schema_pkg_apis_org_v1_TeamStatus(ref common.ReferenceCallback) common.Open
 				Description: "TeamStatus defines the observed state of Team",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"status": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Status is the status of the resource",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
 					"conditions": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-list-type": "",
+							},
+						},
 						SchemaProps: spec.SchemaProps{
 							Description: "Conditions is a collection of possible errors",
 							Type:        []string{"array"},
@@ -219,6 +247,13 @@ func schema_pkg_apis_org_v1_TeamStatus(ref common.ReferenceCallback) common.Open
 							},
 						},
 					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status is the status of the resource",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
 					"namespace": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Namespace is the namespace the team is mapped to",
@@ -227,7 +262,7 @@ func schema_pkg_apis_org_v1_TeamStatus(ref common.ReferenceCallback) common.Open
 						},
 					},
 				},
-				Required: []string{"status", "conditions", "namespace"},
+				Required: []string{"conditions", "status", "namespace"},
 			},
 		},
 		Dependencies: []string{
@@ -307,6 +342,24 @@ func schema_pkg_apis_org_v1_UserStatus(ref common.ReferenceCallback) common.Open
 				Description: "UserStatus defines the observed state of User",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
+					"condiitions": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-list-type": "",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "Conditions is collection of potentials error causes",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Status"),
+									},
+								},
+							},
+						},
+					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Status provides an overview of the user status",
@@ -315,9 +368,11 @@ func schema_pkg_apis_org_v1_UserStatus(ref common.ReferenceCallback) common.Open
 						},
 					},
 				},
-				Required: []string{"status"},
+				Required: []string{"condiitions", "status"},
 			},
 		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Status"},
 	}
 }
 
@@ -418,13 +473,6 @@ func schema_pkg_apis_org_v1_WorkspaceStatus(ref common.ReferenceCallback) common
 							},
 						},
 					},
-					"namespaceRef": {
-						SchemaProps: spec.SchemaProps{
-							Description: "NamespaceRef is the name of the namespace created off the back",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Status is overall status of the workspace",
@@ -433,7 +481,7 @@ func schema_pkg_apis_org_v1_WorkspaceStatus(ref common.ReferenceCallback) common
 						},
 					},
 				},
-				Required: []string{"conditions", "namespaceRef", "status"},
+				Required: []string{"conditions", "status"},
 			},
 		},
 		Dependencies: []string{

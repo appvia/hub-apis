@@ -68,9 +68,8 @@ type ClassSpec struct {
 	// +listType
 	Resources []ClassResource `json:"resources"`
 	// Schemas is OpenAPI schema for the resources
-	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
-	Schemas string `json:"schemas"`
+	Schemas map[string]string `json:"schemas"`
 	// Summary provides a one one summary of the offering
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
@@ -116,7 +115,13 @@ type ClassResource struct {
 
 // ClassStatus defines the observed state of Class
 // +k8s:openapi-gen=true
-type ClassStatus struct{}
+type ClassStatus struct {
+	// Conditions is a set of condition which has caused an error
+	// +listType
+	Conditions []metav1.Status `json:"conditions"`
+	// Status is overall status of the workspace
+	Status metav1.StatusReason `json:"status"`
+}
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

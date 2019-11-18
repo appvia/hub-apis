@@ -67,7 +67,10 @@ type Subject struct {
 // BindingStatus defines the observed state of Binding
 // +k8s:openapi-gen=true
 type BindingStatus struct {
-	// Status provides a description of the state of this resource
+	// Conditions is collection of potentials error causes
+	// +listType
+	Condiitions []metav1.Status `json:"condiitions"`
+	// Status provides an overview of the user status
 	Status metav1.StatusReason `json:"status"`
 }
 

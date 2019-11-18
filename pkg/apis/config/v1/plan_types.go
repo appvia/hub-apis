@@ -44,7 +44,13 @@ type PlanSpec struct {
 
 // PlanStatus defines the observed state of Plan
 // +k8s:openapi-gen=true
-type PlanStatus struct{}
+type PlanStatus struct {
+	// Conditions is a set of condition which has caused an error
+	// +listType
+	Conditions []metav1.Status `json:"conditions"`
+	// Status is overall status of the workspace
+	Status metav1.StatusReason `json:"status"`
+}
 
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

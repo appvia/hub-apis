@@ -129,17 +129,37 @@ func schema_pkg_apis_rbac_v1_BindingStatus(ref common.ReferenceCallback) common.
 				Description: "BindingStatus defines the observed state of Binding",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
+					"condiitions": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-list-type": "",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "Conditions is collection of potentials error causes",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Status"),
+									},
+								},
+							},
+						},
+					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Status provides a description of the state of this resource",
+							Description: "Status provides an overview of the user status",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
 				},
-				Required: []string{"status"},
+				Required: []string{"condiitions", "status"},
 			},
 		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Status"},
 	}
 }
 
@@ -228,16 +248,36 @@ func schema_pkg_apis_rbac_v1_RoleStatus(ref common.ReferenceCallback) common.Ope
 				Description: "RoleStatus defines the observed state of Role",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
+					"condiitions": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-list-type": "",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "Conditions is collection of potentials error causes",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Status"),
+									},
+								},
+							},
+						},
+					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Status provides a description of the state of this resource",
+							Description: "Status provides an overview of the user status",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
 				},
-				Required: []string{"status"},
+				Required: []string{"condiitions", "status"},
 			},
 		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Status"},
 	}
 }

@@ -34,6 +34,10 @@ type TeamMembershipNamespaceListerExpansion interface{}
 // UserLister.
 type UserListerExpansion interface{}
 
+// UserNamespaceListerExpansion allows custom methods to be added to
+// UserNamespaceLister.
+type UserNamespaceListerExpansion interface{}
+
 // WorkspaceListerExpansion allows custom methods to be added to
 // WorkspaceLister.
 type WorkspaceListerExpansion interface{}

@@ -197,16 +197,11 @@ spec:
                     type: string
                 type: object
               type: array
-            namespaceRef:
-              description: NamespaceRef is the name of the namespace created off the
-                back
-              type: string
             status:
               description: Status is overall status of the workspace
               type: string
           required:
           - conditions
-          - namespaceRef
           - status
           type: object
       type: object

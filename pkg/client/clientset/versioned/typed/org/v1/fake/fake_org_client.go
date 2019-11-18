@@ -36,8 +36,8 @@ func (c *FakeOrgV1) TeamMemberships(namespace string) v1.TeamMembershipInterface
 	return &FakeTeamMemberships{c, namespace}
 }
 
-func (c *FakeOrgV1) Users() v1.UserInterface {
-	return &FakeUsers{c}
+func (c *FakeOrgV1) Users(namespace string) v1.UserInterface {
+	return &FakeUsers{c, namespace}
 }
 
 func (c *FakeOrgV1) Workspaces(namespace string) v1.WorkspaceInterface {

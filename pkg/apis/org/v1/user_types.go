@@ -32,12 +32,14 @@ type UserSpec struct {
 // UserStatus defines the observed state of User
 // +k8s:openapi-gen=true
 type UserStatus struct {
+	// Conditions is collection of potentials error causes
+	// +listType
+	Condiitions []metav1.Status `json:"condiitions"`
 	// Status provides an overview of the user status
 	Status metav1.StatusReason `json:"status"`
 }
 
 // +genclient
-// +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // User is the Schema for the users API

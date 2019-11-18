@@ -36,8 +36,6 @@ type WorkspaceStatus struct {
 	// Conditions is a set of condition which has caused an error
 	// +listType
 	Conditions []metav1.Status `json:"conditions"`
-	// NamespaceRef is the name of the namespace created off the back
-	NamespaceRef string `json:"namespaceRef"`
 	// Status is overall status of the workspace
 	Status metav1.StatusReason `json:"status"`
 }

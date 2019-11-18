@@ -57,7 +57,10 @@ type Rule struct {
 // RoleStatus defines the observed state of Role
 // +k8s:openapi-gen=true
 type RoleStatus struct {
-	// Status provides a description of the state of this resource
+	// Conditions is collection of potentials error causes
+	// +listType
+	Condiitions []metav1.Status `json:"condiitions"`
+	// Status provides an overview of the user status
 	Status metav1.StatusReason `json:"status"`
 }
 
