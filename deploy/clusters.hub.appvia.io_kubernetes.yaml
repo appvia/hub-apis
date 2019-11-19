@@ -23,6 +23,7 @@ spec:
     listKind: KubernetesList
     plural: kubernetes
     singular: kubernetes
+  preserveUnknownFields: false
   scope: Namespaced
   subresources:
     status: {}

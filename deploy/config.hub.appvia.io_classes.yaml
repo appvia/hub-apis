@@ -14,6 +14,7 @@ spec:
     listKind: ClassList
     plural: classes
     singular: class
+  preserveUnknownFields: false
   scope: Namespaced
   subresources:
     status: {}
@@ -127,8 +128,6 @@ spec:
               minItems: 1
               type: array
             schemas:
-              additionalProperties:
-                type: string
               description: Schemas is OpenAPI schema for the resources
               type: object
             summary:

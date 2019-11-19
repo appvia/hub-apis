@@ -280,16 +280,7 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 					"schemas": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Schemas is OpenAPI schema for the resources",
-							Type:        []string{"object"},
-							AdditionalProperties: &spec.SchemaOrBool{
-								Allows: true,
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Type:   []string{"string"},
-										Format: "",
-									},
-								},
-							},
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1/unstructured.Unstructured"),
 						},
 					},
 					"summary": {
@@ -304,7 +295,7 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 			},
 		},
 		Dependencies: []string{
-			"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassResource", "k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionKind"},
+			"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassResource", "k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionKind", "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured.Unstructured"},
 	}
 }
 

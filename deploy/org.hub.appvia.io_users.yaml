@@ -14,6 +14,7 @@ spec:
     listKind: UserList
     plural: users
     singular: user
+  preserveUnknownFields: false
   scope: Namespaced
   subresources:
     status: {}

@@ -14,6 +14,7 @@ spec:
     listKind: TeamMembershipList
     plural: teammemberships
     singular: teammembership
+  preserveUnknownFields: false
   scope: Namespaced
   subresources:
     status: {}

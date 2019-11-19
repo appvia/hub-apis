@@ -19,6 +19,7 @@ package v1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 // ClassScope defines the scope of a resources from a provider
@@ -69,7 +70,7 @@ type ClassSpec struct {
 	Resources []ClassResource `json:"resources"`
 	// Schemas is OpenAPI schema for the resources
 	// +kubebuilder:validation:Required
-	Schemas map[string]string `json:"schemas"`
+	Schemas unstructured.Unstructured `json:"schemas"`
 	// Summary provides a one one summary of the offering
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required

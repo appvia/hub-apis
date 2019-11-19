@@ -14,6 +14,7 @@ spec:
     listKind: WorkspaceList
     plural: workspaces
     singular: workspace
+  preserveUnknownFields: false
   scope: Namespaced
   subresources:
     status: {}
