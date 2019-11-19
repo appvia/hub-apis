@@ -25,7 +25,11 @@ import (
 // +k8s:openapi-gen=true
 type TeamMembershipSpec struct {
 	// Username is the user being bound to the team
+	// +kubebuilder:validation:Required
 	Username string `json:"username"`
+	// Team is the name of the team
+	// +kubebuilder:validation:Required
+	Team string `json:"team"`
 }
 
 // TeamMembershipStatus defines the observed state of Team

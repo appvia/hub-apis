@@ -146,8 +146,15 @@ func schema_pkg_apis_org_v1_TeamMembershipSpec(ref common.ReferenceCallback) com
 							Format:      "",
 						},
 					},
+					"team": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Team is the name of the team",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
 				},
-				Required: []string{"username"},
+				Required: []string{"username", "team"},
 			},
 		},
 	}
