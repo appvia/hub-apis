@@ -157,7 +157,7 @@ spec:
                 properties:
                   code:
                     description: Code is machine readable code of the error type
-                    type: string
+                    type: integer
                   detail:
                     description: Detail is a actual error which might contain technical
                       reference

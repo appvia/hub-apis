@@ -61,8 +61,8 @@ func schema_pkg_apis_core_v1_Condition(ref common.ReferenceCallback) common.Open
 					"code": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Code is machine readable code of the error type",
-							Type:        []string{"string"},
-							Format:      "",
+							Type:        []string{"integer"},
+							Format:      "int32",
 						},
 					},
 				},

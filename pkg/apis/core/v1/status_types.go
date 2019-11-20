@@ -35,5 +35,5 @@ type Condition struct {
 	// Detail is a actual error which might contain technical reference
 	Detail string `json:"detail"`
 	// Code is machine readable code of the error type
-	Code string `json:"code"`
+	Code int `json:"code"`
 }
