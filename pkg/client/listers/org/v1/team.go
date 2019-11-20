@@ -29,8 +29,8 @@ import (
 type TeamLister interface {
 	// List lists all Teams in the indexer.
 	List(selector labels.Selector) (ret []*v1.Team, err error)
-	// Get retrieves the Team from the index for a given name.
-	Get(name string) (*v1.Team, error)
+	// Teams returns an object that can list and get Teams.
+	Teams(namespace string) TeamNamespaceLister
 	TeamListerExpansion
 }
 
@@ -52,9 +52,38 @@ func (s *teamLister) List(selector labels.Selector) (ret []*v1.Team, err error) 
 	return ret, err
 }
 
-// Get retrieves the Team from the index for a given name.
-func (s *teamLister) Get(name string) (*v1.Team, error) {
-	obj, exists, err := s.indexer.GetByKey(name)
+// Teams returns an object that can list and get Teams.
+func (s *teamLister) Teams(namespace string) TeamNamespaceLister {
+	return teamNamespaceLister{indexer: s.indexer, namespace: namespace}
+}
+
+// TeamNamespaceLister helps list and get Teams.
+type TeamNamespaceLister interface {
+	// List lists all Teams in the indexer for a given namespace.
+	List(selector labels.Selector) (ret []*v1.Team, err error)
+	// Get retrieves the Team from the indexer for a given namespace and name.
+	Get(name string) (*v1.Team, error)
+	TeamNamespaceListerExpansion
+}
+
+// teamNamespaceLister implements the TeamNamespaceLister
+// interface.
+type teamNamespaceLister struct {
+	indexer   cache.Indexer
+	namespace string
+}
+
+// List lists all Teams in the indexer for a given namespace.
+func (s teamNamespaceLister) List(selector labels.Selector) (ret []*v1.Team, err error) {
+	err = cache.ListAllByNamespace(s.indexer, s.namespace, selector, func(m interface{}) {
+		ret = append(ret, m.(*v1.Team))
+	})
+	return ret, err
+}
+
+// Get retrieves the Team from the indexer for a given namespace and name.
+func (s teamNamespaceLister) Get(name string) (*v1.Team, error) {
+	obj, exists, err := s.indexer.GetByKey(s.namespace + "/" + name)
 	if err != nil {
 		return nil, err
 	}

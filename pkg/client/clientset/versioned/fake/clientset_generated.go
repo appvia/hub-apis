@@ -24,6 +24,8 @@ import (
 	fakeclustersv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/clusters/v1/fake"
 	configv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/config/v1"
 	fakeconfigv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/config/v1/fake"
+	corev1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/core/v1"
+	fakecorev1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/core/v1/fake"
 	orgv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/org/v1"
 	fakeorgv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/org/v1/fake"
 	rbacv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/rbac/v1"
@@ -87,6 +89,11 @@ func (c *Clientset) ClustersV1() clustersv1.ClustersV1Interface {
 // ConfigV1 retrieves the ConfigV1Client
 func (c *Clientset) ConfigV1() configv1.ConfigV1Interface {
 	return &fakeconfigv1.FakeConfigV1{Fake: &c.Fake}
+}
+
+// CoreV1 retrieves the CoreV1Client
+func (c *Clientset) CoreV1() corev1.CoreV1Interface {
+	return &fakecorev1.FakeCoreV1{Fake: &c.Fake}
 }
 
 // OrgV1 retrieves the OrgV1Client

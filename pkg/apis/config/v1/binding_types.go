@@ -18,18 +18,23 @@
 package v1
 
 import (
+	corev1 "github.com/appvia/hub-apis/pkg/apis/core/v1"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // BindingSpec defines the desired state of Binding
 // +k8s:openapi-gen=true
 type BindingSpec struct {
-	// ClassRef is the reference to the provider of this class
+	// Class is the reference to the provider of this class
+	// +kubebuilder:validation:Optional
+	Class corev1.Ownership `json:"class"`
+	// Resource is a reference to a resource
+	// +kubebuilder:validation:Optional
+	Resource corev1.Ownership `json:"resource"`
+	// Ref is a reference to the configuration object
 	// +kubebuilder:validation:Required
-	ClassRef string `json:"classRef"`
-	// InstanceRef is a reference to the configuration object
-	// +kubebuilder:validation:Required
-	InstanceRef Ownership `json:"instanceRef"`
+	Ref corev1.Ownership `json:"ref"`
 }
 
 // BindingStatus defines the observed state of Binding
@@ -37,15 +42,15 @@ type BindingSpec struct {
 type BindingStatus struct {
 	// Conditions is a set of condition which has caused an error
 	// +listType
-	Conditions []metav1.Status `json:"conditions"`
+	Conditions []corev1.Condition `json:"conditions"`
 	// Status is overall status of the workspace
-	Status metav1.StatusReason `json:"status"`
+	Status corev1.Status `json:"status"`
 }
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// Binding is the Schema for the classinstances API
+// Binding is the Schema for the class API
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:path=bindings,scope=Namespaced

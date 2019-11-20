@@ -179,7 +179,7 @@ func schema_pkg_apis_org_v1_TeamMembershipStatus(ref common.ReferenceCallback) c
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Status"),
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
 									},
 								},
 							},
@@ -197,7 +197,7 @@ func schema_pkg_apis_org_v1_TeamMembershipStatus(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.Status"},
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }
 
@@ -248,7 +248,7 @@ func schema_pkg_apis_org_v1_TeamStatus(ref common.ReferenceCallback) common.Open
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Status"),
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
 									},
 								},
 							},
@@ -273,7 +273,7 @@ func schema_pkg_apis_org_v1_TeamStatus(ref common.ReferenceCallback) common.Open
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.Status"},
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }
 
@@ -349,7 +349,7 @@ func schema_pkg_apis_org_v1_UserStatus(ref common.ReferenceCallback) common.Open
 				Description: "UserStatus defines the observed state of User",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"condiitions": {
+					"conditions": {
 						VendorExtensible: spec.VendorExtensible{
 							Extensions: spec.Extensions{
 								"x-kubernetes-list-type": "",
@@ -361,7 +361,7 @@ func schema_pkg_apis_org_v1_UserStatus(ref common.ReferenceCallback) common.Open
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Status"),
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
 									},
 								},
 							},
@@ -375,11 +375,11 @@ func schema_pkg_apis_org_v1_UserStatus(ref common.ReferenceCallback) common.Open
 						},
 					},
 				},
-				Required: []string{"condiitions", "status"},
+				Required: []string{"conditions", "status"},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.Status"},
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }
 
@@ -474,7 +474,7 @@ func schema_pkg_apis_org_v1_WorkspaceStatus(ref common.ReferenceCallback) common
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Status"),
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
 									},
 								},
 							},
@@ -492,6 +492,6 @@ func schema_pkg_apis_org_v1_WorkspaceStatus(ref common.ReferenceCallback) common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.Status"},
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }

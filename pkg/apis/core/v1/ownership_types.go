@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019  Rohith Jayawardene <gambol99@gmail.com>
+ * Copyright (C) 2019 Rohith Jayawardene <gambol99@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -18,19 +18,16 @@
 package v1
 
 // Ownership indicates the ownership of a resource
+// +k8s:openapi-gen=true
 type Ownership struct {
-	// Group is the apigroup the resource lives under
+	// APIVersion is the apigroup the resource lives under
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
-	APIGroup string `json:"apiGroup"`
+	APIVersion string `json:"apiVersion"`
 	// Kind is the name of the resource under the group
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
 	Kind string `json:"kind"`
-	// Version is the apigroup version of the kind
-	// +kubebuilder:validation:MinLength=1
-	// +kubebuilder:validation:Required
-	Version string `json:"version"`
 	// Namespace is the location of the object
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required

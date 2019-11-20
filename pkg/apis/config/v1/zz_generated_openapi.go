@@ -45,7 +45,7 @@ func schema_pkg_apis_config_v1_Binding(ref common.ReferenceCallback) common.Open
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "Binding is the Schema for the classinstances API",
+				Description: "Binding is the Schema for the class API",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -92,25 +92,30 @@ func schema_pkg_apis_config_v1_BindingSpec(ref common.ReferenceCallback) common.
 				Description: "BindingSpec defines the desired state of Binding",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"classRef": {
+					"class": {
 						SchemaProps: spec.SchemaProps{
-							Description: "ClassRef is the reference to the provider of this class",
-							Type:        []string{"string"},
-							Format:      "",
+							Description: "Class is the reference to the provider of this class",
+							Ref:         ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership"),
 						},
 					},
-					"instanceRef": {
+					"resource": {
 						SchemaProps: spec.SchemaProps{
-							Description: "InstanceRef is a reference to the configuration object",
-							Ref:         ref("github.com/appvia/hub-apis/pkg/apis/config/v1.Ownership"),
+							Description: "Resource is a reference to a resource",
+							Ref:         ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership"),
+						},
+					},
+					"ref": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Ref is a reference to the configuration object",
+							Ref:         ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership"),
 						},
 					},
 				},
-				Required: []string{"classRef", "instanceRef"},
+				Required: []string{"class", "resource", "ref"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/appvia/hub-apis/pkg/apis/config/v1.Ownership"},
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership"},
 	}
 }
 
@@ -133,7 +138,7 @@ func schema_pkg_apis_config_v1_BindingStatus(ref common.ReferenceCallback) commo
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Status"),
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
 									},
 								},
 							},
@@ -151,7 +156,7 @@ func schema_pkg_apis_config_v1_BindingStatus(ref common.ReferenceCallback) commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.Status"},
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }
 
@@ -206,6 +211,13 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 				Description: "ClassSpec defines the desired state of Class",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion is the api group and version for this class",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
 					"category": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Category provides a category for this class / resurce offering",
@@ -291,7 +303,7 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 						},
 					},
 				},
-				Required: []string{"category", "description", "displayName", "resources", "schemas", "summary"},
+				Required: []string{"apiVersion", "category", "description", "displayName", "resources", "schemas", "summary"},
 			},
 		},
 		Dependencies: []string{
@@ -318,7 +330,7 @@ func schema_pkg_apis_config_v1_ClassStatus(ref common.ReferenceCallback) common.
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Status"),
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
 									},
 								},
 							},
@@ -336,7 +348,7 @@ func schema_pkg_apis_config_v1_ClassStatus(ref common.ReferenceCallback) common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.Status"},
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }
 
@@ -438,7 +450,7 @@ func schema_pkg_apis_config_v1_PlanStatus(ref common.ReferenceCallback) common.O
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Status"),
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
 									},
 								},
 							},
@@ -456,6 +468,6 @@ func schema_pkg_apis_config_v1_PlanStatus(ref common.ReferenceCallback) common.O
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.Status"},
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }

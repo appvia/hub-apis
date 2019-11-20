@@ -47,7 +47,7 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 
 // Teams returns a TeamInformer.
 func (v *version) Teams() TeamInformer {
-	return &teamInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+	return &teamInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // TeamMemberships returns a TeamMembershipInformer.

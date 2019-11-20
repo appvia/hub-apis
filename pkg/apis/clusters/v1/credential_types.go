@@ -18,6 +18,8 @@
 package v1
 
 import (
+	corev1 "github.com/appvia/hub-apis/pkg/apis/core/v1"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -40,7 +42,13 @@ type CredentialsSpec struct {
 
 // CredentialsStatus defines the observed state of Credentials
 // +k8s:openapi-gen=true
-type CredentialsStatus struct{}
+type CredentialsStatus struct {
+	// Conditions is a set of condition which has caused an error
+	// +listType
+	Conditions []corev1.Condition `json:"conditions"`
+	// Status is overall status of the workspace
+	Status corev1.Status `json:"status"`
+}
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

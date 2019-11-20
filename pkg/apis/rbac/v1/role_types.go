@@ -18,6 +18,8 @@
 package v1
 
 import (
+	corev1 "github.com/appvia/hub-apis/pkg/apis/core/v1"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -57,11 +59,11 @@ type Rule struct {
 // RoleStatus defines the observed state of Role
 // +k8s:openapi-gen=true
 type RoleStatus struct {
-	// Conditions is collection of potentials error causes
+	// Conditions is a set of condition which has caused an error
 	// +listType
-	Condiitions []metav1.Status `json:"condiitions"`
-	// Status provides an overview of the user status
-	Status metav1.StatusReason `json:"status"`
+	Conditions []corev1.Condition `json:"conditions"`
+	// Status is overall status of the workspace
+	Status corev1.Status `json:"status"`
 }
 
 // +genclient

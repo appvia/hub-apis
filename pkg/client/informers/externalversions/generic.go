@@ -23,6 +23,7 @@ import (
 
 	v1 "github.com/appvia/hub-apis/pkg/apis/clusters/v1"
 	configv1 "github.com/appvia/hub-apis/pkg/apis/config/v1"
+	corev1 "github.com/appvia/hub-apis/pkg/apis/core/v1"
 	orgv1 "github.com/appvia/hub-apis/pkg/apis/org/v1"
 	rbacv1 "github.com/appvia/hub-apis/pkg/apis/rbac/v1"
 	storev1 "github.com/appvia/hub-apis/pkg/apis/store/v1"
@@ -67,6 +68,10 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1().Bindings().Informer()}, nil
 	case configv1.SchemeGroupVersion.WithResource("classes"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1().Classes().Informer()}, nil
+
+		// Group=core.hub.appvia.io, Version=v1
+	case corev1.SchemeGroupVersion.WithResource("webhooks"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Core().V1().WebHooks().Informer()}, nil
 
 		// Group=org.hub.appvia.io, Version=v1
 	case orgv1.SchemeGroupVersion.WithResource("teams"):

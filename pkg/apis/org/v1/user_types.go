@@ -18,6 +18,8 @@
 package v1
 
 import (
+	corev1 "github.com/appvia/hub-apis/pkg/apis/core/v1"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -34,9 +36,9 @@ type UserSpec struct {
 type UserStatus struct {
 	// Conditions is collection of potentials error causes
 	// +listType
-	Condiitions []metav1.Status `json:"condiitions"`
+	Conditions []corev1.Condition `json:"conditions"`
 	// Status provides an overview of the user status
-	Status metav1.StatusReason `json:"status"`
+	Status corev1.Status `json:"status"`
 }
 
 // +genclient

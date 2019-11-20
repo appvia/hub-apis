@@ -18,6 +18,8 @@
 package v1
 
 import (
+	corev1 "github.com/appvia/hub-apis/pkg/apis/core/v1"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -37,9 +39,9 @@ type TeamMembershipSpec struct {
 type TeamMembershipStatus struct {
 	// Conditions is a collection of possible errors
 	// +listType
-	Conditions []metav1.Status `json:"conditions"`
+	Conditions []corev1.Condition `json:"conditions"`
 	// Status is the status of the resource
-	Status metav1.StatusReason `json:"status"`
+	Status corev1.Status `json:"status"`
 }
 
 // +genclient

@@ -129,19 +129,19 @@ func schema_pkg_apis_rbac_v1_BindingStatus(ref common.ReferenceCallback) common.
 				Description: "BindingStatus defines the observed state of Binding",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"condiitions": {
+					"conditions": {
 						VendorExtensible: spec.VendorExtensible{
 							Extensions: spec.Extensions{
 								"x-kubernetes-list-type": "",
 							},
 						},
 						SchemaProps: spec.SchemaProps{
-							Description: "Conditions is collection of potentials error causes",
+							Description: "Conditions is a set of condition which has caused an error",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Status"),
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
 									},
 								},
 							},
@@ -149,17 +149,17 @@ func schema_pkg_apis_rbac_v1_BindingStatus(ref common.ReferenceCallback) common.
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Status provides an overview of the user status",
+							Description: "Status is overall status of the workspace",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
 				},
-				Required: []string{"condiitions", "status"},
+				Required: []string{"conditions", "status"},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.Status"},
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }
 
@@ -248,19 +248,19 @@ func schema_pkg_apis_rbac_v1_RoleStatus(ref common.ReferenceCallback) common.Ope
 				Description: "RoleStatus defines the observed state of Role",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"condiitions": {
+					"conditions": {
 						VendorExtensible: spec.VendorExtensible{
 							Extensions: spec.Extensions{
 								"x-kubernetes-list-type": "",
 							},
 						},
 						SchemaProps: spec.SchemaProps{
-							Description: "Conditions is collection of potentials error causes",
+							Description: "Conditions is a set of condition which has caused an error",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Status"),
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
 									},
 								},
 							},
@@ -268,16 +268,16 @@ func schema_pkg_apis_rbac_v1_RoleStatus(ref common.ReferenceCallback) common.Ope
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Status provides an overview of the user status",
+							Description: "Status is overall status of the workspace",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
 				},
-				Required: []string{"condiitions", "status"},
+				Required: []string{"conditions", "status"},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.Status"},
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }

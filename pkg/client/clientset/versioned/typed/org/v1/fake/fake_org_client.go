@@ -28,8 +28,8 @@ type FakeOrgV1 struct {
 	*testing.Fake
 }
 
-func (c *FakeOrgV1) Teams() v1.TeamInterface {
-	return &FakeTeams{c}
+func (c *FakeOrgV1) Teams(namespace string) v1.TeamInterface {
+	return &FakeTeams{c, namespace}
 }
 
 func (c *FakeOrgV1) TeamMemberships(namespace string) v1.TeamMembershipInterface {

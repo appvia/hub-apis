@@ -123,8 +123,38 @@ func schema_pkg_apis_clusters_v1_CredentialsStatus(ref common.ReferenceCallback)
 			SchemaProps: spec.SchemaProps{
 				Description: "CredentialsStatus defines the observed state of Credentials",
 				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"conditions": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-list-type": "",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "Conditions is a set of condition which has caused an error",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
+									},
+								},
+							},
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status is overall status of the workspace",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"conditions", "status"},
 			},
 		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }
 
@@ -182,7 +212,7 @@ func schema_pkg_apis_clusters_v1_KubernetesSpec(ref common.ReferenceCallback) co
 					"ownership": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Ownership is the cloud cluster provider type for this kubernetes",
-							Ref:         ref("github.com/appvia/hub-apis/pkg/apis/config/v1.Ownership"),
+							Ref:         ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership"),
 						},
 					},
 					"caCertificate": {
@@ -211,7 +241,7 @@ func schema_pkg_apis_clusters_v1_KubernetesSpec(ref common.ReferenceCallback) co
 			},
 		},
 		Dependencies: []string{
-			"github.com/appvia/hub-apis/pkg/apis/config/v1.Ownership"},
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership"},
 	}
 }
 
@@ -221,7 +251,37 @@ func schema_pkg_apis_clusters_v1_KubernetesStatus(ref common.ReferenceCallback) 
 			SchemaProps: spec.SchemaProps{
 				Description: "KubernetesStatus defines the observed state of Cluster",
 				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"conditions": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-list-type": "",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "Conditions is a set of condition which has caused an error",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
+									},
+								},
+							},
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status is overall status of the workspace",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"conditions", "status"},
 			},
 		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }

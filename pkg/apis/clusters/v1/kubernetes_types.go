@@ -18,7 +18,7 @@
 package v1
 
 import (
-	configv1 "github.com/appvia/hub-apis/pkg/apis/config/v1"
+	corev1 "github.com/appvia/hub-apis/pkg/apis/core/v1"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -28,7 +28,7 @@ import (
 type KubernetesSpec struct {
 	// Ownership is the cloud cluster provider type for this kubernetes
 	// +kubebuilder:validation:Required
-	Ownership configv1.Ownership `json:"ownership"`
+	Ownership corev1.Ownership `json:"ownership"`
 	// CaCertificate is the base64 encoded cluster certificate
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
@@ -45,7 +45,13 @@ type KubernetesSpec struct {
 
 // KubernetesStatus defines the observed state of Cluster
 // +k8s:openapi-gen=true
-type KubernetesStatus struct{}
+type KubernetesStatus struct {
+	// Conditions is a set of condition which has caused an error
+	// +listType
+	Conditions []corev1.Condition `json:"conditions"`
+	// Status is overall status of the workspace
+	Status corev1.Status `json:"status"`
+}
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

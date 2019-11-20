@@ -18,14 +18,9 @@
 package v1
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-)
+	corev1 "github.com/appvia/hub-apis/pkg/apis/core/v1"
 
-const (
-	// APIGroupReference is the annotation on the binding reference
-	APIGroupReference = "rbac.hub.appia.io/group"
-	// KindReference is a reference to the kind
-	KindReference = "rbac.hub.appia.io/kind"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // BindingSpec defines the desired state of Binding
@@ -67,11 +62,11 @@ type Subject struct {
 // BindingStatus defines the observed state of Binding
 // +k8s:openapi-gen=true
 type BindingStatus struct {
-	// Conditions is collection of potentials error causes
+	// Conditions is a set of condition which has caused an error
 	// +listType
-	Condiitions []metav1.Status `json:"condiitions"`
-	// Status provides an overview of the user status
-	Status metav1.StatusReason `json:"status"`
+	Conditions []corev1.Condition `json:"conditions"`
+	// Status is overall status of the workspace
+	Status corev1.Status `json:"status"`
 }
 
 // +genclient

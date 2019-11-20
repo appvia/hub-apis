@@ -18,15 +18,10 @@
 package v1
 
 import (
+	corev1 "github.com/appvia/hub-apis/pkg/apis/core/v1"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-)
-
-const (
-	// ClassAPILabel is the class label
-	ClassAPILabel = "config.hub.appvia.io/class"
-	// ClassKindLabel is the class kind label
-	ClassKindLabel = "config.hub.appvia.io/kind"
 )
 
 // PlanSpec defines the desired state of Plan
@@ -47,9 +42,9 @@ type PlanSpec struct {
 type PlanStatus struct {
 	// Conditions is a set of condition which has caused an error
 	// +listType
-	Conditions []metav1.Status `json:"conditions"`
+	Conditions []corev1.Condition `json:"conditions"`
 	// Status is overall status of the workspace
-	Status metav1.StatusReason `json:"status"`
+	Status corev1.Status `json:"status"`
 }
 
 // +genclient:nonNamespaced

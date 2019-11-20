@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019  Rohith Jayawardene <info@appvia.io>
+ * Copyright (C) 2019 Rohith Jayawardene <info@appvia.io>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -18,6 +18,8 @@
 package v1
 
 import (
+	corev1 "github.com/appvia/hub-apis/pkg/apis/core/v1"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -35,15 +37,14 @@ type TeamSpec struct {
 type TeamStatus struct {
 	// Conditions is a collection of possible errors
 	// +listType
-	Conditions []metav1.Status `json:"conditions"`
+	Conditions []corev1.Condition `json:"conditions"`
 	// Status is the status of the resource
-	Status metav1.StatusReason `json:"status"`
+	Status corev1.Status `json:"status"`
 	// Namespace is the namespace the team is mapped to
 	Namespace string `json:"namespace"`
 }
 
 // +genclient
-// +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // Team is the Schema for the teams API
