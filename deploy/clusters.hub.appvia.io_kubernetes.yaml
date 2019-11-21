@@ -57,8 +57,8 @@ spec:
             ownership:
               description: Ownership is the cloud cluster provider type for this kubernetes
               properties:
-                apiVersion:
-                  description: APIVersion is the apigroup the resource lives under
+                group:
+                  description: Group is the api group
                   type: string
                 kind:
                   description: Kind is the name of the resource under the group
@@ -69,11 +69,15 @@ spec:
                 namespace:
                   description: Namespace is the location of the object
                   type: string
+                version:
+                  description: Version is the group version
+                  type: string
               required:
-              - apiVersion
+              - group
               - kind
               - name
               - namespace
+              - version
               type: object
             token:
               description: Token is the hub-admin service account token which is bound

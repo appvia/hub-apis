@@ -20,8 +20,10 @@ package v1
 // Ownership indicates the ownership of a resource
 // +k8s:openapi-gen=true
 type Ownership struct {
-	// APIVersion is the apigroup the resource lives under
-	APIVersion string `json:"apiVersion"`
+	// Group is the api group
+	Group string `json:"group"`
+	// Version is the group version
+	Version string `json:"version"`
 	// Kind is the name of the resource under the group
 	Kind string `json:"kind"`
 	// Namespace is the location of the object

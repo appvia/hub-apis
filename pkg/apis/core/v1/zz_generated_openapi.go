@@ -80,9 +80,16 @@ func schema_pkg_apis_core_v1_Ownership(ref common.ReferenceCallback) common.Open
 				Description: "Ownership indicates the ownership of a resource",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"apiVersion": {
+					"group": {
 						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion is the apigroup the resource lives under",
+							Description: "Group is the api group",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Version is the group version",
 							Type:        []string{"string"},
 							Format:      "",
 						},
@@ -109,7 +116,7 @@ func schema_pkg_apis_core_v1_Ownership(ref common.ReferenceCallback) common.Open
 						},
 					},
 				},
-				Required: []string{"apiVersion", "kind", "namespace", "name"},
+				Required: []string{"group", "version", "kind", "namespace", "name"},
 			},
 		},
 	}

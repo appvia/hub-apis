@@ -40,8 +40,8 @@ spec:
             class:
               description: Class is the reference to the provider of this class
               properties:
-                apiVersion:
-                  description: APIVersion is the apigroup the resource lives under
+                group:
+                  description: Group is the api group
                   type: string
                 kind:
                   description: Kind is the name of the resource under the group
@@ -52,17 +52,21 @@ spec:
                 namespace:
                   description: Namespace is the location of the object
                   type: string
+                version:
+                  description: Version is the group version
+                  type: string
               required:
-              - apiVersion
+              - group
               - kind
               - name
               - namespace
+              - version
               type: object
             ref:
               description: Ref is a reference to the configuration object
               properties:
-                apiVersion:
-                  description: APIVersion is the apigroup the resource lives under
+                group:
+                  description: Group is the api group
                   type: string
                 kind:
                   description: Kind is the name of the resource under the group
@@ -73,17 +77,21 @@ spec:
                 namespace:
                   description: Namespace is the location of the object
                   type: string
+                version:
+                  description: Version is the group version
+                  type: string
               required:
-              - apiVersion
+              - group
               - kind
               - name
               - namespace
+              - version
               type: object
             resource:
               description: Resource is a reference to a resource
               properties:
-                apiVersion:
-                  description: APIVersion is the apigroup the resource lives under
+                group:
+                  description: Group is the api group
                   type: string
                 kind:
                   description: Kind is the name of the resource under the group
@@ -94,11 +102,15 @@ spec:
                 namespace:
                   description: Namespace is the location of the object
                   type: string
+                version:
+                  description: Version is the group version
+                  type: string
               required:
-              - apiVersion
+              - group
               - kind
               - name
               - namespace
+              - version
               type: object
             type:
               description: Type is the type of binding
