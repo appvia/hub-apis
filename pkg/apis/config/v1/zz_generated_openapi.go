@@ -92,6 +92,13 @@ func schema_pkg_apis_config_v1_BindingSpec(ref common.ReferenceCallback) common.
 				Description: "BindingSpec defines the desired state of Binding",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
+					"type": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Type is the type of binding",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
 					"class": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Class is the reference to the provider of this class",
@@ -111,7 +118,7 @@ func schema_pkg_apis_config_v1_BindingSpec(ref common.ReferenceCallback) common.
 						},
 					},
 				},
-				Required: []string{"class", "resource", "ref"},
+				Required: []string{"type", "class", "resource", "ref"},
 			},
 		},
 		Dependencies: []string{

@@ -23,9 +23,22 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+// BindingType defines a binding resource type
+type BindingType string
+
+const (
+	// ResourceType indicates a resource binding type
+	ResourceType BindingType = "resource"
+	// ClassType indicates a class binding type
+	ClassType BindingType = "class"
+)
+
 // BindingSpec defines the desired state of Binding
 // +k8s:openapi-gen=true
 type BindingSpec struct {
+	// Type is the type of binding
+	// +kubebuilder:validation:Required
+	Type BindingType `json:"type"`
 	// Class is the reference to the provider of this class
 	// +kubebuilder:validation:Optional
 	Class corev1.Ownership `json:"class"`
