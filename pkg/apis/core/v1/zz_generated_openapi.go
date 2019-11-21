@@ -31,6 +31,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 	return map[string]common.OpenAPIDefinition{
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition":     schema_pkg_apis_core_v1_Condition(ref),
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership":     schema_pkg_apis_core_v1_Ownership(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.ServiceSpec":   schema_pkg_apis_core_v1_ServiceSpec(ref),
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHook":       schema_pkg_apis_core_v1_WebHook(ref),
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHookSpec":   schema_pkg_apis_core_v1_WebHookSpec(ref),
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHookStatus": schema_pkg_apis_core_v1_WebHookStatus(ref),
@@ -109,6 +110,41 @@ func schema_pkg_apis_core_v1_Ownership(ref common.ReferenceCallback) common.Open
 					},
 				},
 				Required: []string{"apiVersion", "kind", "namespace", "name"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1_ServiceSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "ServiceSpec provides a service spec",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"caBundle": {
+						SchemaProps: spec.SchemaProps{
+							Description: "CaBundle is a ca bundle if required",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"serviceName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ServiceName is the name of the kubernetes services",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Namespace is the namespace its in",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"caBundle", "serviceName", "namespace"},
 			},
 		},
 	}

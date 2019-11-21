@@ -21,19 +21,11 @@ package v1
 // +k8s:openapi-gen=true
 type Ownership struct {
 	// APIVersion is the apigroup the resource lives under
-	// +kubebuilder:validation:MinLength=1
-	// +kubebuilder:validation:Required
 	APIVersion string `json:"apiVersion"`
 	// Kind is the name of the resource under the group
-	// +kubebuilder:validation:MinLength=1
-	// +kubebuilder:validation:Required
 	Kind string `json:"kind"`
 	// Namespace is the location of the object
-	// +kubebuilder:validation:MinLength=1
-	// +kubebuilder:validation:Required
 	Namespace string `json:"namespace"`
 	// Name is name of the resource
-	// +kubebuilder:validation:MinLength=1
-	// +kubebuilder:validation:Required
 	Name string `json:"name"`
 }

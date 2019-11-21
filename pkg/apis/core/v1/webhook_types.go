@@ -33,6 +33,7 @@ type WebHookSpec struct {
 }
 
 // ServiceSpec provides a service spec
+// +k8s:openapi-gen=true
 type ServiceSpec struct {
 	// CaBundle is a ca bundle if required
 	CaBundle string `json:"caBundle"`

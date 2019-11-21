@@ -59,19 +59,15 @@ spec:
               properties:
                 apiVersion:
                   description: APIVersion is the apigroup the resource lives under
-                  minLength: 1
                   type: string
                 kind:
                   description: Kind is the name of the resource under the group
-                  minLength: 1
                   type: string
                 name:
                   description: Name is name of the resource
-                  minLength: 1
                   type: string
                 namespace:
                   description: Namespace is the location of the object
-                  minLength: 1
                   type: string
               required:
               - apiVersion
