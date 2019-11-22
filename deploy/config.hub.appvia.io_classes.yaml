@@ -41,12 +41,13 @@ spec:
               description: APIVersion is the api group and version for this class
               minLength: 5
               type: string
+            autoProvision:
+              description: AutoProvision indicates this class can be auto-provisioned
+                based on on a team pre-existing team binding
+              type: boolean
             category:
               description: Category provides a category for this class / resurce offering
               minLength: 1
-              type: string
-            defaultPlan:
-              description: DefaultPlan defines a default values plan for this offering
               type: string
             description:
               description: Description provides a summary of what the class it offering
@@ -134,10 +135,6 @@ spec:
             schemas:
               description: Schemas is OpenAPI schema for the resources
               type: object
-            summary:
-              description: Summary provides a one one summary of the offering
-              minLength: 1
-              type: string
           required:
           - apiVersion
           - category
@@ -145,7 +142,6 @@ spec:
           - displayName
           - resources
           - schemas
-          - summary
           type: object
         status:
           description: ClassStatus defines the observed state of Class

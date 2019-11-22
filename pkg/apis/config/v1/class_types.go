@@ -43,6 +43,9 @@ type ClassSpec struct {
 	// +kubebuilder:validation:MinLength=5
 	// +kubebuilder:validation:Required
 	APIVersion string `json:"apiVersion"`
+	// AutoProvision indicates this class can be auto-provisioned based on
+	// on a team pre-existing team binding
+	AutoProvision bool `json:"autoProvision,omitempty"`
 	// Category provides a category for this class / resurce offering
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
@@ -53,9 +56,6 @@ type ClassSpec struct {
 	// +kubebuilder:validation:Required
 	// +required
 	Description string `json:"description"`
-	// DefaultPlan defines a default values plan for this offering
-	// +optional
-	DefaultPlan string `json:"defaultPlan"`
 	// DisplayName is the title of the provider
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
@@ -77,11 +77,6 @@ type ClassSpec struct {
 	// Schemas is OpenAPI schema for the resources
 	// +kubebuilder:validation:Required
 	Schemas unstructured.Unstructured `json:"schemas"`
-	// Summary provides a one one summary of the offering
-	// +kubebuilder:validation:MinLength=1
-	// +kubebuilder:validation:Required
-	// +required
-	Summary string `json:"summary"`
 }
 
 // ClassResource is a type of resource a class provides

@@ -225,6 +225,13 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 							Format:      "",
 						},
 					},
+					"autoProvision": {
+						SchemaProps: spec.SchemaProps{
+							Description: "AutoProvision indicates this class can be auto-provisioned based on on a team pre-existing team binding",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"category": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Category provides a category for this class / resurce offering",
@@ -235,13 +242,6 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Description provides a summary of what the class it offering",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"defaultPlan": {
-						SchemaProps: spec.SchemaProps{
-							Description: "DefaultPlan defines a default values plan for this offering",
 							Type:        []string{"string"},
 							Format:      "",
 						},
@@ -302,15 +302,8 @@ func schema_pkg_apis_config_v1_ClassSpec(ref common.ReferenceCallback) common.Op
 							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1/unstructured.Unstructured"),
 						},
 					},
-					"summary": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Summary provides a one one summary of the offering",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
 				},
-				Required: []string{"apiVersion", "category", "description", "displayName", "resources", "schemas", "summary"},
+				Required: []string{"apiVersion", "category", "description", "displayName", "resources", "schemas"},
 			},
 		},
 		Dependencies: []string{
