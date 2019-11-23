@@ -84,12 +84,12 @@ spec:
               items:
                 description: ClassResource is a type of resource a class provides
                 properties:
-                  apiGroup:
-                    description: Group is the apigroup the resource lives under
-                    minLength: 1
-                    type: string
                   displayName:
                     description: DisplayName is a short name for the resource
+                    minLength: 1
+                    type: string
+                  group:
+                    description: Group is the apigroup the resource lives under
                     minLength: 1
                     type: string
                   kind:
@@ -112,22 +112,17 @@ spec:
                     description: ShortDescription provides a paragraph to description
                       was the resource is used for
                     type: string
-                  unique:
-                    description: Unique indicates only one resource can be created
-                      in the scope
-                    type: boolean
                   version:
                     description: Version is the apigroup version of the kind
                     minLength: 1
                     type: string
                 required:
-                - apiGroup
                 - displayName
+                - group
                 - kind
                 - longDescription
                 - scope
                 - shortDescription
-                - unique
                 - version
                 type: object
               minItems: 1
@@ -135,6 +130,7 @@ spec:
             schemas:
               description: Schemas is OpenAPI schema for the resources
               type: object
+              x-kubernetes-preserve-unknown-fields: true
           required:
           - apiVersion
           - category

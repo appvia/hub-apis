@@ -47,8 +47,11 @@ spec:
               minLength: 1
               type: string
             values:
-              description: Values is a set of default values
+              description: Values are the key values to the plan
               type: object
+              x-kubernetes-preserve-unknown-fields: true
+          required:
+          - values
           type: object
         status:
           description: PlanStatus defines the observed state of Plan

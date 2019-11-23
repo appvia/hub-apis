@@ -20,8 +20,8 @@ package v1
 import (
 	corev1 "github.com/appvia/hub-apis/pkg/apis/core/v1"
 
+	apiextv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 // ClassScope defines the scope of a resources from a provider
@@ -76,7 +76,8 @@ type ClassSpec struct {
 	Resources []ClassResource `json:"resources"`
 	// Schemas is OpenAPI schema for the resources
 	// +kubebuilder:validation:Required
-	Schemas unstructured.Unstructured `json:"schemas"`
+	// +kubebuilder:validation:Type=object
+	Schemas apiextv1.JSON `json:"schemas"`
 }
 
 // ClassResource is a type of resource a class provides
@@ -84,7 +85,7 @@ type ClassResource struct {
 	// Group is the apigroup the resource lives under
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
-	APIGroup string `json:"apiGroup"`
+	Group string `json:"group"`
 	// DisplayName is a short name for the resource
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
@@ -106,9 +107,6 @@ type ClassResource struct {
 	// +kubebuilder:validation:Optional
 	// +listType
 	Plans []string `json:"plans"`
-	// Unique indicates only one resource can be created in the scope
-	// +kubebuilder:validation:Required
-	Unique bool `json:"unique"`
 	// Version is the apigroup version of the kind
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required

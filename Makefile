@@ -52,4 +52,4 @@ crd-gen:
 	@echo "--> Generating CRD deployment files"
 	@mkdir -p deploy
 	@rm -f deploy/* 2>/dev/null || true
-	@controller-gen crd paths=./pkg/apis/...  output:dir=deploy
+	@controller-gen crd:trivialVersions=true,preserveUnknownFields=false paths=./pkg/apis/...  output:dir=deploy

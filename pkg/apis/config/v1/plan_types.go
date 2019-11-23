@@ -20,8 +20,8 @@ package v1
 import (
 	corev1 "github.com/appvia/hub-apis/pkg/apis/core/v1"
 
+	apiextv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 // PlanSpec defines the desired state of Plan
@@ -33,8 +33,9 @@ type PlanSpec struct {
 	// Summary provides a short title summary for the plan
 	// +kubebuilder:validation:MinLength=1
 	Summary string `json:"summary,omitempty"`
-	// Values is a set of default values
-	Values unstructured.Unstructured `json:"values,omitempty"`
+	// Values are the key values to the plan
+	// +kubebuilder:validation:Type=object
+	Values apiextv1.JSON `json:"values"`
 }
 
 // PlanStatus defines the observed state of Plan
