@@ -20,7 +20,7 @@ package v1
 import (
 	corev1 "github.com/appvia/hub-apis/pkg/apis/core/v1"
 
-	apiextv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
+	apiextv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
