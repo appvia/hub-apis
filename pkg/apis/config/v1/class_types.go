@@ -66,8 +66,7 @@ type ClassSpec struct {
 	Requires metav1.GroupVersionKind `json:"requires"`
 	// Plans is a collection of default values for this class the initial one being
 	// default in plans.config.hub.appvia.io/v1
-	// +kubebuilder:validation:MinItems=1
-	// +optional
+	// +kubebuilder:validation:Optional
 	// +listType
 	Plans []string `json:"plans"`
 	// Resources is a list of any resources this class provides
