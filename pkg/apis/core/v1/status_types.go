@@ -21,6 +21,8 @@ package v1
 type Status string
 
 const (
+	// PendingStatus inddicate we are waiting
+	PendingStatus Status = "Pending"
 	// SuccessStatus is a successful resource
 	SuccessStatus Status = "Success"
 	// FailureStatus indicates the resource has failed for one or more reasons
