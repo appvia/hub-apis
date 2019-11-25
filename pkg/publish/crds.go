@@ -18,6 +18,9 @@
 package publish
 
 import (
+	"fmt"
+
+	"github.com/davecgh/go-spew/spew"
 	apiextensions "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	client "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	"k8s.io/apimachinery/pkg/api/errors"
@@ -54,6 +57,8 @@ func ApplyCustomResourceDefinition(c client.Interface, crd *apiextensions.Custom
 
 		return err
 	}
+
+	fmt.Printf("CRD: %s\n", spew.Sdump(crd))
 
 	crd.SetGeneration(current.GetGeneration())
 	crd.SetResourceVersion(current.GetResourceVersion())
