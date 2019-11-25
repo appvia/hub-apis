@@ -20,51 +20,90 @@ package schema
 import (
 	"context"
 
+	clustersv1 "github.com/appvia/hub-apis/pkg/apis/clusters/v1"
 	configv1 "github.com/appvia/hub-apis/pkg/apis/config/v1"
+	orgv1 "github.com/appvia/hub-apis/pkg/apis/org/v1"
+	rbacv1 "github.com/appvia/hub-apis/pkg/apis/rbac/v1"
+	storev1 "github.com/appvia/hub-apis/pkg/apis/store/v1"
 
 	aerrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/client-go/kubernetes/scheme"
+	"k8s.io/client-go/rest"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
+// NewClient returns a client for the hub schema
+func NewClient(cfg *rest.Config) (client.Client, error) {
+	s := scheme.Scheme
+
+	clustersv1.AddToScheme(s)
+	configv1.AddToScheme(s)
+	orgv1.AddToScheme(s)
+	rbacv1.AddToScheme(s)
+	storev1.AddToScheme(s)
+
+	return client.New(cfg, client.Options{Scheme: s})
+}
+
 // PublishAll is responsible for publishing the classes and plans into the cluster
-func PublishAll(ctx context.Context, c client.Client, class *configv1.Class, plans []*configv1.Plan) error {
-	if err := PublishClass(ctx, c, class); err != nil {
+func PublishAll(ctx context.Context, cc client.Client, class configv1.Class, plans []configv1.Plan) error {
+	if err := PublishClass(ctx, cc, class); err != nil {
 		return err
 	}
 
-	return PublishPlans(ctx, c, plans)
+	return PublishPlans(ctx, cc, plans)
 }
 
 // PublishClass is responsible for publishing the class into the cluster
-func PublishClass(ctx context.Context, c client.Client, class *configv1.Class) error {
-	err := c.Get(ctx, types.NamespacedName{Name: class.Name}, &configv1.Class{})
-	if err != nil {
-		if aerrors.IsNotFound(err) {
-			if err := c.Create(ctx, class); err != nil {
+func PublishClass(ctx context.Context, cc client.Client, class configv1.Class) error {
+	// @step: check if a class it already published
+	current := &configv1.Class{}
+
+	return func() error {
+		reference := types.NamespacedName{
+			Namespace: "hub",
+			Name:      class.Name,
+		}
+
+		if err := cc.Get(ctx, reference, current); err != nil {
+			if !aerrors.IsNotFound(err) {
 				return err
 			}
-		}
-	}
 
-	return c.Update(ctx, class)
+			return cc.Create(ctx, &class)
+		}
+		class.SetGeneration(current.GetGeneration())
+		class.SetResourceVersion(current.GetResourceVersion())
+
+		return cc.Update(ctx, &class)
+	}()
 }
 
 // PublishPlans is responisble for pushing the plans into the cluster
-func PublishPlans(ctx context.Context, c client.Client, plans []*configv1.Plan) error {
+func PublishPlans(ctx context.Context, cc client.Client, plans []configv1.Plan) error {
 	for _, x := range plans {
-		reference := types.NamespacedName{Name: x.Name}
+		if err := func() error {
+			current := &configv1.Plan{}
 
-		if err := c.Get(ctx, reference, x); err != nil {
-			if aerrors.IsNotFound(err) {
-				if err := c.Create(ctx, x); err != nil {
+			reference := types.NamespacedName{
+				Namespace: "hub",
+				Name:      x.Name,
+			}
+
+			if err := cc.Get(ctx, reference, current); err != nil {
+				if !aerrors.IsNotFound(err) {
 					return err
 				}
+
+				return cc.Create(ctx, &x)
 			}
-		} else {
-			if err := c.Update(ctx, x); err != nil {
-				return err
-			}
+			x.SetGeneration(current.GetGeneration())
+			x.SetResourceVersion(current.GetResourceVersion())
+
+			return cc.Update(ctx, &x)
+		}(); err != nil {
+			return err
 		}
 	}
 
