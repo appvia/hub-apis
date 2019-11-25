@@ -46,6 +46,8 @@ func ApplyCustomResourceDefinitions(c client.Interface, list []*apiextensions.Cu
 
 // ApplyCustomResourceDefinition is responsible for applying the CRD to the cluster
 func ApplyCustomResourceDefinition(c client.Interface, crd *apiextensions.CustomResourceDefinition) error {
+	fmt.Printf("CRD: %s\n", spew.Sdump(crd))
+
 	// @step: retrieve the current if there
 	current, err := c.ApiextensionsV1beta1().CustomResourceDefinitions().Get(crd.Name, metav1.GetOptions{})
 	if err != nil {
@@ -57,8 +59,6 @@ func ApplyCustomResourceDefinition(c client.Interface, crd *apiextensions.Custom
 
 		return err
 	}
-
-	fmt.Printf("CRD: %s\n", spew.Sdump(crd))
 
 	crd.SetGeneration(current.GetGeneration())
 	crd.SetResourceVersion(current.GetResourceVersion())
