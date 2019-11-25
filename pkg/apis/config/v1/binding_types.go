@@ -23,16 +23,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// BindingType defines a binding resource type
-type BindingType string
-
-const (
-	// ResourceType indicates a resource binding type
-	ResourceType BindingType = "resource"
-	// ClassType indicates a class binding type
-	ClassType BindingType = "class"
-)
-
 // BindingSpec defines the desired state of Binding
 // +k8s:openapi-gen=true
 type BindingSpec struct {
