@@ -90,7 +90,6 @@ func (in *BindingList) DeepCopyObject() runtime.Object {
 func (in *BindingSpec) DeepCopyInto(out *BindingSpec) {
 	*out = *in
 	out.Class = in.Class
-	out.Resource = in.Resource
 	out.Ref = in.Ref
 	return
 }

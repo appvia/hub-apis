@@ -20,6 +20,7 @@ import (
 var (
 	crdPath     string
 	crdFiles    string
+	headerFile  string
 	packageName string
 	schemePath  string
 )
@@ -27,6 +28,7 @@ var (
 func init() {
 	flag.StringVar(&crdPath, "crd-path", "", "path to the folder containing the controller-gen generated crds")
 	flag.StringVar(&packageName, "package", "schema", "the name of the package the code should reside")
+	flag.StringVar(&headerFile, "header-file", "", "a custom header file applied to the generated file")
 	flag.StringVar(&crdFiles, "crd-files", "*_crd.yaml", "the glob used to find the crd files in the deployment directory")
 	flag.StringVar(&schemePath, "schema-file", "pkg/apis/schema/schema.go", "the path to the folder where the schema should be placed")
 }

@@ -36,15 +36,9 @@ const (
 // BindingSpec defines the desired state of Binding
 // +k8s:openapi-gen=true
 type BindingSpec struct {
-	// Type is the type of binding
-	// +kubebuilder:validation:Required
-	Type BindingType `json:"type"`
 	// Class is the reference to the provider of this class
 	// +kubebuilder:validation:Optional
 	Class corev1.Ownership `json:"class"`
-	// Resource is a reference to a resource
-	// +kubebuilder:validation:Optional
-	Resource corev1.Ownership `json:"resource"`
 	// Ref is a reference to the configuration object
 	// +kubebuilder:validation:Required
 	Ref corev1.Ownership `json:"ref"`

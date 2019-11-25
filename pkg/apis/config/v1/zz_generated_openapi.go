@@ -92,22 +92,9 @@ func schema_pkg_apis_config_v1_BindingSpec(ref common.ReferenceCallback) common.
 				Description: "BindingSpec defines the desired state of Binding",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"type": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Type is the type of binding",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
 					"class": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Class is the reference to the provider of this class",
-							Ref:         ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership"),
-						},
-					},
-					"resource": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Resource is a reference to a resource",
 							Ref:         ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership"),
 						},
 					},
@@ -118,7 +105,7 @@ func schema_pkg_apis_config_v1_BindingSpec(ref common.ReferenceCallback) common.
 						},
 					},
 				},
-				Required: []string{"type", "class", "resource", "ref"},
+				Required: []string{"class", "ref"},
 			},
 		},
 		Dependencies: []string{
