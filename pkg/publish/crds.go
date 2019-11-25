@@ -18,9 +18,6 @@
 package publish
 
 import (
-	"fmt"
-
-	"github.com/davecgh/go-spew/spew"
 	apiextensions "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	client "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	"k8s.io/apimachinery/pkg/api/errors"
@@ -46,8 +43,6 @@ func ApplyCustomResourceDefinitions(c client.Interface, list []*apiextensions.Cu
 
 // ApplyCustomResourceDefinition is responsible for applying the CRD to the cluster
 func ApplyCustomResourceDefinition(c client.Interface, crd *apiextensions.CustomResourceDefinition) error {
-	fmt.Printf("CRD: %s\n", spew.Sdump(crd))
-
 	// @step: retrieve the current if there
 	current, err := c.ApiextensionsV1beta1().CustomResourceDefinitions().Get(crd.Name, metav1.GetOptions{})
 	if err != nil {

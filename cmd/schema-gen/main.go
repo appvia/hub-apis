@@ -73,7 +73,6 @@ var (
 
 	// CustomResourceDefinitions are the custom resources types
 	CustomResourceDefinitions = ` + "`" + `
----
 {{ .Definitions -}}
 ` + "`" + `
 )
