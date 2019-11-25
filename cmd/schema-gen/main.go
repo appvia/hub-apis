@@ -9,6 +9,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"strings"
 	"text/template"
 	"time"
 
@@ -55,6 +56,10 @@ var packageTemplate = template.Must(template.New("").Parse(`
 package {{ .Package }}
 
 import (
+	"bytes"
+	"encoding/json"
+	"strings"
+
 	apiextensions "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 
 	yaml "github.com/ghodss/yaml"
@@ -65,8 +70,15 @@ var (
 	Schema = ` + "`" + `
 {{ .Schema -}}
 	` + "`" + `
+
+	// CustomResourceDefinitions are the custom resources types
+	CustomResourceDefinitions = ` + "`" + `
+---
+{{ .Definitions -}}
+` + "`" + `
 )
 
+// ConvertToJSON converts the CRD defitions into a swagger manifest
 func ConvertToJSON() apiextensions.JSON {
 	encoded, err := yaml.YAMLToJSON([]byte(Schema))
 	if err != nil {
@@ -75,6 +87,28 @@ func ConvertToJSON() apiextensions.JSON {
 
 	return apiextensions.JSON{Raw: encoded}
 }
+
+// GetCustomResourceDefinitions returns all the CRDs for registation
+func GetCustomResourceDefinitions() []*apiextensions.CustomResourceDefinition{
+	var list []*apiextensions.CustomResourceDefinition
+
+	for _, document := range strings.Split(CustomResourceDefinitions, "---") {
+		decoded, err := yaml.YAMLToJSON([]byte(document))
+		if err != nil {
+			panic("failed to parse the custom resource definition")
+		}
+
+		crd := &apiextensions.CustomResourceDefinition{}
+		if err := json.NewDecoder(bytes.NewReader(decoded)).Decode(crd); err != nil {
+			panic("failed to parse the custom resource definition yaml")
+		}
+
+		list = append(list, crd)
+	}
+
+	return list
+}
+
 `))
 
 func main() {
@@ -89,6 +123,7 @@ func main() {
 		}
 
 		var definitions []*apiextensions.CustomResourceDefinition
+		crdDefintions := make([]string, 0)
 
 		for _, x := range crds {
 			// @step: read in the contents of the file
@@ -96,6 +131,7 @@ func main() {
 			if err != nil {
 				return err
 			}
+			crdDefintions = append(crdDefintions, string(content))
 
 			// @step: convert the yaml to json
 			converted, err := yaml.YAMLToJSON(content)
@@ -141,13 +177,15 @@ func main() {
 		}
 
 		packageTemplate.Execute(file, struct {
-			Timestamp time.Time
-			Package   string
-			Schema    string
+			Definitions string
+			Timestamp   time.Time
+			Package     string
+			Schema      string
 		}{
-			Timestamp: time.Now(),
-			Package:   packageName,
-			Schema:    string(encoded),
+			Definitions: strings.Join(crdDefintions, "---\n"),
+			Timestamp:   time.Now(),
+			Package:     packageName,
+			Schema:      string(encoded),
 		})
 
 		return nil
