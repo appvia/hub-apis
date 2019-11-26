@@ -27,12 +27,17 @@ import (
 
 type CoreV1Interface interface {
 	RESTClient() rest.Interface
+	OAuthProvidersGetter
 	WebHooksGetter
 }
 
 // CoreV1Client is used to interact with features provided by the core.hub.appvia.io group.
 type CoreV1Client struct {
 	restClient rest.Interface
+}
+
+func (c *CoreV1Client) OAuthProviders(namespace string) OAuthProviderInterface {
+	return newOAuthProviders(c, namespace)
 }
 
 func (c *CoreV1Client) WebHooks(namespace string) WebHookInterface {

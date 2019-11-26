@@ -29,12 +29,15 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition":     schema_pkg_apis_core_v1_Condition(ref),
-		"github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership":     schema_pkg_apis_core_v1_Ownership(ref),
-		"github.com/appvia/hub-apis/pkg/apis/core/v1.ServiceSpec":   schema_pkg_apis_core_v1_ServiceSpec(ref),
-		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHook":       schema_pkg_apis_core_v1_WebHook(ref),
-		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHookSpec":   schema_pkg_apis_core_v1_WebHookSpec(ref),
-		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHookStatus": schema_pkg_apis_core_v1_WebHookStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition":           schema_pkg_apis_core_v1_Condition(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.OAuthProvider":       schema_pkg_apis_core_v1_OAuthProvider(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.OAuthProviderSpec":   schema_pkg_apis_core_v1_OAuthProviderSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.OAuthProviderStatus": schema_pkg_apis_core_v1_OAuthProviderStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership":           schema_pkg_apis_core_v1_Ownership(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.ServiceSpec":         schema_pkg_apis_core_v1_ServiceSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHook":             schema_pkg_apis_core_v1_WebHook(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHookSpec":         schema_pkg_apis_core_v1_WebHookSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHookStatus":       schema_pkg_apis_core_v1_WebHookStatus(ref),
 	}
 }
 
@@ -70,6 +73,133 @@ func schema_pkg_apis_core_v1_Condition(ref common.ReferenceCallback) common.Open
 				Required: []string{"message", "detail", "code"},
 			},
 		},
+	}
+}
+
+func schema_pkg_apis_core_v1_OAuthProvider(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "OAuthProvider is the Schema for the class API",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.OAuthProviderSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.OAuthProviderStatus"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.OAuthProviderSpec", "github.com/appvia/hub-apis/pkg/apis/core/v1.OAuthProviderStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_core_v1_OAuthProviderSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "OAuthProviderSpec defines the desired state of OAuthProvider",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the provider",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"clientID": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ClientID",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"clientSecret": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ClientSecret",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"displayName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DisplayName",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "clientID", "clientSecret", "displayName"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1_OAuthProviderStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "OAuthProviderStatus defines the observed state of OAuthProvider",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"conditions": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-list-type": "",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "Conditions is a set of condition which has caused an error",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
+									},
+								},
+							},
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status is overall status of the workspace",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"conditions", "status"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }
 

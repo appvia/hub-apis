@@ -28,6 +28,10 @@ type FakeCoreV1 struct {
 	*testing.Fake
 }
 
+func (c *FakeCoreV1) OAuthProviders(namespace string) v1.OAuthProviderInterface {
+	return &FakeOAuthProviders{c, namespace}
+}
+
 func (c *FakeCoreV1) WebHooks(namespace string) v1.WebHookInterface {
 	return &FakeWebHooks{c, namespace}
 }
