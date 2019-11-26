@@ -31,59 +31,59 @@ import (
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// OAuthProviderInformer provides access to a shared informer and lister for
-// OAuthProviders.
-type OAuthProviderInformer interface {
+// AuthProviderInformer provides access to a shared informer and lister for
+// AuthProviders.
+type AuthProviderInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1.OAuthProviderLister
+	Lister() v1.AuthProviderLister
 }
 
-type oAuthProviderInformer struct {
+type authProviderInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
 	namespace        string
 }
 
-// NewOAuthProviderInformer constructs a new informer for OAuthProvider type.
+// NewAuthProviderInformer constructs a new informer for AuthProvider type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewOAuthProviderInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredOAuthProviderInformer(client, namespace, resyncPeriod, indexers, nil)
+func NewAuthProviderInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredAuthProviderInformer(client, namespace, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredOAuthProviderInformer constructs a new informer for OAuthProvider type.
+// NewFilteredAuthProviderInformer constructs a new informer for AuthProvider type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredOAuthProviderInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredAuthProviderInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.CoreV1().OAuthProviders(namespace).List(options)
+				return client.CoreV1().AuthProviders(namespace).List(options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.CoreV1().OAuthProviders(namespace).Watch(options)
+				return client.CoreV1().AuthProviders(namespace).Watch(options)
 			},
 		},
-		&corev1.OAuthProvider{},
+		&corev1.AuthProvider{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *oAuthProviderInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredOAuthProviderInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *authProviderInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredAuthProviderInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *oAuthProviderInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&corev1.OAuthProvider{}, f.defaultInformer)
+func (f *authProviderInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&corev1.AuthProvider{}, f.defaultInformer)
 }
 
-func (f *oAuthProviderInformer) Lister() v1.OAuthProviderLister {
-	return v1.NewOAuthProviderLister(f.Informer().GetIndexer())
+func (f *authProviderInformer) Lister() v1.AuthProviderLister {
+	return v1.NewAuthProviderLister(f.Informer().GetIndexer())
 }

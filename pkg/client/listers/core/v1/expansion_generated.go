@@ -18,13 +18,13 @@ limitations under the License.
 
 package v1
 
-// OAuthProviderListerExpansion allows custom methods to be added to
-// OAuthProviderLister.
-type OAuthProviderListerExpansion interface{}
+// AuthProviderListerExpansion allows custom methods to be added to
+// AuthProviderLister.
+type AuthProviderListerExpansion interface{}
 
-// OAuthProviderNamespaceListerExpansion allows custom methods to be added to
-// OAuthProviderNamespaceLister.
-type OAuthProviderNamespaceListerExpansion interface{}
+// AuthProviderNamespaceListerExpansion allows custom methods to be added to
+// AuthProviderNamespaceLister.
+type AuthProviderNamespaceListerExpansion interface{}
 
 // WebHookListerExpansion allows custom methods to be added to
 // WebHookLister.

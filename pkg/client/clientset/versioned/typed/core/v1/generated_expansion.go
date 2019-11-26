@@ -18,6 +18,6 @@ limitations under the License.
 
 package v1
 
-type OAuthProviderExpansion interface{}
+type AuthProviderExpansion interface{}
 
 type WebHookExpansion interface{}

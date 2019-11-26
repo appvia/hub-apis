@@ -6,21 +6,21 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: (devel)
   creationTimestamp: null
-  name: oauth.core.hub.appvia.io
+  name: auth.core.hub.appvia.io
 spec:
   group: core.hub.appvia.io
   names:
-    kind: OAuthProvider
-    listKind: OAuthProviderList
-    plural: oauth
-    singular: oauthprovider
+    kind: AuthProvider
+    listKind: AuthProviderList
+    plural: auth
+    singular: authprovider
   preserveUnknownFields: false
   scope: Namespaced
   subresources:
     status: {}
   validation:
     openAPIV3Schema:
-      description: OAuthProvider is the Schema for the class API
+      description: AuthProvider is the Schema for the class API
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation
@@ -35,7 +35,7 @@ spec:
         metadata:
           type: object
         spec:
-          description: OAuthProviderSpec defines the desired state of OAuthProvider
+          description: AuthProviderSpec defines the desired state of AuthProvider
           properties:
             clientID:
               description: ClientID
@@ -54,7 +54,7 @@ spec:
           - name
           type: object
         status:
-          description: OAuthProviderStatus defines the observed state of OAuthProvider
+          description: AuthProviderStatus defines the observed state of OAuthProvider
           properties:
             conditions:
               description: Conditions is a set of condition which has caused an error

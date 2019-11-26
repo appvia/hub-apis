@@ -27,7 +27,7 @@ import (
 
 type CoreV1Interface interface {
 	RESTClient() rest.Interface
-	OAuthProvidersGetter
+	AuthProvidersGetter
 	WebHooksGetter
 }
 
@@ -36,8 +36,8 @@ type CoreV1Client struct {
 	restClient rest.Interface
 }
 
-func (c *CoreV1Client) OAuthProviders(namespace string) OAuthProviderInterface {
-	return newOAuthProviders(c, namespace)
+func (c *CoreV1Client) AuthProviders(namespace string) AuthProviderInterface {
+	return newAuthProviders(c, namespace)
 }
 
 func (c *CoreV1Client) WebHooks(namespace string) WebHookInterface {

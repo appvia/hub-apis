@@ -29,58 +29,23 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition":           schema_pkg_apis_core_v1_Condition(ref),
-		"github.com/appvia/hub-apis/pkg/apis/core/v1.OAuthProvider":       schema_pkg_apis_core_v1_OAuthProvider(ref),
-		"github.com/appvia/hub-apis/pkg/apis/core/v1.OAuthProviderSpec":   schema_pkg_apis_core_v1_OAuthProviderSpec(ref),
-		"github.com/appvia/hub-apis/pkg/apis/core/v1.OAuthProviderStatus": schema_pkg_apis_core_v1_OAuthProviderStatus(ref),
-		"github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership":           schema_pkg_apis_core_v1_Ownership(ref),
-		"github.com/appvia/hub-apis/pkg/apis/core/v1.ServiceSpec":         schema_pkg_apis_core_v1_ServiceSpec(ref),
-		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHook":             schema_pkg_apis_core_v1_WebHook(ref),
-		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHookSpec":         schema_pkg_apis_core_v1_WebHookSpec(ref),
-		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHookStatus":       schema_pkg_apis_core_v1_WebHookStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.AuthProvider":       schema_pkg_apis_core_v1_AuthProvider(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.AuthProviderSpec":   schema_pkg_apis_core_v1_AuthProviderSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.AuthProviderStatus": schema_pkg_apis_core_v1_AuthProviderStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition":          schema_pkg_apis_core_v1_Condition(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership":          schema_pkg_apis_core_v1_Ownership(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.ServiceSpec":        schema_pkg_apis_core_v1_ServiceSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHook":            schema_pkg_apis_core_v1_WebHook(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHookSpec":        schema_pkg_apis_core_v1_WebHookSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHookStatus":      schema_pkg_apis_core_v1_WebHookStatus(ref),
 	}
 }
 
-func schema_pkg_apis_core_v1_Condition(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_core_v1_AuthProvider(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "Condition is a reason why something failed",
-				Type:        []string{"object"},
-				Properties: map[string]spec.Schema{
-					"message": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Message is a human readable message",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"detail": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Detail is a actual error which might contain technical reference",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"code": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Code is machine readable code of the error type",
-							Type:        []string{"integer"},
-							Format:      "int32",
-						},
-					},
-				},
-				Required: []string{"message", "detail", "code"},
-			},
-		},
-	}
-}
-
-func schema_pkg_apis_core_v1_OAuthProvider(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Description: "OAuthProvider is the Schema for the class API",
+				Description: "AuthProvider is the Schema for the class API",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -104,27 +69,27 @@ func schema_pkg_apis_core_v1_OAuthProvider(ref common.ReferenceCallback) common.
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.OAuthProviderSpec"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.AuthProviderSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.OAuthProviderStatus"),
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.AuthProviderStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"github.com/appvia/hub-apis/pkg/apis/core/v1.OAuthProviderSpec", "github.com/appvia/hub-apis/pkg/apis/core/v1.OAuthProviderStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.AuthProviderSpec", "github.com/appvia/hub-apis/pkg/apis/core/v1.AuthProviderStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_core_v1_OAuthProviderSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_core_v1_AuthProviderSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "OAuthProviderSpec defines the desired state of OAuthProvider",
+				Description: "AuthProviderSpec defines the desired state of AuthProvider",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"name": {
@@ -162,11 +127,11 @@ func schema_pkg_apis_core_v1_OAuthProviderSpec(ref common.ReferenceCallback) com
 	}
 }
 
-func schema_pkg_apis_core_v1_OAuthProviderStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_core_v1_AuthProviderStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "OAuthProviderStatus defines the observed state of OAuthProvider",
+				Description: "AuthProviderStatus defines the observed state of OAuthProvider",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"conditions": {
@@ -200,6 +165,41 @@ func schema_pkg_apis_core_v1_OAuthProviderStatus(ref common.ReferenceCallback) c
 		},
 		Dependencies: []string{
 			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
+	}
+}
+
+func schema_pkg_apis_core_v1_Condition(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Condition is a reason why something failed",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"message": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Message is a human readable message",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"detail": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Detail is a actual error which might contain technical reference",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"code": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Code is machine readable code of the error type",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+				Required: []string{"message", "detail", "code"},
+			},
+		},
 	}
 }
 

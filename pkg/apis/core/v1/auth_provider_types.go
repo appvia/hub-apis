@@ -19,9 +19,9 @@ package v1
 
 import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-// OAuthProviderSpec defines the desired state of OAuthProvider
+// AuthProviderSpec defines the desired state of AuthProvider
 // +k8s:openapi-gen=true
-type OAuthProviderSpec struct {
+type AuthProviderSpec struct {
 	// Name is the name of the provider
 	// +kubebuilder:validation:Required
 	Name string `json:"name"`
@@ -36,9 +36,9 @@ type OAuthProviderSpec struct {
 	DisplayName string `json:"displayName"`
 }
 
-// OAuthProviderStatus defines the observed state of OAuthProvider
+// AuthProviderStatus defines the observed state of OAuthProvider
 // +k8s:openapi-gen=true
-type OAuthProviderStatus struct {
+type AuthProviderStatus struct {
 	// Conditions is a set of condition which has caused an error
 	// +listType
 	Conditions []Condition `json:"conditions"`
@@ -49,23 +49,23 @@ type OAuthProviderStatus struct {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// OAuthProvider is the Schema for the class API
+// AuthProvider is the Schema for the class API
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:path=oauth,scope=Namespaced
-type OAuthProvider struct {
+// +kubebuilder:resource:path=auth,scope=Namespaced
+type AuthProvider struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   OAuthProviderSpec   `json:"spec,omitempty"`
-	Status OAuthProviderStatus `json:"status,omitempty"`
+	Spec   AuthProviderSpec   `json:"spec,omitempty"`
+	Status AuthProviderStatus `json:"status,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// OAuthProviderList contains a list of OAuthProvider
-type OAuthProviderList struct {
+// OAuthProviderList contains a list of AuthProvider
+type AuthProviderList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []OAuthProvider `json:"items"`
+	Items           []AuthProvider `json:"items"`
 }

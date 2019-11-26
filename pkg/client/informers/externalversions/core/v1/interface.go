@@ -24,8 +24,8 @@ import (
 
 // Interface provides access to all the informers in this group version.
 type Interface interface {
-	// OAuthProviders returns a OAuthProviderInformer.
-	OAuthProviders() OAuthProviderInformer
+	// AuthProviders returns a AuthProviderInformer.
+	AuthProviders() AuthProviderInformer
 	// WebHooks returns a WebHookInformer.
 	WebHooks() WebHookInformer
 }
@@ -41,9 +41,9 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
 }
 
-// OAuthProviders returns a OAuthProviderInformer.
-func (v *version) OAuthProviders() OAuthProviderInformer {
-	return &oAuthProviderInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+// AuthProviders returns a AuthProviderInformer.
+func (v *version) AuthProviders() AuthProviderInformer {
+	return &authProviderInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // WebHooks returns a WebHookInformer.
