@@ -18,6 +18,8 @@ limitations under the License.
 
 package v1
 
+type AllocationExpansion interface{}
+
 type BindingExpansion interface{}
 
 type ClassExpansion interface{}

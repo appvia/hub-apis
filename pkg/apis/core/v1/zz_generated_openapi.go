@@ -92,13 +92,6 @@ func schema_pkg_apis_core_v1_AuthProviderSpec(ref common.ReferenceCallback) comm
 				Description: "AuthProviderSpec defines the desired state of AuthProvider",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"name": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Name is the name of the provider",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
 					"clientID": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ClientID",
@@ -121,7 +114,7 @@ func schema_pkg_apis_core_v1_AuthProviderSpec(ref common.ReferenceCallback) comm
 						},
 					},
 				},
-				Required: []string{"name", "clientID", "clientSecret", "displayName"},
+				Required: []string{"clientID", "clientSecret", "displayName"},
 			},
 		},
 	}

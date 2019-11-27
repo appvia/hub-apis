@@ -22,9 +22,6 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 // AuthProviderSpec defines the desired state of AuthProvider
 // +k8s:openapi-gen=true
 type AuthProviderSpec struct {
-	// Name is the name of the provider
-	// +kubebuilder:validation:Required
-	Name string `json:"name"`
 	// ClientID
 	// +kubebuilder:validation:Optional
 	ClientID string `json:"clientID"`
@@ -63,7 +60,7 @@ type AuthProvider struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// OAuthProviderList contains a list of AuthProvider
+// AuthProviderList contains a list of AuthProvider
 type AuthProviderList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`

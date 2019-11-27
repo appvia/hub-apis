@@ -209,9 +209,9 @@ func schema_pkg_apis_clusters_v1_KubernetesSpec(ref common.ReferenceCallback) co
 				Description: "KubernetesSpec defines the desired state of Cluster",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"ownership": {
+					"use": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Ownership is the cloud cluster provider type for this kubernetes",
+							Description: "Use is the cloud cluster provider type for this kubernetes",
 							Ref:         ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership"),
 						},
 					},
@@ -237,7 +237,7 @@ func schema_pkg_apis_clusters_v1_KubernetesSpec(ref common.ReferenceCallback) co
 						},
 					},
 				},
-				Required: []string{"ownership", "caCertificate", "endpoint", "token"},
+				Required: []string{"use", "caCertificate", "endpoint", "token"},
 			},
 		},
 		Dependencies: []string{

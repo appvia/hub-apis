@@ -6,35 +6,21 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: (devel)
   creationTimestamp: null
-  name: kubernetes.clusters.hub.appvia.io
+  name: allocations.config.hub.appvia.io
 spec:
-  additionalPrinterColumns:
-  - JSONPath: .spec.use.group
-    description: The cloud provider api group used to provision the cluster
-    name: Provider
-    type: string
-  - JSONPath: .spec.use.name
-    description: The name of the provider cluster which this kubernetes is backed
-      by
-    name: Cluster
-    type: string
-  - JSONPath: .spec.endpoint
-    description: The kube-apiserver endpoint for this cluster
-    name: Endpoint
-    type: string
-  group: clusters.hub.appvia.io
+  group: config.hub.appvia.io
   names:
-    kind: Kubernetes
-    listKind: KubernetesList
-    plural: kubernetes
-    singular: kubernetes
+    kind: Allocation
+    listKind: AllocationList
+    plural: allocations
+    singular: allocation
   preserveUnknownFields: false
   scope: Namespaced
   subresources:
     status: {}
   validation:
     openAPIV3Schema:
-      description: Kubernetes is the Schema for the roles API
+      description: Allocation is the Schema for the allocations API
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation
@@ -49,23 +35,10 @@ spec:
         metadata:
           type: object
         spec:
-          description: KubernetesSpec defines the desired state of Cluster
+          description: AllocationSpec defines the desired state of Allocation
           properties:
-            caCertificate:
-              description: CaCertificate is the base64 encoded cluster certificate
-              minLength: 1
-              type: string
-            endpoint:
-              description: Endpoint is the kubernetes endpoint url
-              minLength: 1
-              type: string
-            token:
-              description: Token is the hub-admin service account token which is bound
-                to cluster-admin
-              minLength: 1
-              type: string
-            use:
-              description: Use is the cloud cluster provider type for this kubernetes
+            classRef:
+              description: Class is the reference to the provider of this class
               properties:
                 group:
                   description: Group is the api group
@@ -89,17 +62,43 @@ spec:
               - namespace
               - version
               type: object
-          required:
-          - caCertificate
-          - endpoint
-          - token
-          - use
+            instanceRef:
+              description: Instance is a reference to the configuration object
+              properties:
+                group:
+                  description: Group is the api group
+                  type: string
+                kind:
+                  description: Kind is the name of the resource under the group
+                  type: string
+                name:
+                  description: Name is name of the resource
+                  type: string
+                namespace:
+                  description: Namespace is the location of the object
+                  type: string
+                version:
+                  description: Version is the group version
+                  type: string
+              required:
+              - group
+              - kind
+              - name
+              - namespace
+              - version
+              type: object
+            teams:
+              description: Teams is a collection of teams the allocation is to reside
+              items:
+                type: string
+              minItems: 1
+              type: array
           type: object
         status:
-          description: KubernetesStatus defines the observed state of Cluster
+          description: AllocationStatus defines the observed state of Allocation
           properties:
             conditions:
-              description: Conditions is a set of condition which has caused an error
+              description: Conditions is a collection of potential issues
               items:
                 description: Condition is a reason why something failed
                 properties:
@@ -120,11 +119,8 @@ spec:
                 type: object
               type: array
             status:
-              description: Status is overall status of the workspace
+              description: Status is the general status of the resource
               type: string
-          required:
-          - conditions
-          - status
           type: object
       type: object
   version: v1
