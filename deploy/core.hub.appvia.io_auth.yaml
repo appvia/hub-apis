@@ -46,12 +46,8 @@ spec:
             displayName:
               description: DisplayName
               type: string
-            name:
-              description: Name is the name of the provider
-              type: string
           required:
           - displayName
-          - name
           type: object
         status:
           description: AuthProviderStatus defines the observed state of OAuthProvider

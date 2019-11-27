@@ -26,9 +26,9 @@ import (
 // KubernetesSpec defines the desired state of Cluster
 // +k8s:openapi-gen=true
 type KubernetesSpec struct {
-	// Ownership is the cloud cluster provider type for this kubernetes
+	// Use is the cloud cluster provider type for this kubernetes
 	// +kubebuilder:validation:Required
-	Ownership corev1.Ownership `json:"ownership"`
+	Use corev1.Ownership `json:"use"`
 	// CaCertificate is the base64 encoded cluster certificate
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
@@ -60,7 +60,8 @@ type KubernetesStatus struct {
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:path=kubernetes
-// +kubebuilder:printcolumn:name="Provider",type="string",JSONPath=".spec.ownership.group",description="The cloud provider apigroup used to provision the cluster"
+// +kubebuilder:printcolumn:name="Provider",type="string",JSONPath=".spec.use.group",description="The cloud provider api group used to provision the cluster"
+// +kubebuilder:printcolumn:name="Cluster",type="string",JSONPath=".spec.use.name",description="The name of the provider cluster which this kubernetes is backed by"
 // +kubebuilder:printcolumn:name="Endpoint",type="string" ,JSONPath=".spec.endpoint",description="The kube-apiserver endpoint for this cluster"
 type Kubernetes struct {
 	metav1.TypeMeta   `json:",inline"`

@@ -27,6 +27,7 @@ import (
 
 type ConfigV1Interface interface {
 	RESTClient() rest.Interface
+	AllocationsGetter
 	BindingsGetter
 	ClassesGetter
 }
@@ -34,6 +35,10 @@ type ConfigV1Interface interface {
 // ConfigV1Client is used to interact with features provided by the config.hub.appvia.io group.
 type ConfigV1Client struct {
 	restClient rest.Interface
+}
+
+func (c *ConfigV1Client) Allocations(namespace string) AllocationInterface {
+	return newAllocations(c, namespace)
 }
 
 func (c *ConfigV1Client) Bindings(namespace string) BindingInterface {

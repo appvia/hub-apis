@@ -29,15 +29,148 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/appvia/hub-apis/pkg/apis/config/v1.Binding":       schema_pkg_apis_config_v1_Binding(ref),
-		"github.com/appvia/hub-apis/pkg/apis/config/v1.BindingSpec":   schema_pkg_apis_config_v1_BindingSpec(ref),
-		"github.com/appvia/hub-apis/pkg/apis/config/v1.BindingStatus": schema_pkg_apis_config_v1_BindingStatus(ref),
-		"github.com/appvia/hub-apis/pkg/apis/config/v1.Class":         schema_pkg_apis_config_v1_Class(ref),
-		"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassSpec":     schema_pkg_apis_config_v1_ClassSpec(ref),
-		"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassStatus":   schema_pkg_apis_config_v1_ClassStatus(ref),
-		"github.com/appvia/hub-apis/pkg/apis/config/v1.Plan":          schema_pkg_apis_config_v1_Plan(ref),
-		"github.com/appvia/hub-apis/pkg/apis/config/v1.PlanSpec":      schema_pkg_apis_config_v1_PlanSpec(ref),
-		"github.com/appvia/hub-apis/pkg/apis/config/v1.PlanStatus":    schema_pkg_apis_config_v1_PlanStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.Allocation":       schema_pkg_apis_config_v1_Allocation(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.AllocationSpec":   schema_pkg_apis_config_v1_AllocationSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.AllocationStatus": schema_pkg_apis_config_v1_AllocationStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.Binding":          schema_pkg_apis_config_v1_Binding(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.BindingSpec":      schema_pkg_apis_config_v1_BindingSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.BindingStatus":    schema_pkg_apis_config_v1_BindingStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.Class":            schema_pkg_apis_config_v1_Class(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassSpec":        schema_pkg_apis_config_v1_ClassSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.ClassStatus":      schema_pkg_apis_config_v1_ClassStatus(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.Plan":             schema_pkg_apis_config_v1_Plan(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.PlanSpec":         schema_pkg_apis_config_v1_PlanSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/config/v1.PlanStatus":       schema_pkg_apis_config_v1_PlanStatus(ref),
+	}
+}
+
+func schema_pkg_apis_config_v1_Allocation(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Allocation is the Schema for the allocations API",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/config/v1.AllocationSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/config/v1.AllocationStatus"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/config/v1.AllocationSpec", "github.com/appvia/hub-apis/pkg/apis/config/v1.AllocationStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_config_v1_AllocationSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AllocationSpec defines the desired state of Allocation",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"classRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Class is the reference to the provider of this class",
+							Ref:         ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership"),
+						},
+					},
+					"instanceRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Instance is a reference to the configuration object",
+							Ref:         ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership"),
+						},
+					},
+					"teams": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-list-type": "",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "Teams is a collection of teams the allocation is to reside",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership"},
+	}
+}
+
+func schema_pkg_apis_config_v1_AllocationStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AllocationStatus defines the observed state of Allocation",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status is the general status of the resource",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"conditions": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-list-type": "",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "Conditions is a collection of potential issues",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }
 

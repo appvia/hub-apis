@@ -28,6 +28,10 @@ type FakeConfigV1 struct {
 	*testing.Fake
 }
 
+func (c *FakeConfigV1) Allocations(namespace string) v1.AllocationInterface {
+	return &FakeAllocations{c, namespace}
+}
+
 func (c *FakeConfigV1) Bindings(namespace string) v1.BindingInterface {
 	return &FakeBindings{c, namespace}
 }
