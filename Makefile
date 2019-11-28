@@ -22,6 +22,10 @@ golang:
 	@echo "--> Go Version"
 	@go version
 
+docker:
+	@echo "--> Building the Hub API image"
+	@docker build -t quay.io/appvia/hub-apis:latest -f hack/Dockerfile .
+
 all: golang
 	@echo "--> Generating Clientsets & Deepcopies"
 	@rm -rf pkg/client 2>/dev/null
