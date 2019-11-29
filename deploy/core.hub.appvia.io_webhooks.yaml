@@ -37,33 +37,18 @@ spec:
         spec:
           description: WebHookSpec defines the desired state of WebHook
           properties:
+            caBundle:
+              description: CaBundle is a ca bundle if required
+              type: string
             description:
               description: Description is a description for the team
               type: string
-            service:
-              description: Service is the kubernetes namespaces
-              properties:
-                caBundle:
-                  description: CaBundle is a ca bundle if required
-                  type: string
-                namespace:
-                  description: Namespace is the namespace its in
-                  type: string
-                serviceName:
-                  description: ServiceName is the name of the kubernetes services
-                  type: string
-              required:
-              - caBundle
-              - namespace
-              - serviceName
-              type: object
-            summary:
-              description: Summary is a summary name for this team
+            endpoint:
+              description: Endpoint is the endpoint the service should proxy on
               type: string
           required:
           - description
-          - service
-          - summary
+          - endpoint
           type: object
         status:
           description: WebHookStatus defines the observed state of WebHook

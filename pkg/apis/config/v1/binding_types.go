@@ -51,6 +51,10 @@ type BindingStatus struct {
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:path=bindings,scope=Namespaced
+// +kubebuilder:printcolumn:name="Class",type="string",JSONPath=".spec.class.name",description="The name of the underlying class backing the binding"
+// +kubebuilder:printcolumn:name="Instance Name",type="string",JSONPath=".spec.ref.name",description="The name of the instance the binding is bound to"
+// +kubebuilder:printcolumn:name="Instance Group",type="string",JSONPath=".spec.ref.group",description="The name of the instance the binding is bound to"
+// +kubebuilder:printcolumn:name="Instance Namespace",type="string",JSONPath=".spec.ref.namespace",description="The namespace which the instance resides in"
 type Binding struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

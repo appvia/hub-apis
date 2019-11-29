@@ -1,4 +1,6 @@
 
+cmd/hub-gen
+
 # Binaries for programs and plugins
 *.exe
 *.exe~

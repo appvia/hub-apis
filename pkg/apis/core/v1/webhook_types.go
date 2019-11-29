@@ -24,23 +24,15 @@ import (
 // WebHookSpec defines the desired state of WebHook
 // +k8s:openapi-gen=true
 type WebHookSpec struct {
-	// Summary is a summary name for this team
-	Summary string `json:"summary"`
-	// Description is a description for the team
-	Description string `json:"description"`
-	// Service is the kubernetes namespaces
-	Service ServiceSpec `json:"service"`
-}
-
-// ServiceSpec provides a service spec
-// +k8s:openapi-gen=true
-type ServiceSpec struct {
 	// CaBundle is a ca bundle if required
+	// +kubebuilder:validation:Optional
 	CaBundle string `json:"caBundle"`
-	// ServiceName is the name of the kubernetes services
-	ServiceName string `json:"serviceName"`
-	// Namespace is the namespace its in
-	Namespace string `json:"namespace"`
+	// Description is a description for the team
+	// +kubebuilder:validation:Required
+	Description string `json:"description"`
+	// Endpoint is the endpoint the service should proxy on
+	// +kubebuilder:validation:Required
+	Endpoint string `json:"endpoint"`
 }
 
 // WebHookStatus defines the observed state of WebHook

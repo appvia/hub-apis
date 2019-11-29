@@ -8,6 +8,23 @@ metadata:
   creationTimestamp: null
   name: bindings.config.hub.appvia.io
 spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.class.name
+    description: The name of the underlying class backing the binding
+    name: Class
+    type: string
+  - JSONPath: .spec.ref.name
+    description: The name of the instance the binding is bound to
+    name: Instance Name
+    type: string
+  - JSONPath: .spec.ref.group
+    description: The name of the instance the binding is bound to
+    name: Instance Group
+    type: string
+  - JSONPath: .spec.ref.namespace
+    description: The namespace which the instance resides in
+    name: Instance Namespace
+    type: string
   group: config.hub.appvia.io
   names:
     kind: Binding

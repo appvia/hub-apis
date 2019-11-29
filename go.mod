@@ -3,7 +3,9 @@ module github.com/appvia/hub-apis
 go 1.13
 
 require (
+	github.com/davecgh/go-spew v1.1.1
 	github.com/ghodss/yaml v1.0.0
+	github.com/go-bindata/go-bindata v3.1.2+incompatible // indirect
 	github.com/go-openapi/jsonreference v0.19.3
 	github.com/go-openapi/spec v0.19.3
 	gopkg.in/yaml.v2 v2.2.7 // indirect

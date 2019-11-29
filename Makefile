@@ -14,7 +14,7 @@ LFLAGS ?= -X main.gitsha=${GIT_SHA} -X main.compiled=${BUILD_TIME}
 VETARGS ?= -asmdecl -atomic -bool -buildtags -copylocks -methods -nilfunc -printf -rangeloops -shift -structtags -unsafeptr
 APIS=config/v1 core/v1 org/v1 rbac/v1 clusters/v1 store/v1
 
-.PHONY: test authors changelog build docker static release lint cover vet glide-install
+.PHONY: golang docker all crd-gen openapi-gen register-gen schema-gen
 
 default: all
 
@@ -30,9 +30,20 @@ all: golang
 	@echo "--> Generating Clientsets & Deepcopies"
 	@rm -rf pkg/client 2>/dev/null
 	@hack/update-codegen.sh
+	@${MAKE} schema-gen
 	@${MAKE} openapi-gen
 	@${MAKE} register-gen
 	@${MAKE} crd-gen
+
+schema-gen:
+	@echo "--> Generating the CRD definitions"
+	@which go-bindata  2>/dev/null ; if [ $$? -eq 1 ]; then \
+		go get -u github.com/go-bindata/go-bindata/...; \
+	fi
+	@go-bindata \
+		-pkg register \
+		-o pkg/register/assets.go \
+		-prefix deploy deploy
 
 openapi-gen:
 	@echo "--> Generating OpenAPI files"
