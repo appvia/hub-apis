@@ -103,7 +103,7 @@ func CheckCustomResourceDefinition(c client.Interface, crd *apiextensions.Custom
 						return fmt.Errorf("condition not met, reason: %s", x.Reason)
 					}
 				}
-				time.Sleep(200 * time.Millisecond)
+				time.Sleep(100 * time.Millisecond)
 
 				return nil
 			}()
