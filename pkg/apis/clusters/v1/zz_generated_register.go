@@ -25,7 +25,7 @@ import (
 )
 
 // GroupName specifies the group name used to register the objects.
-const GroupName = "clusters.hub.appvia.io"
+const GroupName = "clusters.compute.hub.appvia.io"
 
 // GroupVersion specifies the group and the version used to register the objects.
 var GroupVersion = v1.GroupVersion{Group: GroupName, Version: "v1"}

@@ -31,7 +31,7 @@ type ClustersV1Interface interface {
 	KubernetesesGetter
 }
 
-// ClustersV1Client is used to interact with features provided by the clusters.hub.appvia.io group.
+// ClustersV1Client is used to interact with features provided by the clusters.compute.hub.appvia.io group.
 type ClustersV1Client struct {
 	restClient rest.Interface
 }

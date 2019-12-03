@@ -6,7 +6,7 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: (devel)
   creationTimestamp: null
-  name: kubernetes.clusters.hub.appvia.io
+  name: kubernetes.clusters.compute.hub.appvia.io
 spec:
   additionalPrinterColumns:
   - JSONPath: .spec.use.group
@@ -22,7 +22,7 @@ spec:
     description: The kube-apiserver endpoint for this cluster
     name: Endpoint
     type: string
-  group: clusters.hub.appvia.io
+  group: clusters.compute.hub.appvia.io
   names:
     kind: Kubernetes
     listKind: KubernetesList

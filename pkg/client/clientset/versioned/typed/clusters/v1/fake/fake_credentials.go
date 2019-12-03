@@ -34,9 +34,9 @@ type FakeCredentialses struct {
 	ns   string
 }
 
-var credentialsesResource = schema.GroupVersionResource{Group: "clusters.hub.appvia.io", Version: "v1", Resource: "credentialses"}
+var credentialsesResource = schema.GroupVersionResource{Group: "clusters.compute.hub.appvia.io", Version: "v1", Resource: "credentialses"}
 
-var credentialsesKind = schema.GroupVersionKind{Group: "clusters.hub.appvia.io", Version: "v1", Kind: "Credentials"}
+var credentialsesKind = schema.GroupVersionKind{Group: "clusters.compute.hub.appvia.io", Version: "v1", Kind: "Credentials"}
 
 // Get takes name of the credentials, and returns the corresponding credentials object, and an error if there is any.
 func (c *FakeCredentialses) Get(name string, options v1.GetOptions) (result *clustersv1.Credentials, err error) {

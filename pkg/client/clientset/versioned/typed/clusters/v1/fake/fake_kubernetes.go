@@ -34,9 +34,9 @@ type FakeKuberneteses struct {
 	ns   string
 }
 
-var kubernetesesResource = schema.GroupVersionResource{Group: "clusters.hub.appvia.io", Version: "v1", Resource: "kuberneteses"}
+var kubernetesesResource = schema.GroupVersionResource{Group: "clusters.compute.hub.appvia.io", Version: "v1", Resource: "kuberneteses"}
 
-var kubernetesesKind = schema.GroupVersionKind{Group: "clusters.hub.appvia.io", Version: "v1", Kind: "Kubernetes"}
+var kubernetesesKind = schema.GroupVersionKind{Group: "clusters.compute.hub.appvia.io", Version: "v1", Kind: "Kubernetes"}
 
 // Get takes name of the kubernetes, and returns the corresponding kubernetes object, and an error if there is any.
 func (c *FakeKuberneteses) Get(name string, options v1.GetOptions) (result *clustersv1.Kubernetes, err error) {
