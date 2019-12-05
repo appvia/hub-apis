@@ -62,6 +62,9 @@ spec:
               description: Endpoint is the kubernetes endpoint url
               minLength: 1
               type: string
+            name:
+              description: Name is the name of the cluster
+              type: string
             token:
               description: Token is the hub-admin service account token which is bound
                 to cluster-admin

@@ -86,6 +86,13 @@ func schema_pkg_apis_clusters_v1_KubernetesSpec(ref common.ReferenceCallback) co
 				Description: "KubernetesSpec defines the desired state of Cluster",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the cluster",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
 					"use": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Use is the cloud cluster provider type for this kubernetes",
@@ -121,7 +128,7 @@ func schema_pkg_apis_clusters_v1_KubernetesSpec(ref common.ReferenceCallback) co
 						},
 					},
 				},
-				Required: []string{"use", "caCertificate", "domain", "endpoint", "token"},
+				Required: []string{"use", "caCertificate", "endpoint", "token"},
 			},
 		},
 		Dependencies: []string{

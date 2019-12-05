@@ -26,6 +26,9 @@ import (
 // KubernetesSpec defines the desired state of Cluster
 // +k8s:openapi-gen=true
 type KubernetesSpec struct {
+	// Name is the name of the cluster
+	// +kubebuilder:validation:Required
+	Name string `json:"name,omitempty"`
 	// Use is the cloud cluster provider type for this kubernetes
 	// +kubebuilder:validation:Required
 	Use corev1.Ownership `json:"use"`
@@ -35,7 +38,7 @@ type KubernetesSpec struct {
 	CaCertificate string `json:"caCertificate"`
 	// Domain is the domain of the cluster
 	// +kubebuilder:validation:Optional
-	Domain string `json:"domain"`
+	Domain string `json:"domain,omitempty"`
 	// Endpoint is the kubernetes endpoint url
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
