@@ -16,7 +16,7 @@ spec:
   - JSONPath: .spec.autoProvision
     description: Indicates if the resource if auto provisioned
     name: Provisioned
-    type: string
+    type: boolean
   - JSONPath: .spec.displayName
     description: The display name of the class
     name: Display Name

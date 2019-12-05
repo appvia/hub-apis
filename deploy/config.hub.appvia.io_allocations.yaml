@@ -8,6 +8,23 @@ metadata:
   creationTimestamp: null
   name: allocations.config.hub.appvia.io
 spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.classRef.name
+    description: The class of the instance type being allocated
+    name: Class
+    type: string
+  - JSONPath: .spec.instanceRef.name
+    description: The name of the instance type which is being provided to teams
+    name: Instance
+    type: string
+  - JSONPath: .spec.instanceRef.kind
+    description: The instance kind which is being provided to teams
+    name: Instance Type
+    type: string
+  - JSONPath: .spec.teams
+    description: The teams where the allocations is providing
+    name: Teams
+    type: string
   group: config.hub.appvia.io
   names:
     kind: Allocation

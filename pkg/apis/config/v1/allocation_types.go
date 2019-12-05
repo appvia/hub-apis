@@ -61,6 +61,10 @@ type AllocationStatus struct {
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:path=allocations,scope=Namespaced
+// +kubebuilder:printcolumn:name="Class",type="string",JSONPath=".spec.classRef.name",description="The class of the instance type being allocated"
+// +kubebuilder:printcolumn:name="Instance",type="string",JSONPath=".spec.instanceRef.name",description="The name of the instance type which is being provided to teams"
+// +kubebuilder:printcolumn:name="Instance Type",type="string",JSONPath=".spec.instanceRef.kind",description="The instance kind which is being provided to teams"
+// +kubebuilder:printcolumn:name="Teams",type="string",JSONPath=".spec.teams",description="The teams where the allocations is providing"
 type Allocation struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
