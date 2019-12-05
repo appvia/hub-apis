@@ -72,7 +72,6 @@ spec:
               description: Status provides an overview of the user status
               type: string
           required:
-          - conditions
           - status
           type: object
       type: object

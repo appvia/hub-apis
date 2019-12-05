@@ -78,7 +78,6 @@ spec:
               description: Status is the status of the resource
               type: string
           required:
-          - conditions
           - namespace
           - status
           type: object

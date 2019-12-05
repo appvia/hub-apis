@@ -179,7 +179,6 @@ spec:
               description: Status is overall status of the workspace
               type: string
           required:
-          - conditions
           - status
           type: object
       type: object

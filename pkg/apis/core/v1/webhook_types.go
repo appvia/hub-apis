@@ -39,6 +39,7 @@ type WebHookSpec struct {
 // +k8s:openapi-gen=true
 type WebHookStatus struct {
 	// Conditions is a collection of possible errors
+	// +kubebuilder:validation:Optional
 	// +listType
 	Conditions []Condition `json:"conditions"`
 	// Status is the status of the resource

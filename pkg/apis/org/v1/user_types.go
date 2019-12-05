@@ -35,6 +35,7 @@ type UserSpec struct {
 // +k8s:openapi-gen=true
 type UserStatus struct {
 	// Conditions is collection of potentials error causes
+	// +kubebuilder:validation:Optional
 	// +listType
 	Conditions []corev1.Condition `json:"conditions"`
 	// Status provides an overview of the user status

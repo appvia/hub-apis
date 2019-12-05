@@ -50,6 +50,7 @@ type KubernetesSpec struct {
 // +k8s:openapi-gen=true
 type KubernetesStatus struct {
 	// Conditions is a set of condition which has caused an error
+	// +kubebuilder:validation:Optional
 	// +listType
 	Conditions []corev1.Condition `json:"conditions"`
 	// Phase indicates the phase of the cluster

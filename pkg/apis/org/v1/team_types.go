@@ -36,6 +36,7 @@ type TeamSpec struct {
 // +k8s:openapi-gen=true
 type TeamStatus struct {
 	// Conditions is a collection of possible errors
+	// +kubebuilder:validation:Optional
 	// +listType
 	Conditions []corev1.Condition `json:"conditions"`
 	// Status is the status of the resource

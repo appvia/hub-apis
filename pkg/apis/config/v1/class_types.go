@@ -116,6 +116,7 @@ type ClassResource struct {
 // +k8s:openapi-gen=true
 type ClassStatus struct {
 	// Conditions is a set of condition which has caused an error
+	// +kubebuilder:validation:Optional
 	// +listType
 	Conditions []corev1.Condition `json:"conditions"`
 	// Status is overall status of the workspace

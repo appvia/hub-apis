@@ -81,7 +81,6 @@ spec:
               description: URL is the generate webhook which the application can use
               type: string
           required:
-          - conditions
           - status
           - url
           type: object

@@ -50,6 +50,7 @@ type AllocationStatus struct {
 	// Status is the general status of the resource
 	Status corev1.Status `json:"status,omitempty"`
 	// Conditions is a collection of potential issues
+	// +kubebuilder:validation:Optional
 	// +listType
 	Conditions []corev1.Condition `json:"conditions,omitempty"`
 }
