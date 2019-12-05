@@ -30,15 +30,18 @@ type KubernetesSpec struct {
 	// +kubebuilder:validation:Required
 	Use corev1.Ownership `json:"use"`
 	// CaCertificate is the base64 encoded cluster certificate
-	// +kubebuilder:validation:MinLength=1
+	// +kubebuilder:validation:MinLength=10
 	// +kubebuilder:validation:Required
 	CaCertificate string `json:"caCertificate"`
+	// Domain is the domain of the cluster
+	// +kubebuilder:validation:Optional
+	Domain string `json:"domain"`
 	// Endpoint is the kubernetes endpoint url
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
 	Endpoint string `json:"endpoint"`
 	// Token is the hub-admin service account token which is bound to cluster-admin
-	// +kubebuilder:validation:MinLength=1
+	// +kubebuilder:validation:MinLength=10
 	// +kubebuilder:validation:Required
 	Token string `json:"token"`
 }
@@ -49,6 +52,8 @@ type KubernetesStatus struct {
 	// Conditions is a set of condition which has caused an error
 	// +listType
 	Conditions []corev1.Condition `json:"conditions"`
+	// Phase indicates the phase of the cluster
+	Phase string `json:"phase"`
 	// Status is overall status of the workspace
 	Status corev1.Status `json:"status"`
 }

@@ -129,6 +129,9 @@ type ClassStatus struct {
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:path=classes
+// +kubebuilder:printcolumn:name="API Group",type="string",JSONPath=".spec.apiVersion",description="The API Group of the class provider"
+// +kubebuilder:printcolumn:name="Provisioned",type="string",JSONPath=".spec.autoProvision",description="Indicates if the resource if auto provisioned"
+// +kubebuilder:printcolumn:name="Display Name",type="string",JSONPath=".spec.displayName",description="The display name of the class"
 type Class struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

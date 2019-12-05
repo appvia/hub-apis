@@ -49,6 +49,7 @@ type WorkspaceStatus struct {
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:path=workspaces
+// +kubebuilder:printcolumn:name="Summary",type="string",JSONPath=".spec.summary",description="A summary of the workspace"
 type Workspace struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

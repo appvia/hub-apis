@@ -18,14 +18,6 @@ limitations under the License.
 
 package v1
 
-// CredentialsListerExpansion allows custom methods to be added to
-// CredentialsLister.
-type CredentialsListerExpansion interface{}
-
-// CredentialsNamespaceListerExpansion allows custom methods to be added to
-// CredentialsNamespaceLister.
-type CredentialsNamespaceListerExpansion interface{}
-
 // KubernetesListerExpansion allows custom methods to be added to
 // KubernetesLister.
 type KubernetesListerExpansion interface{}

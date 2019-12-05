@@ -29,132 +29,9 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/appvia/hub-apis/pkg/apis/clusters/v1.Credentials":       schema_pkg_apis_clusters_v1_Credentials(ref),
-		"github.com/appvia/hub-apis/pkg/apis/clusters/v1.CredentialsSpec":   schema_pkg_apis_clusters_v1_CredentialsSpec(ref),
-		"github.com/appvia/hub-apis/pkg/apis/clusters/v1.CredentialsStatus": schema_pkg_apis_clusters_v1_CredentialsStatus(ref),
-		"github.com/appvia/hub-apis/pkg/apis/clusters/v1.Kubernetes":        schema_pkg_apis_clusters_v1_Kubernetes(ref),
-		"github.com/appvia/hub-apis/pkg/apis/clusters/v1.KubernetesSpec":    schema_pkg_apis_clusters_v1_KubernetesSpec(ref),
-		"github.com/appvia/hub-apis/pkg/apis/clusters/v1.KubernetesStatus":  schema_pkg_apis_clusters_v1_KubernetesStatus(ref),
-	}
-}
-
-func schema_pkg_apis_clusters_v1_Credentials(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Description: "Credentials is the Schema for the roles API",
-				Type:        []string{"object"},
-				Properties: map[string]spec.Schema{
-					"kind": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"apiVersion": {
-						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/appvia/hub-apis/pkg/apis/clusters/v1.CredentialsSpec"),
-						},
-					},
-					"status": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/appvia/hub-apis/pkg/apis/clusters/v1.CredentialsStatus"),
-						},
-					},
-				},
-			},
-		},
-		Dependencies: []string{
-			"github.com/appvia/hub-apis/pkg/apis/clusters/v1.CredentialsSpec", "github.com/appvia/hub-apis/pkg/apis/clusters/v1.CredentialsStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
-	}
-}
-
-func schema_pkg_apis_clusters_v1_CredentialsSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Description: "CredentialsSpec defines the desired state of Credentials",
-				Type:        []string{"object"},
-				Properties: map[string]spec.Schema{
-					"caCertificate": {
-						SchemaProps: spec.SchemaProps{
-							Description: "CaCertificate is the base64 encoded cluster certificate",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"endpoint": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Endpoint is the kubernetes endpoint url",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"token": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Token is the hub-admin service account token which is bound to cluster-admin",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-				},
-				Required: []string{"caCertificate", "endpoint", "token"},
-			},
-		},
-	}
-}
-
-func schema_pkg_apis_clusters_v1_CredentialsStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Description: "CredentialsStatus defines the observed state of Credentials",
-				Type:        []string{"object"},
-				Properties: map[string]spec.Schema{
-					"conditions": {
-						VendorExtensible: spec.VendorExtensible{
-							Extensions: spec.Extensions{
-								"x-kubernetes-list-type": "",
-							},
-						},
-						SchemaProps: spec.SchemaProps{
-							Description: "Conditions is a set of condition which has caused an error",
-							Type:        []string{"array"},
-							Items: &spec.SchemaOrArray{
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
-									},
-								},
-							},
-						},
-					},
-					"status": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Status is overall status of the workspace",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-				},
-				Required: []string{"conditions", "status"},
-			},
-		},
-		Dependencies: []string{
-			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
+		"github.com/appvia/hub-apis/pkg/apis/clusters/v1.Kubernetes":       schema_pkg_apis_clusters_v1_Kubernetes(ref),
+		"github.com/appvia/hub-apis/pkg/apis/clusters/v1.KubernetesSpec":   schema_pkg_apis_clusters_v1_KubernetesSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/clusters/v1.KubernetesStatus": schema_pkg_apis_clusters_v1_KubernetesStatus(ref),
 	}
 }
 
@@ -222,6 +99,13 @@ func schema_pkg_apis_clusters_v1_KubernetesSpec(ref common.ReferenceCallback) co
 							Format:      "",
 						},
 					},
+					"domain": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Domain is the domain of the cluster",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
 					"endpoint": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Endpoint is the kubernetes endpoint url",
@@ -237,7 +121,7 @@ func schema_pkg_apis_clusters_v1_KubernetesSpec(ref common.ReferenceCallback) co
 						},
 					},
 				},
-				Required: []string{"use", "caCertificate", "endpoint", "token"},
+				Required: []string{"use", "caCertificate", "domain", "endpoint", "token"},
 			},
 		},
 		Dependencies: []string{
@@ -270,6 +154,13 @@ func schema_pkg_apis_clusters_v1_KubernetesStatus(ref common.ReferenceCallback) 
 							},
 						},
 					},
+					"phase": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Phase indicates the phase of the cluster",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Status is overall status of the workspace",
@@ -278,7 +169,7 @@ func schema_pkg_apis_clusters_v1_KubernetesStatus(ref common.ReferenceCallback) 
 						},
 					},
 				},
-				Required: []string{"conditions", "status"},
+				Required: []string{"conditions", "phase", "status"},
 			},
 		},
 		Dependencies: []string{

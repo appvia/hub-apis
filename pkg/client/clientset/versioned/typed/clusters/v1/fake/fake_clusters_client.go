@@ -28,10 +28,6 @@ type FakeClustersV1 struct {
 	*testing.Fake
 }
 
-func (c *FakeClustersV1) Credentialses(namespace string) v1.CredentialsInterface {
-	return &FakeCredentialses{c, namespace}
-}
-
 func (c *FakeClustersV1) Kuberneteses(namespace string) v1.KubernetesInterface {
 	return &FakeKuberneteses{c, namespace}
 }

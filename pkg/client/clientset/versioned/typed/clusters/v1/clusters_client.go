@@ -27,17 +27,12 @@ import (
 
 type ClustersV1Interface interface {
 	RESTClient() rest.Interface
-	CredentialsesGetter
 	KubernetesesGetter
 }
 
 // ClustersV1Client is used to interact with features provided by the clusters.compute.hub.appvia.io group.
 type ClustersV1Client struct {
 	restClient rest.Interface
-}
-
-func (c *ClustersV1Client) Credentialses(namespace string) CredentialsInterface {
-	return newCredentialses(c, namespace)
 }
 
 func (c *ClustersV1Client) Kuberneteses(namespace string) KubernetesInterface {

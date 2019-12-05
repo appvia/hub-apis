@@ -8,6 +8,15 @@ metadata:
   creationTimestamp: null
   name: teammemberships.org.hub.appvia.io
 spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.team
+    description: The name of the hub team
+    name: Team
+    type: string
+  - JSONPath: .spec.username
+    description: The name of the user whom has been granted access
+    name: User
+    type: string
   group: org.hub.appvia.io
   names:
     kind: TeamMembership

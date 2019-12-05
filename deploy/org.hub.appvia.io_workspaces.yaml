@@ -8,6 +8,11 @@ metadata:
   creationTimestamp: null
   name: workspaces.org.hub.appvia.io
 spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.summary
+    description: A summary of the workspace
+    name: Summary
+    type: string
   group: org.hub.appvia.io
   names:
     kind: Workspace

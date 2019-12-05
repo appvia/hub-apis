@@ -8,6 +8,19 @@ metadata:
   creationTimestamp: null
   name: classes.config.hub.appvia.io
 spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.apiVersion
+    description: The API Group of the class provider
+    name: API Group
+    type: string
+  - JSONPath: .spec.autoProvision
+    description: Indicates if the resource if auto provisioned
+    name: Provisioned
+    type: string
+  - JSONPath: .spec.displayName
+    description: The display name of the class
+    name: Display Name
+    type: string
   group: config.hub.appvia.io
   names:
     kind: Class

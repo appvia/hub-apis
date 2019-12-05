@@ -51,6 +51,8 @@ type TeamMembershipStatus struct {
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:path=teammemberships
+// +kubebuilder:printcolumn:name="Team",type="string",JSONPath=".spec.team",description="The name of the hub team"
+// +kubebuilder:printcolumn:name="User",type="string",JSONPath=".spec.username",description="The name of the user whom has been granted access"
 type TeamMembership struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
