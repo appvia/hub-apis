@@ -128,7 +128,7 @@ func schema_pkg_apis_clusters_v1_KubernetesSpec(ref common.ReferenceCallback) co
 						},
 					},
 				},
-				Required: []string{"use", "caCertificate", "endpoint", "token"},
+				Required: []string{"use"},
 			},
 		},
 		Dependencies: []string{

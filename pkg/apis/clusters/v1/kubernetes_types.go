@@ -35,18 +35,18 @@ type KubernetesSpec struct {
 	// CaCertificate is the base64 encoded cluster certificate
 	// +kubebuilder:validation:MinLength=10
 	// +kubebuilder:validation:Required
-	CaCertificate string `json:"caCertificate"`
+	CaCertificate string `json:"caCertificate,omitempty"`
 	// Domain is the domain of the cluster
 	// +kubebuilder:validation:Optional
 	Domain string `json:"domain,omitempty"`
 	// Endpoint is the kubernetes endpoint url
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:Required
-	Endpoint string `json:"endpoint"`
+	Endpoint string `json:"endpoint,omitempty"`
 	// Token is the hub-admin service account token which is bound to cluster-admin
 	// +kubebuilder:validation:MinLength=10
 	// +kubebuilder:validation:Required
-	Token string `json:"token"`
+	Token string `json:"token,omitempty"`
 }
 
 // KubernetesStatus defines the observed state of Cluster

@@ -96,9 +96,6 @@ spec:
               - version
               type: object
           required:
-          - caCertificate
-          - endpoint
-          - token
           - use
           type: object
         status:
