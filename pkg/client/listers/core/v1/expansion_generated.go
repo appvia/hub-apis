@@ -26,6 +26,14 @@ type AuthProviderListerExpansion interface{}
 // AuthProviderNamespaceLister.
 type AuthProviderNamespaceListerExpansion interface{}
 
+// IDPListerExpansion allows custom methods to be added to
+// IDPLister.
+type IDPListerExpansion interface{}
+
+// IDPNamespaceListerExpansion allows custom methods to be added to
+// IDPNamespaceLister.
+type IDPNamespaceListerExpansion interface{}
+
 // WebHookListerExpansion allows custom methods to be added to
 // WebHookLister.
 type WebHookListerExpansion interface{}

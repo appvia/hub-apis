@@ -6,6 +6,7 @@
 // deploy/config.hub.appvia.io_classes.yaml
 // deploy/config.hub.appvia.io_plans.yaml
 // deploy/core.hub.appvia.io_auth.yaml
+// deploy/core.hub.appvia.io_idp.yaml
 // deploy/core.hub.appvia.io_webhooks.yaml
 // deploy/org.hub.appvia.io_teaminvitations.yaml
 // deploy/org.hub.appvia.io_teammemberships.yaml
@@ -106,7 +107,7 @@ func clustersComputeHubAppviaIo_kubernetesYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "clusters.compute.hub.appvia.io_kubernetes.yaml", size: 5055, mode: os.FileMode(420), modTime: time.Unix(1576159770, 0)}
+	info := bindataFileInfo{name: "clusters.compute.hub.appvia.io_kubernetes.yaml", size: 5055, mode: os.FileMode(420), modTime: time.Unix(1576159801, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -126,7 +127,7 @@ func configHubAppviaIo_allocationsYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "config.hub.appvia.io_allocations.yaml", size: 5344, mode: os.FileMode(420), modTime: time.Unix(1576159770, 0)}
+	info := bindataFileInfo{name: "config.hub.appvia.io_allocations.yaml", size: 5344, mode: os.FileMode(420), modTime: time.Unix(1576159801, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -146,7 +147,7 @@ func configHubAppviaIo_bindingsYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "config.hub.appvia.io_bindings.yaml", size: 5190, mode: os.FileMode(420), modTime: time.Unix(1576159770, 0)}
+	info := bindataFileInfo{name: "config.hub.appvia.io_bindings.yaml", size: 5190, mode: os.FileMode(420), modTime: time.Unix(1576159801, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -166,7 +167,7 @@ func configHubAppviaIo_classesYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "config.hub.appvia.io_classes.yaml", size: 7053, mode: os.FileMode(420), modTime: time.Unix(1576159770, 0)}
+	info := bindataFileInfo{name: "config.hub.appvia.io_classes.yaml", size: 7053, mode: os.FileMode(420), modTime: time.Unix(1576159801, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -186,7 +187,7 @@ func configHubAppviaIo_plansYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "config.hub.appvia.io_plans.yaml", size: 3312, mode: os.FileMode(420), modTime: time.Unix(1576159770, 0)}
+	info := bindataFileInfo{name: "config.hub.appvia.io_plans.yaml", size: 3312, mode: os.FileMode(420), modTime: time.Unix(1576159801, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -206,7 +207,27 @@ func coreHubAppviaIo_authYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "core.hub.appvia.io_auth.yaml", size: 3126, mode: os.FileMode(420), modTime: time.Unix(1576159770, 0)}
+	info := bindataFileInfo{name: "core.hub.appvia.io_auth.yaml", size: 3126, mode: os.FileMode(420), modTime: time.Unix(1576159801, 0)}
+	a := &asset{bytes: bytes, info: info}
+	return a, nil
+}
+
+var _coreHubAppviaIo_idpYaml = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\xb4\x57\x4d\x8f\xdc\x36\x0f\xbe\xcf\xaf\x20\xf2\x1e\x92\x00\xef\xcc\x20\xe8\xa5\xf0\x6d\xb1\x9b\x16\x83\x66\x83\x45\x36\xc9\xa5\xe8\x81\x23\x71\x6c\x76\x65\xc9\x15\xa5\x49\xb7\x45\xff\x7b\x21\xc9\x9e\x4f\x7b\x27\xd9\xa0\xbe\x89\xa4\x48\xea\xe1\x23\x8a\x9e\xcd\xe7\xf3\x19\x76\xfc\x99\xbc\xb0\xb3\x15\x60\xc7\xf4\x67\x20\x9b\x56\xb2\x78\xf8\x51\x16\xec\x96\xdb\x37\x6b\x0a\xf8\x66\xf6\xc0\x56\x57\x70\x1d\x25\xb8\xf6\x03\x89\x8b\x5e\xd1\x0d\x6d\xd8\x72\x60\x67\x67\x2d\x05\xd4\x18\xb0\x9a\x01\xa0\xb5\x2e\x60\x12\x4b\x5a\x02\x28\x67\x83\x77\xc6\x90\x9f\xd7\x64\x17\x0f\x71\x4d\xeb\xc8\x46\x93\xcf\x11\x86\xf8\xaf\xa2\x7d\xb0\xee\x8b\x7d\x3d\x03\x50\x9e\xb2\x87\x8f\xdc\x92\x04\x6c\xbb\x0a\x6c\x34\x66\x06\x60\xb1\xa5\x0a\x58\x77\x0b\xe5\x3c\x2d\x9a\xb8\x5e\x60\xd7\x6d\x19\x17\xec\x66\xd2\x91\x4a\x31\x6b\xef\x62\x57\xc1\x88\x45\x71\xd0\x27\x56\x0e\xb5\xba\xb9\xcb\x2b\xc3\x12\x7e\x19\x24\xef\x58\x42\x96\x76\x26\x7a\x34\x39\x62\x5e\x0b\xdb\x3a\x1a\xf4\x83\xa4\xf3\x24\xe4\xb7\xf4\xa9\x24\xff\x13\x93\xd1\x52\xc1\x06\x8d\xd0\x0c\x40\x94\xeb\xa8\x82\xf7\x29\x68\x87\x8a\x74\x92\xc5\xb5\xef\x21\xec\x13\x91\x80\x21\x4a\x05\x7f\xff\x33\x03\xd8\xa2\x61\x9d\x4f\x5f\x94\xae\x23\x7b\x75\xb7\xfa\xfc\xc3\xbd\x6a\xa8\xc5\x22\x04\xd0\x24\xca\x73\x97\xed\x52\xc6\xc0\x02\xa1\x21\x28\x56\xb0\x71\x3e\x2f\x95\x41\x11\xb8\xba\x5b\xf5\xdb\x3a\xef\x3a\xf2\x81\x87\xd0\xe9\x3b\x60\xc1\x4e\x76\x12\xe0\x65\xca\xa0\xd8\x80\x4e\x75\xa7\x12\xad\xaf\x1e\x69\x90\x12\xd7\x6d\x20\x34\x2c\xe0\x29\x23\x63\x0b\x13\x0e\xdc\x42\x32\x41\x0b\x6e\xfd\x3b\xa9\xb0\x80\xfb\x84\x9e\x17\x90\xc6\x45\xa3\x13\x59\xb6\xe4\x03\x78\x52\xae\xb6\xfc\xd7\xce\xb3\x40\x70\x39\xa4\xc1\x40\x7d\x71\x86\x8f\x6d\x20\x6f\xd1\x24\xec\x22\xfd\x1f\xd0\x6a\x68\xf1\x11\x3c\xa5\x18\x10\xed\x81\xb7\x6c\x22\x0b\xb8\x75\x9e\x80\xed\xc6\x55\xd0\x84\xd0\x49\xb5\x5c\xd6\x1c\x06\xde\x2b\xd7\xb6\xd1\x72\x78\x5c\x66\xf6\xf2\x3a\x06\xe7\x65\xa9\x69\x4b\x66\x29\x5c\xcf\xd1\xab\x86\x03\xa9\x10\x3d\x2d\xb1\xe3\x79\x4e\xdc\x66\xda\x2f\x5a\xfd\xbf\x5d\x85\x5f\x1e\x64\x1a\x1e\x13\x19\x24\x78\xb6\xf5\x4e\x9c\x59\x38\x89\x7b\x62\x64\x2a\x2d\xf6\xdb\x4a\xfe\x7b\x78\x93\x28\xa1\xf2\xe1\xed\xfd\x47\x18\x82\xe6\x12\x1c\x63\x9e\xd1\xde\x6f\x93\x3d\xf0\x09\x28\xb6\x1b\xf2\xa5\x70\x1b\xef\xda\xec\x91\xac\xee\x1c\xdb\xd0\xd3\x88\xc9\x1e\x83\x2e\x71\xdd\x72\x48\x95\xfe\x23\x92\x84\x54\x9f\x05\x5c\xe7\xdb\x0f\x6b\x82\xd8\x69\x0c\xa4\x17\xb0\xb2\x70\x8d\x2d\x99\x6b\x14\xfa\xcf\x61\x4f\x08\xcb\x3c\x41\x7a\x19\xf8\xc3\xa6\x75\x6c\x58\xd0\xda\x89\x87\xb6\x32\x5a\xa1\xd5\xcd\xdd\x7d\x47\xea\xe8\x56\xa4\x0d\xf9\x06\x62\xe2\xf3\x86\xeb\xe8\x49\x03\x5b\x09\x68\x15\xf5\x17\x60\xe8\x3b\xd3\xf7\xb2\x6f\x9e\x1b\xae\x8f\x65\xe7\x19\x5c\x67\xab\x13\xa3\x29\x97\xe9\xab\x9d\xab\x0d\x9d\xcb\x4f\x5c\xff\x9c\xcd\x0e\x68\x03\x38\xc8\x52\xcb\x51\x63\x61\x2f\x85\xce\xa7\xca\x74\x5a\xdd\x8c\x6b\x27\xea\x75\xee\xe0\x9e\x94\xa7\xf0\x6c\x27\xda\xb5\xc8\x76\x22\x45\x00\x0e\xd4\x4e\x2a\xbf\xc2\xfd\x60\x82\xde\xe3\xe3\x88\x45\xba\x38\xec\x49\x8f\x85\x98\xef\x20\x7a\x42\x59\x8e\x3f\x6a\xd0\x1f\x6d\x44\x37\xca\xf0\xe1\x13\x6c\xcd\x45\x52\xdc\x5f\xdd\xbe\x4b\xd5\xef\xbc\xdb\xb2\x26\xd9\x71\x3c\xb7\xfa\x9e\xf7\x35\x59\xf2\xac\xb2\x31\xac\x74\xba\xa2\x61\x0c\x04\x18\xdc\xf8\xe7\xd0\x08\xef\xde\xde\x3e\xbb\xfc\xd4\x22\x9b\xab\x10\xfc\xb3\x3d\xe4\x39\x43\xbe\xcb\x85\x88\xfb\xf4\xe1\xdd\xb3\xb7\x47\x49\x0f\x5f\x4b\xdf\x91\xc3\x05\x1a\x26\x88\x47\x35\x3b\xf8\x46\xb5\x7b\x68\x46\xd5\xe5\xd8\xa3\xaa\xc3\x23\x7d\x1b\x7f\x27\x55\x9a\xa5\x33\xf8\x98\xa6\xb0\x27\x3b\xe9\xcd\xde\x6e\xd4\xf5\x19\x86\x63\xd8\xcd\xcf\xdb\xe2\xfc\x30\x83\x8b\xaf\x4d\x19\x06\x9f\x7a\x6f\xb2\xc5\xd1\x8b\xe3\xd6\x79\x0a\xd5\x79\xf7\xc1\x0b\x03\xaf\x56\x37\x70\xd7\xdf\x30\x79\xfd\x75\x0f\x8e\xe6\x83\xe9\x7d\x22\x8d\xeb\x9d\x59\x3f\x9d\x50\x48\x51\x77\xbb\xe1\x4b\xc3\xaa\x81\x06\x05\x14\x46\x21\x9d\x12\x22\xef\xdd\x69\x4d\x27\xba\xec\x78\xb0\x12\xcb\x13\x4a\x8e\xf0\x08\xe2\x5a\x0a\x4d\x1a\x82\x36\xc8\x26\x8f\xd7\xc7\xdf\xd3\x2d\x44\x39\x3d\xfa\x08\x9e\xc5\xd7\x94\x42\xb7\xa8\x1a\xb6\xe9\x3d\x44\x8d\x6b\x43\x79\x7f\x19\x79\xa9\x1c\x2e\x97\x74\xd4\x61\xa9\x75\x9a\x54\xeb\xd1\x5e\xa7\x29\x20\x8f\x36\xdf\x53\x92\x66\xc3\x82\x04\xaa\x10\xd1\xf4\xa1\x0b\xe2\x2d\xd7\x4d\xc8\xff\x5c\xc8\x16\x02\xa9\xc6\xb2\x42\x33\xd1\x1b\x3c\x6d\xc8\x93\x55\x4f\xe5\x3c\xd9\x39\x5a\x12\xc1\xfa\x6b\x00\xbc\x2d\x96\x25\xe9\x26\xb6\x68\xf7\x18\xf6\x5e\xbe\x3d\x81\xe9\xc6\x35\xcf\x85\x19\x11\x17\x90\x47\x14\x53\x49\x5c\xec\x36\xe7\x8f\xfb\xf9\xfd\x3d\x83\xa3\xbf\xc0\x2c\xe0\xb6\xe4\xd1\x98\x7e\xd3\x40\xa5\xfd\x6c\xd5\x3f\xaa\xdf\xd3\x8d\x8a\xeb\xa7\xbb\xce\x89\x68\xf7\x4f\xbe\x7d\xb3\x5f\xe5\x23\xcd\xfb\x1f\xf0\xac\x00\x28\x4d\xa7\x82\xe0\x23\xf5\x7f\xb2\xce\x27\x4a\x14\xc9\x1e\x0a\x54\x8a\xba\x40\xfa\xfd\xe9\xdf\xf7\x8b\x17\x47\xbf\xd9\x79\x79\xd0\x82\xe0\xd7\xdf\x66\xc5\x2b\xe9\xcf\x43\x1e\x49\xf8\x6f\x00\x00\x00\xff\xff\xca\x1c\x8c\x17\xbf\x10\x00\x00")
+
+func coreHubAppviaIo_idpYamlBytes() ([]byte, error) {
+	return bindataRead(
+		_coreHubAppviaIo_idpYaml,
+		"core.hub.appvia.io_idp.yaml",
+	)
+}
+
+func coreHubAppviaIo_idpYaml() (*asset, error) {
+	bytes, err := coreHubAppviaIo_idpYamlBytes()
+	if err != nil {
+		return nil, err
+	}
+
+	info := bindataFileInfo{name: "core.hub.appvia.io_idp.yaml", size: 4287, mode: os.FileMode(420), modTime: time.Unix(1576159984, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -226,7 +247,7 @@ func coreHubAppviaIo_webhooksYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "core.hub.appvia.io_webhooks.yaml", size: 3334, mode: os.FileMode(420), modTime: time.Unix(1576159770, 0)}
+	info := bindataFileInfo{name: "core.hub.appvia.io_webhooks.yaml", size: 3334, mode: os.FileMode(420), modTime: time.Unix(1576159801, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -246,7 +267,7 @@ func orgHubAppviaIo_teaminvitationsYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "org.hub.appvia.io_teaminvitations.yaml", size: 3345, mode: os.FileMode(420), modTime: time.Unix(1576159770, 0)}
+	info := bindataFileInfo{name: "org.hub.appvia.io_teaminvitations.yaml", size: 3345, mode: os.FileMode(420), modTime: time.Unix(1576159801, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -266,7 +287,7 @@ func orgHubAppviaIo_teammembershipsYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "org.hub.appvia.io_teammemberships.yaml", size: 3345, mode: os.FileMode(420), modTime: time.Unix(1576159770, 0)}
+	info := bindataFileInfo{name: "org.hub.appvia.io_teammemberships.yaml", size: 3345, mode: os.FileMode(420), modTime: time.Unix(1576159801, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -286,7 +307,7 @@ func orgHubAppviaIo_teamsYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "org.hub.appvia.io_teams.yaml", size: 3178, mode: os.FileMode(420), modTime: time.Unix(1576159770, 0)}
+	info := bindataFileInfo{name: "org.hub.appvia.io_teams.yaml", size: 3178, mode: os.FileMode(420), modTime: time.Unix(1576159801, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -306,7 +327,7 @@ func orgHubAppviaIo_usersYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "org.hub.appvia.io_users.yaml", size: 2940, mode: os.FileMode(420), modTime: time.Unix(1576159770, 0)}
+	info := bindataFileInfo{name: "org.hub.appvia.io_users.yaml", size: 2940, mode: os.FileMode(420), modTime: time.Unix(1576159801, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -326,7 +347,7 @@ func orgHubAppviaIo_workspacesYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "org.hub.appvia.io_workspaces.yaml", size: 3252, mode: os.FileMode(420), modTime: time.Unix(1576159770, 0)}
+	info := bindataFileInfo{name: "org.hub.appvia.io_workspaces.yaml", size: 3252, mode: os.FileMode(420), modTime: time.Unix(1576159801, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -346,7 +367,7 @@ func rbacHubAppviaIo_bindingsYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "rbac.hub.appvia.io_bindings.yaml", size: 4546, mode: os.FileMode(420), modTime: time.Unix(1576159770, 0)}
+	info := bindataFileInfo{name: "rbac.hub.appvia.io_bindings.yaml", size: 4546, mode: os.FileMode(420), modTime: time.Unix(1576159801, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -366,7 +387,7 @@ func rbacHubAppviaIo_rolesYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "rbac.hub.appvia.io_roles.yaml", size: 4251, mode: os.FileMode(420), modTime: time.Unix(1576159770, 0)}
+	info := bindataFileInfo{name: "rbac.hub.appvia.io_roles.yaml", size: 4251, mode: os.FileMode(420), modTime: time.Unix(1576159801, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -386,7 +407,7 @@ func storeHubAppviaIo_rolesYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "store.hub.appvia.io_roles.yaml", size: 1608, mode: os.FileMode(420), modTime: time.Unix(1576159770, 0)}
+	info := bindataFileInfo{name: "store.hub.appvia.io_roles.yaml", size: 1608, mode: os.FileMode(420), modTime: time.Unix(1576159801, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -449,6 +470,7 @@ var _bindata = map[string]func() (*asset, error){
 	"config.hub.appvia.io_classes.yaml":              configHubAppviaIo_classesYaml,
 	"config.hub.appvia.io_plans.yaml":                configHubAppviaIo_plansYaml,
 	"core.hub.appvia.io_auth.yaml":                   coreHubAppviaIo_authYaml,
+	"core.hub.appvia.io_idp.yaml":                    coreHubAppviaIo_idpYaml,
 	"core.hub.appvia.io_webhooks.yaml":               coreHubAppviaIo_webhooksYaml,
 	"org.hub.appvia.io_teaminvitations.yaml":         orgHubAppviaIo_teaminvitationsYaml,
 	"org.hub.appvia.io_teammemberships.yaml":         orgHubAppviaIo_teammembershipsYaml,
@@ -507,6 +529,7 @@ var _bintree = &bintree{nil, map[string]*bintree{
 	"config.hub.appvia.io_classes.yaml":              &bintree{configHubAppviaIo_classesYaml, map[string]*bintree{}},
 	"config.hub.appvia.io_plans.yaml":                &bintree{configHubAppviaIo_plansYaml, map[string]*bintree{}},
 	"core.hub.appvia.io_auth.yaml":                   &bintree{coreHubAppviaIo_authYaml, map[string]*bintree{}},
+	"core.hub.appvia.io_idp.yaml":                    &bintree{coreHubAppviaIo_idpYaml, map[string]*bintree{}},
 	"core.hub.appvia.io_webhooks.yaml":               &bintree{coreHubAppviaIo_webhooksYaml, map[string]*bintree{}},
 	"org.hub.appvia.io_teaminvitations.yaml":         &bintree{orgHubAppviaIo_teaminvitationsYaml, map[string]*bintree{}},
 	"org.hub.appvia.io_teammemberships.yaml":         &bintree{orgHubAppviaIo_teammembershipsYaml, map[string]*bintree{}},

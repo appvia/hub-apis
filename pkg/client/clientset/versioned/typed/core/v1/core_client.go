@@ -28,6 +28,7 @@ import (
 type CoreV1Interface interface {
 	RESTClient() rest.Interface
 	AuthProvidersGetter
+	IDPsGetter
 	WebHooksGetter
 }
 
@@ -38,6 +39,10 @@ type CoreV1Client struct {
 
 func (c *CoreV1Client) AuthProviders(namespace string) AuthProviderInterface {
 	return newAuthProviders(c, namespace)
+}
+
+func (c *CoreV1Client) IDPs(namespace string) IDPInterface {
+	return newIDPs(c, namespace)
 }
 
 func (c *CoreV1Client) WebHooks(namespace string) WebHookInterface {

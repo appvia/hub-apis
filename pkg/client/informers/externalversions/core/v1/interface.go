@@ -26,6 +26,8 @@ import (
 type Interface interface {
 	// AuthProviders returns a AuthProviderInformer.
 	AuthProviders() AuthProviderInformer
+	// IDPs returns a IDPInformer.
+	IDPs() IDPInformer
 	// WebHooks returns a WebHookInformer.
 	WebHooks() WebHookInformer
 }
@@ -44,6 +46,11 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 // AuthProviders returns a AuthProviderInformer.
 func (v *version) AuthProviders() AuthProviderInformer {
 	return &authProviderInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// IDPs returns a IDPInformer.
+func (v *version) IDPs() IDPInformer {
+	return &iDPInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // WebHooks returns a WebHookInformer.

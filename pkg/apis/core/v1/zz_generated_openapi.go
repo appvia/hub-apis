@@ -33,6 +33,9 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.AuthProviderSpec":   schema_pkg_apis_core_v1_AuthProviderSpec(ref),
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.AuthProviderStatus": schema_pkg_apis_core_v1_AuthProviderStatus(ref),
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition":          schema_pkg_apis_core_v1_Condition(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.IDP":                schema_pkg_apis_core_v1_IDP(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.IDPSpec":            schema_pkg_apis_core_v1_IDPSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.IDPStatus":          schema_pkg_apis_core_v1_IDPStatus(ref),
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership":          schema_pkg_apis_core_v1_Ownership(ref),
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHook":            schema_pkg_apis_core_v1_WebHook(ref),
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.WebHookSpec":        schema_pkg_apis_core_v1_WebHookSpec(ref),
@@ -192,6 +195,120 @@ func schema_pkg_apis_core_v1_Condition(ref common.ReferenceCallback) common.Open
 				Required: []string{"message", "detail", "code"},
 			},
 		},
+	}
+}
+
+func schema_pkg_apis_core_v1_IDP(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "IDP is the Schema for the class API",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.IDPSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.IDPStatus"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.IDPSpec", "github.com/appvia/hub-apis/pkg/apis/core/v1.IDPStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_core_v1_IDPSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "IDPSpec defines the spec for a configured instance of an IDP",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"displayName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DisplayName",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"config": {
+						SchemaProps: spec.SchemaProps{
+							Description: "IDPConfig",
+							Ref:         ref("github.com/appvia/hub-apis/pkg/apis/core/v1.IDPConfig"),
+						},
+					},
+				},
+				Required: []string{"displayName", "config"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.IDPConfig"},
+	}
+}
+
+func schema_pkg_apis_core_v1_IDPStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "IDPStatus defines the observed state of an IDP (ID Providers)",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"conditions": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-list-type": "",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "Conditions is a set of condition which has caused an error",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
+									},
+								},
+							},
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status is overall status of the IDP configuration",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"conditions", "status"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }
 
