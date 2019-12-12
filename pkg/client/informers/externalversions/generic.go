@@ -78,6 +78,8 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 		// Group=org.hub.appvia.io, Version=v1
 	case orgv1.SchemeGroupVersion.WithResource("teams"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Org().V1().Teams().Informer()}, nil
+	case orgv1.SchemeGroupVersion.WithResource("teaminvitations"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Org().V1().TeamInvitations().Informer()}, nil
 	case orgv1.SchemeGroupVersion.WithResource("teammemberships"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Org().V1().TeamMemberships().Informer()}, nil
 	case orgv1.SchemeGroupVersion.WithResource("users"):

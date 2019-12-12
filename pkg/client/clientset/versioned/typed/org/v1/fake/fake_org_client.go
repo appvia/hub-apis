@@ -32,6 +32,10 @@ func (c *FakeOrgV1) Teams(namespace string) v1.TeamInterface {
 	return &FakeTeams{c, namespace}
 }
 
+func (c *FakeOrgV1) TeamInvitations(namespace string) v1.TeamInvitationInterface {
+	return &FakeTeamInvitations{c, namespace}
+}
+
 func (c *FakeOrgV1) TeamMemberships(namespace string) v1.TeamMembershipInterface {
 	return &FakeTeamMemberships{c, namespace}
 }
