@@ -60,6 +60,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
 		&AuthProvider{},
 		&AuthProviderList{},
+		&IDP{},
+		&IDPList{},
 		&WebHook{},
 		&WebHookList{},
 	)

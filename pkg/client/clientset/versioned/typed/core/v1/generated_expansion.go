@@ -20,4 +20,6 @@ package v1
 
 type AuthProviderExpansion interface{}
 
+type IDPExpansion interface{}
+
 type WebHookExpansion interface{}

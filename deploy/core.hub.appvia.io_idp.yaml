@@ -1,0 +1,129 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: (unknown)
+  creationTimestamp: null
+  name: idp.core.hub.appvia.io
+spec:
+  group: core.hub.appvia.io
+  names:
+    kind: IDP
+    listKind: IDPList
+    plural: idp
+    singular: idp
+  preserveUnknownFields: false
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      description: IDP is the Schema for the class API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: IDPSpec defines the spec for a configured instance of an IDP
+          properties:
+            config:
+              description: IDPConfig
+              properties:
+                google:
+                  description: Google represents a Google IDP config
+                  properties:
+                    clientID:
+                      type: string
+                    clientSecret:
+                      type: string
+                    domains:
+                      items:
+                        type: string
+                      type: array
+                  required:
+                  - clientID
+                  - clientSecret
+                  - domains
+                  type: object
+                saml:
+                  description: SAMLIDP provides configuration for a generic SAML Identity
+                    provider
+                  properties:
+                    caPEM:
+                      type: string
+                    emailAttr:
+                      type: string
+                    groupsAttr:
+                      type: string
+                    ssoURL:
+                      type: string
+                    usernameAttr:
+                      type: string
+                  required:
+                  - caPEM
+                  - emailAttr
+                  - groupsAttr
+                  - ssoURL
+                  - usernameAttr
+                  type: object
+              type: object
+            displayName:
+              description: DisplayName
+              type: string
+          required:
+          - config
+          - displayName
+          type: object
+        status:
+          description: IDPStatus defines the observed state of an IDP (ID Providers)
+          properties:
+            conditions:
+              description: Conditions is a set of condition which has caused an error
+              items:
+                description: Condition is a reason why something failed
+                properties:
+                  code:
+                    description: Code is machine readable code of the error type
+                    type: integer
+                  detail:
+                    description: Detail is a actual error which might contain technical
+                      reference
+                    type: string
+                  message:
+                    description: Message is a human readable message
+                    type: string
+                required:
+                - code
+                - detail
+                - message
+                type: object
+              type: array
+            status:
+              description: Status is overall status of the IDP configuration
+              type: string
+          required:
+          - status
+          type: object
+      type: object
+  version: v1
+  versions:
+  - name: v1
+    served: true
+    storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
