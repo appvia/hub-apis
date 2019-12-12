@@ -13,6 +13,8 @@ PACKAGES=$(shell go list ./...)
 LFLAGS ?= -X main.gitsha=${GIT_SHA} -X main.compiled=${BUILD_TIME}
 VETARGS ?= -asmdecl -atomic -bool -buildtags -copylocks -methods -nilfunc -printf -rangeloops -shift -structtags -unsafeptr
 APIS=config/v1 core/v1 org/v1 rbac/v1 clusters/v1 store/v1
+GO111MODULE=off
+export GO111MODULE
 
 .PHONY: golang docker all crd-gen openapi-gen register-gen schema-gen
 
@@ -48,6 +50,9 @@ schema-gen:
 openapi-gen:
 	@echo "--> Generating OpenAPI files"
 	@echo "--> packages $(APIS)"
+	@which openapi-gen  2>/dev/null ; if [ $$? -eq 1 ]; then \
+		go get -u k8s.io/kube-openapi/cmd/openapi-gen; \
+	fi
 	@$(foreach api,$(APIS), \
 		openapi-gen -h hack/custom-boilerplate.go.txt \
 			--output-file-base zz_generated_openapi \
@@ -65,6 +70,9 @@ register-gen:
 
 crd-gen:
 	@echo "--> Generating CRD deployment files"
+	@which controller-gen  2>/dev/null ; if [ $$? -eq 1 ]; then \
+		go get sigs.k8s.io/controller-tools/cmd/controller-gen; \
+	fi
 	@mkdir -p deploy
 	@rm -f deploy/* 2>/dev/null || true
 	@controller-gen crd:trivialVersions=true,preserveUnknownFields=false paths=./pkg/apis/...  output:dir=deploy
