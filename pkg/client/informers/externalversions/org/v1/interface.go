@@ -26,6 +26,8 @@ import (
 type Interface interface {
 	// Teams returns a TeamInformer.
 	Teams() TeamInformer
+	// TeamInvitations returns a TeamInvitationInformer.
+	TeamInvitations() TeamInvitationInformer
 	// TeamMemberships returns a TeamMembershipInformer.
 	TeamMemberships() TeamMembershipInformer
 	// Users returns a UserInformer.
@@ -48,6 +50,11 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 // Teams returns a TeamInformer.
 func (v *version) Teams() TeamInformer {
 	return &teamInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// TeamInvitations returns a TeamInvitationInformer.
+func (v *version) TeamInvitations() TeamInvitationInformer {
+	return &teamInvitationInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // TeamMemberships returns a TeamMembershipInformer.

@@ -30,6 +30,9 @@ import (
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
 		"github.com/appvia/hub-apis/pkg/apis/org/v1.Team":                 schema_pkg_apis_org_v1_Team(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamInvitation":       schema_pkg_apis_org_v1_TeamInvitation(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamInvitationSpec":   schema_pkg_apis_org_v1_TeamInvitationSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamInvitationStatus": schema_pkg_apis_org_v1_TeamInvitationStatus(ref),
 		"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamMembership":       schema_pkg_apis_org_v1_TeamMembership(ref),
 		"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamMembershipSpec":   schema_pkg_apis_org_v1_TeamMembershipSpec(ref),
 		"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamMembershipStatus": schema_pkg_apis_org_v1_TeamMembershipStatus(ref),
@@ -85,6 +88,119 @@ func schema_pkg_apis_org_v1_Team(ref common.ReferenceCallback) common.OpenAPIDef
 		},
 		Dependencies: []string{
 			"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamSpec", "github.com/appvia/hub-apis/pkg/apis/org/v1.TeamStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_org_v1_TeamInvitation(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "TeamInvitation is the Schema for the teams API",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/org/v1.TeamInvitationSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/org/v1.TeamInvitationStatus"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/org/v1.TeamInvitationSpec", "github.com/appvia/hub-apis/pkg/apis/org/v1.TeamInvitationStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_org_v1_TeamInvitationSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "TeamInvitationSpec defines the desired state of Team",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"username": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Username is the user being bound to the team",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"team": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Team is the name of the team",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"username", "team"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_org_v1_TeamInvitationStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "TeamInvitationStatus defines the observed state of Team",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"conditions": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-list-type": "",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "Conditions is a collection of possible errors",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
+									},
+								},
+							},
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status is the status of the resource",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"conditions", "status"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }
 
