@@ -51,7 +51,7 @@ type TeamInvitationStatus struct {
 // TeamInvitation is the Schema for the teams API
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:path=teammemberships
+// +kubebuilder:resource:path=teaminvitations
 // +kubebuilder:printcolumn:name="Team",type="string",JSONPath=".spec.team",description="The name of the hub team"
 // +kubebuilder:printcolumn:name="User",type="string",JSONPath=".spec.username",description="The name of the user whom has been granted access"
 type TeamInvitation struct {
