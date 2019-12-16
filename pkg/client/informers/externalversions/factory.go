@@ -27,6 +27,7 @@ import (
 	clusters "github.com/appvia/hub-apis/pkg/client/informers/externalversions/clusters"
 	config "github.com/appvia/hub-apis/pkg/client/informers/externalversions/config"
 	core "github.com/appvia/hub-apis/pkg/client/informers/externalversions/core"
+	github "github.com/appvia/hub-apis/pkg/client/informers/externalversions/github"
 	internalinterfaces "github.com/appvia/hub-apis/pkg/client/informers/externalversions/internalinterfaces"
 	org "github.com/appvia/hub-apis/pkg/client/informers/externalversions/org"
 	rbac "github.com/appvia/hub-apis/pkg/client/informers/externalversions/rbac"
@@ -180,6 +181,7 @@ type SharedInformerFactory interface {
 	Clusters() clusters.Interface
 	Config() config.Interface
 	Core() core.Interface
+	Github() github.Interface
 	Org() org.Interface
 	Rbac() rbac.Interface
 	Store() store.Interface
@@ -195,6 +197,10 @@ func (f *sharedInformerFactory) Config() config.Interface {
 
 func (f *sharedInformerFactory) Core() core.Interface {
 	return core.New(f, f.namespace, f.tweakListOptions)
+}
+
+func (f *sharedInformerFactory) Github() github.Interface {
+	return github.New(f, f.namespace, f.tweakListOptions)
 }
 
 func (f *sharedInformerFactory) Org() org.Interface {

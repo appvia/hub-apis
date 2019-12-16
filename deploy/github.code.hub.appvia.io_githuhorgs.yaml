@@ -6,21 +6,21 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: (devel)
   creationTimestamp: null
-  name: roles.rbac.hub.appvia.io
+  name: githuhorgs.github.code.hub.appvia.io
 spec:
-  group: rbac.hub.appvia.io
+  group: github.code.hub.appvia.io
   names:
-    kind: Role
-    listKind: RoleList
-    plural: roles
-    singular: role
+    kind: Organization
+    listKind: OrganizationList
+    plural: githuhorgs
+    singular: organization
   preserveUnknownFields: false
   scope: Namespaced
   subresources:
     status: {}
   validation:
     openAPIV3Schema:
-      description: Role is the Schema for the roles API
+      description: Organization is the Schema for the teams API
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation
@@ -35,53 +35,49 @@ spec:
         metadata:
           type: object
         spec:
-          description: RoleSpec defines the desired state of Role
+          description: OrganizationSpec defines the desired state of Organization
           properties:
-            rules:
-              description: Rules is a collection of rules defined by this role
-              items:
-                description: Rule defines access to one of more resources and apigroups
-                properties:
-                  apiGroups:
-                    description: Group is the apigroup we are referencing
-                    items:
-                      type: string
-                    minItems: 1
-                    type: array
-                  resourceNames:
-                    description: ResourceNames provides the association to map an
-                      integration and a provider to team / user
-                    items:
-                      type: string
-                    type: array
-                  resources:
-                    description: Resources is a reference to a object kind
-                    items:
-                      type: string
-                    minItems: 1
-                    type: array
-                  verbs:
-                    description: Verbs is a collection of actions which can be performed
-                      on the kind / resources
-                    items:
-                      type: string
-                    minItems: 1
-                    type: array
-                required:
-                - apiGroups
-                - resources
-                - verbs
-                type: object
-              minItems: 1
-              type: array
+            applicationClientID:
+              description: ApplicationClientID is the application client id for the
+                installed application.
+              minLength: 3
+              type: string
+            applicationClientSecret:
+              description: ApplicationClientSecret is the application client secret
+                from the installed applicaton.
+              minLength: 3
+              type: string
+            applicationID:
+              description: ApplicationID is the github application id.
+              minLength: 3
+              type: string
+            applicationInstallID:
+              description: ApplicationInstallID is the installation id of the Github
+                application.
+              minLength: 3
+              type: string
+            applicationPrivateKey:
+              description: ApplicationPrivateKey is the generate private key for the
+                Github application.
+              minLength: 3
+              type: string
+            name:
+              description: Name is the name of the github organization.
+              minLength: 3
+              type: string
           required:
-          - rules
+          - applicationClientID
+          - applicationClientSecret
+          - applicationID
+          - applicationInstallID
+          - applicationPrivateKey
+          - name
           type: object
         status:
-          description: RoleStatus defines the observed state of Role
+          description: OrganizationStatus defines the observed state of Organization
           properties:
             conditions:
-              description: Conditions is a set of condition which has caused an error
+              description: Conditions is a collection of possible errors
               items:
                 description: Condition is a reason why something failed
                 properties:
@@ -102,10 +98,9 @@ spec:
                 type: object
               type: array
             status:
-              description: Status is overall status of the workspace
+              description: Status is the status of the resource
               type: string
           required:
-          - conditions
           - status
           type: object
       type: object
