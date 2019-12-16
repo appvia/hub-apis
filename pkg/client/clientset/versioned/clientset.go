@@ -22,6 +22,7 @@ import (
 	clustersv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/clusters/v1"
 	configv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/config/v1"
 	corev1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/core/v1"
+	githubv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/github/v1"
 	orgv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/org/v1"
 	rbacv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/rbac/v1"
 	storev1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/store/v1"
@@ -35,6 +36,7 @@ type Interface interface {
 	ClustersV1() clustersv1.ClustersV1Interface
 	ConfigV1() configv1.ConfigV1Interface
 	CoreV1() corev1.CoreV1Interface
+	GithubV1() githubv1.GithubV1Interface
 	OrgV1() orgv1.OrgV1Interface
 	RbacV1() rbacv1.RbacV1Interface
 	StoreV1() storev1.StoreV1Interface
@@ -47,6 +49,7 @@ type Clientset struct {
 	clustersV1 *clustersv1.ClustersV1Client
 	configV1   *configv1.ConfigV1Client
 	coreV1     *corev1.CoreV1Client
+	githubV1   *githubv1.GithubV1Client
 	orgV1      *orgv1.OrgV1Client
 	rbacV1     *rbacv1.RbacV1Client
 	storeV1    *storev1.StoreV1Client
@@ -65,6 +68,11 @@ func (c *Clientset) ConfigV1() configv1.ConfigV1Interface {
 // CoreV1 retrieves the CoreV1Client
 func (c *Clientset) CoreV1() corev1.CoreV1Interface {
 	return c.coreV1
+}
+
+// GithubV1 retrieves the GithubV1Client
+func (c *Clientset) GithubV1() githubv1.GithubV1Interface {
+	return c.githubV1
 }
 
 // OrgV1 retrieves the OrgV1Client
@@ -110,6 +118,10 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
+	cs.githubV1, err = githubv1.NewForConfig(&configShallowCopy)
+	if err != nil {
+		return nil, err
+	}
 	cs.orgV1, err = orgv1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
@@ -137,6 +149,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 	cs.clustersV1 = clustersv1.NewForConfigOrDie(c)
 	cs.configV1 = configv1.NewForConfigOrDie(c)
 	cs.coreV1 = corev1.NewForConfigOrDie(c)
+	cs.githubV1 = githubv1.NewForConfigOrDie(c)
 	cs.orgV1 = orgv1.NewForConfigOrDie(c)
 	cs.rbacV1 = rbacv1.NewForConfigOrDie(c)
 	cs.storeV1 = storev1.NewForConfigOrDie(c)
@@ -151,6 +164,7 @@ func New(c rest.Interface) *Clientset {
 	cs.clustersV1 = clustersv1.New(c)
 	cs.configV1 = configv1.New(c)
 	cs.coreV1 = corev1.New(c)
+	cs.githubV1 = githubv1.New(c)
 	cs.orgV1 = orgv1.New(c)
 	cs.rbacV1 = rbacv1.New(c)
 	cs.storeV1 = storev1.New(c)

@@ -26,6 +26,8 @@ import (
 	fakeconfigv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/config/v1/fake"
 	corev1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/core/v1"
 	fakecorev1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/core/v1/fake"
+	githubv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/github/v1"
+	fakegithubv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/github/v1/fake"
 	orgv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/org/v1"
 	fakeorgv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/org/v1/fake"
 	rbacv1 "github.com/appvia/hub-apis/pkg/client/clientset/versioned/typed/rbac/v1"
@@ -94,6 +96,11 @@ func (c *Clientset) ConfigV1() configv1.ConfigV1Interface {
 // CoreV1 retrieves the CoreV1Client
 func (c *Clientset) CoreV1() corev1.CoreV1Interface {
 	return &fakecorev1.FakeCoreV1{Fake: &c.Fake}
+}
+
+// GithubV1 retrieves the GithubV1Client
+func (c *Clientset) GithubV1() githubv1.GithubV1Interface {
+	return &fakegithubv1.FakeGithubV1{Fake: &c.Fake}
 }
 
 // OrgV1 retrieves the OrgV1Client

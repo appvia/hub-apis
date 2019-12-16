@@ -12,7 +12,7 @@ DEPS=$(shell go list -f '{{range .TestImports}}{{.}} {{end}}' ./...)
 PACKAGES=$(shell go list ./...)
 LFLAGS ?= -X main.gitsha=${GIT_SHA} -X main.compiled=${BUILD_TIME}
 VETARGS ?= -asmdecl -atomic -bool -buildtags -copylocks -methods -nilfunc -printf -rangeloops -shift -structtags -unsafeptr
-APIS=config/v1 core/v1 org/v1 rbac/v1 clusters/v1 store/v1
+APIS=config/v1 core/v1 org/v1 rbac/v1 clusters/v1 github/v1 store/v1
 GO111MODULE=off
 export GO111MODULE
 

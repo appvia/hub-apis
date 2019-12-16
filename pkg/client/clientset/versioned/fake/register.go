@@ -22,6 +22,7 @@ import (
 	clustersv1 "github.com/appvia/hub-apis/pkg/apis/clusters/v1"
 	configv1 "github.com/appvia/hub-apis/pkg/apis/config/v1"
 	corev1 "github.com/appvia/hub-apis/pkg/apis/core/v1"
+	githubv1 "github.com/appvia/hub-apis/pkg/apis/github/v1"
 	orgv1 "github.com/appvia/hub-apis/pkg/apis/org/v1"
 	rbacv1 "github.com/appvia/hub-apis/pkg/apis/rbac/v1"
 	storev1 "github.com/appvia/hub-apis/pkg/apis/store/v1"
@@ -39,6 +40,7 @@ var localSchemeBuilder = runtime.SchemeBuilder{
 	clustersv1.AddToScheme,
 	configv1.AddToScheme,
 	corev1.AddToScheme,
+	githubv1.AddToScheme,
 	orgv1.AddToScheme,
 	rbacv1.AddToScheme,
 	storev1.AddToScheme,
