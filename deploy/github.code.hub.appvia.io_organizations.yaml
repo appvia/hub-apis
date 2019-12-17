@@ -6,13 +6,13 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: (devel)
   creationTimestamp: null
-  name: githuhorgs.github.code.hub.appvia.io
+  name: organizations.github.code.hub.appvia.io
 spec:
   group: github.code.hub.appvia.io
   names:
     kind: Organization
     listKind: OrganizationList
-    plural: githuhorgs
+    plural: organizations
     singular: organization
   preserveUnknownFields: false
   scope: Namespaced

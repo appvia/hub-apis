@@ -69,7 +69,7 @@ type OrganizationStatus struct {
 // Organization is the Schema for the teams API
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:path=githuhorgs
+// +kubebuilder:resource:path=organizations
 type Organization struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

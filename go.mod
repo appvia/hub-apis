@@ -7,6 +7,8 @@ require (
 	github.com/ghodss/yaml v1.0.0
 	github.com/go-openapi/jsonreference v0.19.3
 	github.com/go-openapi/spec v0.19.3
+	github.com/gogo/protobuf v1.3.1 // indirect
+	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.2.7 // indirect
 
 	k8s.io/apiextensions-apiserver v0.0.0
