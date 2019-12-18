@@ -19,18 +19,15 @@ package v1
 
 import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-/*
- * TODO: Need to list the identity providers back to the client by creating
- * an endpoint with the list by reflecting the types used by the
- */
-
 // IDPConfig represents a configuration required for any Identity Provider available
 // Only a single identity provider config should be set
 type IDPConfig struct {
 	// Google represents a Google IDP config
 	// +optional
+	Github *GithubIDP `json:"github,omitempty"`
 	Google *GoogleIDP `json:"google,omitempty"`
 	SAML   *SAMLIDP   `json:"saml,omitempty"`
+	OIDC   *OIDCIDP   `json:"oidc,omitempty"`
 }
 
 // IDPSpec defines the spec for a configured instance of an IDP
@@ -79,18 +76,50 @@ type IDPList struct {
 	Items           []IDP `json:"items"`
 }
 
+// GithubIDP provides config for a github OAuth app identity provider
+type GithubIDP struct {
+	// ClientID is the field name in a Github OAuth app
+	ClientID string `json:"clientID"`
+	// ClientSecret is the field name in a Github OAuth app
+	ClientSecret string `json:"clientSecret"`
+	// ClientSecret is the list of possible Organisations in Github the user must be part of
+	Orgs []string `json:"orgs"`
+}
+
 // GoogleIDP provides config for a Google Identity provider
 type GoogleIDP struct {
-	ClientID     string   `json:"clientID"`
-	ClientSecret string   `json:"clientSecret"`
-	Domains      []string `json:"domains"`
+	// ClientID is the field name in a Google OAuth app
+	ClientID string `json:"clientID"`
+	// ClientSecret is the field name in a Google OAuth app
+	ClientSecret string `json:"clientSecret"`
+	// Domains are the google accounts whitelisted for authentication
+	Domains []string `json:"domains"`
+}
+
+// OIDCIDP config for a generoc Open ID Connect provider
+type OIDCIDP struct {
+	// ClientID provides the OIDC client ID string
+	ClientID string `json:"clientID"`
+	// ClientSecret provides the OIDC client secret string
+	ClientSecret string `json:"clientSecret"`
+	// Issuer provides the IDP URL
+	Issuer string `json:"issuer"`
 }
 
 // SAMLIDP provides configuration for a generic SAML Identity provider
 type SAMLIDP struct {
-	SSOURL       string `json:"ssoURL"`
-	CAPEM        string `json:"caPEM"`
+	// SSOURL provides the SSO URL used for POST value to IDP
+	SSOURL string `json:"ssoURL"`
+	// CAData is byte array representing the PEM data for the IDP signing CA
+	CAData []byte `json:"caData"`
+	// UsernameAttr attribute in the returned assertion to map to ID token claims
 	UsernameAttr string `json:"usernameAttr"`
-	EmailAttr    string `json:"emailAttr"`
-	GroupsAttr   string `json:"groupsAttr"`
+	// EmailAttr attribute in the returned assertion to map to ID token claims
+	EmailAttr string `json:"emailAttr"`
+	// GroupsAttr attribute in the returned assertion to map to ID token claims
+	GroupsAttr string `json:"groupsAttr,omitempty"`
+	// AllowedGroups provides a list of allowed groups
+	AllowedGroups []string `json:"allowedGroups,omitempty"`
+	// GroupsDelim characters used to split the single groups field to obtain the user group membership
+	GroupsDelim string `json:"groupsDelim,omitempty"`
 }
