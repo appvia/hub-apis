@@ -4,7 +4,7 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: (devel)
+    controller-gen.kubebuilder.io/version: (unknown)
   creationTimestamp: null
   name: idp.core.hub.appvia.io
 spec:
@@ -40,14 +40,40 @@ spec:
             config:
               description: IDPConfig
               properties:
-                google:
+                github:
                   description: Google represents a Google IDP config
                   properties:
                     clientID:
+                      description: ClientID is the field name in a Github OAuth app
                       type: string
                     clientSecret:
+                      description: ClientSecret is the field name in a Github OAuth
+                        app
+                      type: string
+                    orgs:
+                      description: ClientSecret is the list of possible Organisations
+                        in Github the user must be part of
+                      items:
+                        type: string
+                      type: array
+                  required:
+                  - clientID
+                  - clientSecret
+                  - orgs
+                  type: object
+                google:
+                  description: GoogleIDP provides config for a Google Identity provider
+                  properties:
+                    clientID:
+                      description: ClientID is the field name in a Google OAuth app
+                      type: string
+                    clientSecret:
+                      description: ClientSecret is the field name in a Google OAuth
+                        app
                       type: string
                     domains:
+                      description: Domains are the google accounts whitelisted for
+                        authentication
                       items:
                         type: string
                       type: array
@@ -56,24 +82,60 @@ spec:
                   - clientSecret
                   - domains
                   type: object
+                oidc:
+                  description: OIDCIDP config for a generoc Open ID Connect provider
+                  properties:
+                    clientID:
+                      description: ClientID provides the OIDC client ID string
+                      type: string
+                    clientSecret:
+                      description: ClientSecret provides the OIDC client secret string
+                      type: string
+                    issuer:
+                      description: Issuer provides the IDP URL
+                      type: string
+                  required:
+                  - clientID
+                  - clientSecret
+                  - issuer
+                  type: object
                 saml:
                   description: SAMLIDP provides configuration for a generic SAML Identity
                     provider
                   properties:
-                    caPEM:
+                    allowedGroups:
+                      description: AllowedGroups provides a list of allowed groups
+                      items:
+                        type: string
+                      type: array
+                    caData:
+                      description: CAData is byte array representing the PEM data
+                        for the IDP signing CA
+                      format: byte
                       type: string
                     emailAttr:
+                      description: EmailAttr attribute in the returned assertion to
+                        map to ID token claims
                       type: string
                     groupsAttr:
+                      description: GroupsAttr attribute in the returned assertion
+                        to map to ID token claims
+                      type: string
+                    groupsDelim:
+                      description: GroupsDelim characters used to split the single
+                        groups field to obtain the user group membership
                       type: string
                     ssoURL:
+                      description: SSOURL provides the SSO URL used for POST value
+                        to IDP
                       type: string
                     usernameAttr:
+                      description: UsernameAttr attribute in the returned assertion
+                        to map to ID token claims
                       type: string
                   required:
-                  - caPEM
+                  - caData
                   - emailAttr
-                  - groupsAttr
                   - ssoURL
                   - usernameAttr
                   type: object

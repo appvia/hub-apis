@@ -36,6 +36,10 @@ func (c *FakeCoreV1) IDPs(namespace string) v1.IDPInterface {
 	return &FakeIDPs{c, namespace}
 }
 
+func (c *FakeCoreV1) IDPClients(namespace string) v1.IDPClientInterface {
+	return &FakeIDPClients{c, namespace}
+}
+
 func (c *FakeCoreV1) WebHooks(namespace string) v1.WebHookInterface {
 	return &FakeWebHooks{c, namespace}
 }

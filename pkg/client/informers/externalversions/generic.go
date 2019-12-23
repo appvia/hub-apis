@@ -75,6 +75,8 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Core().V1().AuthProviders().Informer()}, nil
 	case corev1.SchemeGroupVersion.WithResource("idps"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Core().V1().IDPs().Informer()}, nil
+	case corev1.SchemeGroupVersion.WithResource("idpclients"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Core().V1().IDPClients().Informer()}, nil
 	case corev1.SchemeGroupVersion.WithResource("webhooks"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Core().V1().WebHooks().Informer()}, nil
 

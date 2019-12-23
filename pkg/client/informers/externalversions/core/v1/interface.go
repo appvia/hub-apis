@@ -28,6 +28,8 @@ type Interface interface {
 	AuthProviders() AuthProviderInformer
 	// IDPs returns a IDPInformer.
 	IDPs() IDPInformer
+	// IDPClients returns a IDPClientInformer.
+	IDPClients() IDPClientInformer
 	// WebHooks returns a WebHookInformer.
 	WebHooks() WebHookInformer
 }
@@ -51,6 +53,11 @@ func (v *version) AuthProviders() AuthProviderInformer {
 // IDPs returns a IDPInformer.
 func (v *version) IDPs() IDPInformer {
 	return &iDPInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// IDPClients returns a IDPClientInformer.
+func (v *version) IDPClients() IDPClientInformer {
+	return &iDPClientInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // WebHooks returns a WebHookInformer.
