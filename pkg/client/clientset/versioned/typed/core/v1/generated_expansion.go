@@ -22,4 +22,6 @@ type AuthProviderExpansion interface{}
 
 type IDPExpansion interface{}
 
+type IDPClientExpansion interface{}
+
 type WebHookExpansion interface{}

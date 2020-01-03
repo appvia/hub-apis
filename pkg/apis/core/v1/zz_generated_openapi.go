@@ -34,6 +34,9 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.AuthProviderStatus": schema_pkg_apis_core_v1_AuthProviderStatus(ref),
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition":          schema_pkg_apis_core_v1_Condition(ref),
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.IDP":                schema_pkg_apis_core_v1_IDP(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.IDPClient":          schema_pkg_apis_core_v1_IDPClient(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.IDPClientSpec":      schema_pkg_apis_core_v1_IDPClientSpec(ref),
+		"github.com/appvia/hub-apis/pkg/apis/core/v1.IDPClientStatus":    schema_pkg_apis_core_v1_IDPClientStatus(ref),
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.IDPSpec":            schema_pkg_apis_core_v1_IDPSpec(ref),
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.IDPStatus":          schema_pkg_apis_core_v1_IDPStatus(ref),
 		"github.com/appvia/hub-apis/pkg/apis/core/v1.Ownership":          schema_pkg_apis_core_v1_Ownership(ref),
@@ -239,6 +242,145 @@ func schema_pkg_apis_core_v1_IDP(ref common.ReferenceCallback) common.OpenAPIDef
 		},
 		Dependencies: []string{
 			"github.com/appvia/hub-apis/pkg/apis/core/v1.IDPSpec", "github.com/appvia/hub-apis/pkg/apis/core/v1.IDPStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_core_v1_IDPClient(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "IDPClient is the Schema for the class API",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.IDPClientSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.IDPClientStatus"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.IDPClientSpec", "github.com/appvia/hub-apis/pkg/apis/core/v1.IDPClientStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_core_v1_IDPClientSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "IDPClientSpec defines the spec for a IDP client",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"displayName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DisplayName",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Secret for OIDC client",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ID of OIDC client",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"redirectURIs": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-list-type": "",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "RedirectURIs where to send client after IDP auth",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"displayName", "secret", "id", "redirectURIs"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1_IDPClientStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "IDPClientStatus defines the observed state of an IDP (ID Providers)",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"conditions": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-list-type": "",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "Conditions is a set of condition which has caused an error",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"),
+									},
+								},
+							},
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status is overall status of the IDP configuration",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"conditions", "status"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/appvia/hub-apis/pkg/apis/core/v1.Condition"},
 	}
 }
 

@@ -34,6 +34,14 @@ type IDPListerExpansion interface{}
 // IDPNamespaceLister.
 type IDPNamespaceListerExpansion interface{}
 
+// IDPClientListerExpansion allows custom methods to be added to
+// IDPClientLister.
+type IDPClientListerExpansion interface{}
+
+// IDPClientNamespaceListerExpansion allows custom methods to be added to
+// IDPClientNamespaceLister.
+type IDPClientNamespaceListerExpansion interface{}
+
 // WebHookListerExpansion allows custom methods to be added to
 // WebHookLister.
 type WebHookListerExpansion interface{}

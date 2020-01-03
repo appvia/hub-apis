@@ -6,21 +6,21 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: (unknown)
   creationTimestamp: null
-  name: organizations.github.code.hub.appvia.io
+  name: oidclient.core.hub.appvia.io
 spec:
-  group: github.code.hub.appvia.io
+  group: core.hub.appvia.io
   names:
-    kind: Organization
-    listKind: OrganizationList
-    plural: organizations
-    singular: organization
+    kind: IDPClient
+    listKind: IDPClientList
+    plural: oidclient
+    singular: idpclient
   preserveUnknownFields: false
   scope: Namespaced
   subresources:
     status: {}
   validation:
     openAPIV3Schema:
-      description: Organization is the Schema for the teams API
+      description: IDPClient is the Schema for the class API
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation
@@ -35,49 +35,33 @@ spec:
         metadata:
           type: object
         spec:
-          description: OrganizationSpec defines the desired state of Organization
+          description: IDPClientSpec defines the spec for a IDP client
           properties:
-            applicationClientID:
-              description: ApplicationClientID is the application client id for the
-                installed application.
-              minLength: 3
+            displayName:
+              description: DisplayName
               type: string
-            applicationClientSecret:
-              description: ApplicationClientSecret is the application client secret
-                from the installed applicaton.
-              minLength: 3
+            id:
+              description: ID of OIDC client
               type: string
-            applicationID:
-              description: ApplicationID is the github application id.
-              minLength: 3
-              type: string
-            applicationInstallID:
-              description: ApplicationInstallID is the installation id of the Github
-                application.
-              minLength: 3
-              type: string
-            applicationPrivateKey:
-              description: ApplicationPrivateKey is the generate private key for the
-                Github application.
-              minLength: 3
-              type: string
-            name:
-              description: Name is the name of the github organization.
-              minLength: 3
+            redirectURIs:
+              description: RedirectURIs where to send client after IDP auth
+              items:
+                type: string
+              type: array
+            secret:
+              description: Secret for OIDC client
               type: string
           required:
-          - applicationClientID
-          - applicationClientSecret
-          - applicationID
-          - applicationInstallID
-          - applicationPrivateKey
-          - name
+          - displayName
+          - id
+          - redirectURIs
+          - secret
           type: object
         status:
-          description: OrganizationStatus defines the observed state of Organization
+          description: IDPClientStatus defines the observed state of an IDP (ID Providers)
           properties:
             conditions:
-              description: Conditions is a collection of possible errors
+              description: Conditions is a set of condition which has caused an error
               items:
                 description: Condition is a reason why something failed
                 properties:
@@ -98,7 +82,7 @@ spec:
                 type: object
               type: array
             status:
-              description: Status is the status of the resource
+              description: Status is overall status of the IDP configuration
               type: string
           required:
           - status

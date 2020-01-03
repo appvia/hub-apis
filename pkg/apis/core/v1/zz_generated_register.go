@@ -61,6 +61,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&AuthProvider{},
 		&AuthProviderList{},
 		&IDP{},
+		&IDPClient{},
+		&IDPClientList{},
 		&IDPList{},
 		&WebHook{},
 		&WebHookList{},
